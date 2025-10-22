@@ -65,8 +65,8 @@ int	store_map_line(t_data *data, char *line)
 	line_len = ft_strlen(trimmed);
 	if (line_len > data->map.width)
 		data->map.width = line_len;
-	data->map.grid = realloc_grid(data->map.grid, data->map.height, \
-		data->map.height + 1);
+	data->map.grid = realloc_grid(data->map.grid, data->map.height,
+			data->map.height + 1);
 	if (!data->map.grid)
 	{
 		free(trimmed);
@@ -80,9 +80,9 @@ int	store_map_line(t_data *data, char *line)
 
 int	find_player(t_data *data)
 {
-	int		i;
-	int		j;
-	int		player_count;
+	int	i;
+	int	j;
+	int	player_count;
 
 	player_count = 0;
 	i = -1;

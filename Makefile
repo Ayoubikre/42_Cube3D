@@ -27,6 +27,7 @@ Parse = mandatory/main.c \
 	  	mandatory/parsing/textures.c \
 		mandatory/parsing/color.c \
 		mandatory/parsing/color_utils.c \
+		mandatory/parsing/init.c \
 		mandatory/parsing/map.c \
 		mandatory/parsing/map_utils.c \
 		mandatory/parsing/map_utils2.c

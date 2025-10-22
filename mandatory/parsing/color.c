@@ -35,8 +35,8 @@ int	validate_elements_complete(t_data *data)
 
 int	is_valid_pos(char c)
 {
-	return (c == '0' || c == '1' || c == 'N' || \
-			c == 'S' || c == 'E' || c == 'W');
+	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E'
+		|| c == 'W');
 }
 
 int	parse_floor_color(char *line, t_data *data)

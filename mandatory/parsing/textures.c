@@ -23,17 +23,17 @@ char	*skip_spaces(char *str)
 
 int	get_texture_index(char *identifier, int *text, int *elemt)
 {
-	if (ft_strncmp(identifier, "NO", 2) == 0 && \
-		(identifier[2] == '\0' || ft_isspace(identifier[2])))
+	if (ft_strncmp(identifier, "NO", 2) == 0 && (identifier[2] == '\0'
+			|| ft_isspace(identifier[2])))
 		return ((*text = NORTH), (*elemt = ELEM_NO), 1);
-	else if (ft_strncmp(identifier, "SO", 2) == 0 && \
-		(identifier[2] == '\0' || ft_isspace(identifier[2])))
+	else if (ft_strncmp(identifier, "SO", 2) == 0 && (identifier[2] == '\0'
+			|| ft_isspace(identifier[2])))
 		return ((*text = SOUTH), (*elemt = ELEM_SO), 1);
-	else if (ft_strncmp(identifier, "WE", 2) == 0 && \
-		(identifier[2] == '\0' || ft_isspace(identifier[2])))
+	else if (ft_strncmp(identifier, "WE", 2) == 0 && (identifier[2] == '\0'
+			|| ft_isspace(identifier[2])))
 		return ((*text = WEST), (*elemt = ELEM_WE), 1);
-	else if (ft_strncmp(identifier, "EA", 2) == 0 && \
-		(identifier[2] == '\0' || ft_isspace(identifier[2])))
+	else if (ft_strncmp(identifier, "EA", 2) == 0 && (identifier[2] == '\0'
+			|| ft_isspace(identifier[2])))
 		return ((*text = EAST), (*elemt = ELEM_EA), 1);
 	return (0);
 }
