@@ -12,7 +12,7 @@ else
     MLX_LIBRARIES = Tools/mlx/macOS/libmlx42_combined.a \
         -framework Cocoa -framework OpenGL -framework IOKit -lm -ldl
 
-	add = echo "" && $(NAME) map.cub
+	add = echo "" && ./$(NAME) map.cub
 endif
 
 #---------------------------------------------------------------#

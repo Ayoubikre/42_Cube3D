@@ -3,18 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   Data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/24 11:19:44 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/24 21:50:56 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DATA_H
 # define DATA_H
 
-# define WIDTH 512
-# define HEIGHT 512
+# ifdef __linux__
+#  include "../../Tools/mlx/linux/MLX42.h"
+# else
+#  include "../../Tools/mlx/macOS/MLX42.h"
+# endif
+
+
+# define WIDTH 1280
+# define HEIGHT 720
+
+// # define WIDTH 800
+// # define HEIGHT 600
 
 # define NORTH 0
 # define SOUTH 1
@@ -51,14 +61,24 @@ typedef struct s_map
 	int			height;
 }				t_map;
 
+typedef struct s_mlx
+{
+	mlx_t* ptr;
+	mlx_image_t* ptr_img;
+	int32_t idx;
+
+	
+}			t_mlx;
+
 typedef struct s_data
 {
+	int			parsed[ELEM_COUNT];
 	char		*textures[TEX_COUNT];
 	t_color		floor_color;
 	t_color		ceiling_color;
 	t_map		map;
+	t_mlx		mlx;
 	t_player	player;
-	int			parsed[ELEM_COUNT];
 }				t_data;
 
 #endif

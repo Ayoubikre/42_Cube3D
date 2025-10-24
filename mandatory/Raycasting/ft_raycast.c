@@ -3,67 +3,85 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/24 10:33:48 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/24 21:54:01 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static mlx_image_t* image;
-
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+void ft_draw_map_2D(t_data *data)
 {
-    return (a << 24 | b << 16 | g << 8 | r);
-}
+    int x;
+    int y;
+    int i;
+    int j;
 
-void ft_update(void* param)
-{
-    mlx_t* mlx = param;
+    int cell_w = WIDTH / data->map.width;
+    int cell_h = HEIGHT / data->map.height;
 
-    if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-        mlx_close_window(mlx);
-    if (mlx_is_key_down(mlx, MLX_KEY_UP))
-        image->instances[0].y -= 5;
-    if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
-        image->instances[0].y += 5;
-    if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
-        image->instances[0].x -= 5;
-    if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
-        image->instances[0].x += 5;
-
-    for (uint32_t i = 0; i < image->width; ++i)
+    y = 0;
+    while (y < data->map.height)
     {
-        for (uint32_t y = 0; y < image->height; ++y)
+        x = 0;
+        while (x < data->map.width)
         {
-            uint32_t color = ft_pixel(
-                rand() % 0xFF, rand() % 0xFF, rand() % 0xFF, 0xFF
-            );
-            mlx_put_pixel(image, i, y, color);
+            char cell = data->map.grid[y][x];
+            unsigned int color;
+
+            if (cell == '1')
+                color = 0x800000A1; 
+            else
+                color = 0xC0C0C0A1;
+
+            i = 0;
+            while (i < cell_h)
+            {
+                j = 0;
+                while (j < cell_w)
+                {
+                    int px = x * cell_w + j;
+                    int py = y * cell_h + i;
+                    mlx_put_pixel(data->mlx.ptr_img, px, py, color);
+                    j++;
+                }
+                i++;
+            }
+            x++;
         }
+        y++;
     }
 }
-
-int ft_raycast(t_data* data)
+ 
+void ft_all(void *param)
 {
-    srand(time(NULL));
+    t_data* data;
 
-    mlx_t* mlx = mlx_init(WIDTH, HEIGHT, "MLX42", false);
-    if (!mlx)
-        return (puts(mlx_strerror(mlx_errno)), EXIT_FAILURE);
-
-    image = mlx_new_image(mlx, 128, 128);
-    if (!image)
-        return (puts(mlx_strerror(mlx_errno)), mlx_terminate(mlx), EXIT_FAILURE);
-
-    if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-        return (puts(mlx_strerror(mlx_errno)), mlx_terminate(mlx), EXIT_FAILURE);
-
-    mlx_loop_hook(mlx, ft_update, mlx);
-    mlx_loop(mlx);
-    mlx_terminate(mlx);
-    return (EXIT_SUCCESS);
+    data= (t_data*) param;
+    ft_draw_map_2D(data);
+    
 }
 
+int ft_start(t_data* data)
+{
+    data->mlx.ptr=mlx_init(WIDTH, HEIGHT, "Cube3D", false);
+    if(!data->mlx.ptr)
+        return -1;
+    
+    data->mlx.ptr_img=mlx_new_image(data->mlx.ptr,WIDTH,HEIGHT);
+    if(!data->mlx.ptr_img)
+        return -1;
+    
+    data->mlx.idx=mlx_image_to_window(data->mlx.ptr,data->mlx.ptr_img,0,0);
+    if(data->mlx.idx==-1)
+        return -1;
+    
+    
+    mlx_loop_hook(data->mlx.ptr,ft_all,(void*)data);
+    mlx_loop(data->mlx.ptr);
+    mlx_delete_image(data->mlx.ptr, data->mlx.ptr_img);
+    mlx_terminate(data->mlx.ptr); 
+    return 0;
+}

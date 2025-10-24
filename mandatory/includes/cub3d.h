@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/10/24 10:46:12 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/24 21:08:52 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ void	init_data(t_data *data);
 
 // -------------------------------------------- Raycasting:
 
-int		ft_raycast(t_data *data);
+int		ft_start(t_data *data);
 
 #endif
