@@ -3,11 +3,16 @@
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-    MLX_LIBRARIES = Tools/mlx/linux/libmlx42_combined.a \
-        -lX11 -lXrandr -lXinerama -lXcursor -lXi -lGL -lm -ldl -lpthread
+	MLX_LIBRARIES = Tools/mlx/linux/libmlx42_linux.a \
+			-ldl -lglfw -lm -lpthread
+
+	add = echo "" && \
+	GTK_DEBUG=none ./$(NAME) map.cub 2> >(grep -vi 'gtk-warning' >&2)
 else
     MLX_LIBRARIES = Tools/mlx/macOS/libmlx42_combined.a \
         -framework Cocoa -framework OpenGL -framework IOKit -lm -ldl
+
+	add = echo "" && $(NAME) map.cub
 endif
 
 #---------------------------------------------------------------#
@@ -32,7 +37,7 @@ Parse = mandatory/main.c \
 		mandatory/parsing/map_utils.c \
 		mandatory/parsing/map_utils2.c
 
-Rays = 	mandatory/Raycasting/a.c \
+Rays = 	mandatory/Raycasting/ft_raycast.c \
 
 SRC = $(Parse) \
 		$(Rays) \
@@ -48,11 +53,11 @@ libft = $(libft_DIR)/libft.a
 
 NAME = cub3D
 
-all: $(NAME)
+all: clean $(NAME)
 
 $(NAME): $(OBJ)
 #	@make -C $(libft_DIR)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME)  
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME) && $(add)
 
 %.o: %.c $(INC) $(libft_DIR)/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
