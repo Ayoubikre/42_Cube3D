@@ -19,8 +19,8 @@ endif
 
 CC = cc
 
-CFLAGS  = -Wall
-# CFLAGS  = -Wall -fsanitize=address -g
+# CFLAGS  = -Wall
+CFLAGS  = -Wall -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra
 
@@ -57,7 +57,7 @@ all: clean $(NAME)
 
 $(NAME): $(OBJ)
 #	@make -C $(libft_DIR)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME) && $(add)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME) -lm && $(add)
 
 %.o: %.c $(INC) $(libft_DIR)/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@

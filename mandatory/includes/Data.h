@@ -6,7 +6,7 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/24 21:50:56 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/10/25 19:44:06 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@
 # endif
 
 
+// # define WIDTH 1500
 # define WIDTH 1280
-# define HEIGHT 720
+// # define HEIGHT 1000
+# define HEIGHT 565
 
 // # define WIDTH 800
 // # define HEIGHT 600
@@ -44,6 +46,7 @@ typedef struct s_player
 {
 	double		pos_x;
 	double		pos_y;
+	
 	char		orientation;
 }				t_player;
 
