@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/10/24 21:08:52 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/10/27 13:18:22 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # else
 #  include "../../Tools/mlx/macOS/MLX42.h"
 # endif
+
+#define ft_log(x) printf("\n >> %d << \n",x)
 
 int		main(int ac, char **av);
 

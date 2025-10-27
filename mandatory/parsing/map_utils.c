@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akzaza <akzaza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:55:35 by akzaza            #+#    #+#             */
-/*   Updated: 2025/10/19 15:03:36 by akzaza           ###   ########.fr       */
+/*   Updated: 2025/10/27 16:36:20 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	set_player_data(t_data *data, int i, int j)
 	data->player.pos_x = j + 0.5;
 	data->player.pos_y = i + 0.5;
 	data->player.orientation = data->map.grid[i][j];
+	if(data->player.orientation=='E')
+		data->player.start_angle=RAD(0);
+	if(data->player.orientation=='S')
+		data->player.start_angle=RAD(90);
+	if(data->player.orientation=='W')
+		data->player.start_angle=RAD(180);
+	if(data->player.orientation=='N')
+		data->player.start_angle=RAD(270);
+	data->player.fov=RAD(60);
 }
 
 char	get_char_at(t_data *data, int y, int x)

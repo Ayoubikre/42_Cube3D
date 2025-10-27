@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/27 02:52:08 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/27 17:11:46 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,20 @@
 # define ELEM_C 5
 # define ELEM_COUNT 6
 
+# define M_PI 	3.14159265358979323846
+# define RAD(x)  (x * M_PI / 180.0)
+# define FOV 	data->player.fov
+# define ANG 	data->player.start_angle
+
+
 typedef struct s_player
 {
 	double		pos_x;
 	double		pos_y;
-	
 	char		orientation;
+	int 		size;
+	double 		start_angle;
+	double 		fov;
 }				t_player;
 
 typedef struct s_color
@@ -59,6 +67,7 @@ typedef struct s_map
 	char		**grid;
 	int			width;
 	int			height;
+	int			cell_size;
 }				t_map;
 
 typedef struct s_mlx
