@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/25 21:40:44 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/10/27 03:00:45 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,17 +127,24 @@ void	ft_all(void *param)
 	// ft_draw_rays(data);
 }
 
-int	ft_start(t_data *data)
+int ft_init_game(t_data *data)
 {
 	data->mlx.ptr = mlx_init(WIDTH, HEIGHT, "Cube3D", true);
 	if (!data->mlx.ptr)
 		return (-1);
 	data->mlx.ptr_img = mlx_new_image(data->mlx.ptr, WIDTH, HEIGHT);
 	if (!data->mlx.ptr_img)
-		return (-1);
-	data->mlx.idx = mlx_image_to_window(data->mlx.ptr, data->mlx.ptr_img, 0, 0);
-	if (data->mlx.idx == -1)
-		return (-1);
+		return (mlx_terminate(data->mlx.ptr),-1);
+	data->mlx.id_img = mlx_image_to_window(data->mlx.ptr, data->mlx.ptr_img, 0, 0);
+	if (data->mlx.id_img == -1)
+		return (mlx_terminate(data->mlx.ptr),-1);
+	return 0;
+}
+
+int	ft_start(t_data *data)
+{
+	if(ft_init_game(data)==-1)
+		return -1;
 	mlx_loop_hook(data->mlx.ptr, ft_all, (void *)data);
 	mlx_loop(data->mlx.ptr);
 	mlx_delete_image(data->mlx.ptr, data->mlx.ptr_img);

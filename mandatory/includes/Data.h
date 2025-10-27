@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/25 19:44:06 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/10/27 02:52:08 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 #  include "../../Tools/mlx/macOS/MLX42.h"
 # endif
 
-
-// # define WIDTH 1500
 # define WIDTH 1280
-// # define HEIGHT 1000
 # define HEIGHT 565
 
 // # define WIDTH 800
@@ -68,9 +65,7 @@ typedef struct s_mlx
 {
 	mlx_t* ptr;
 	mlx_image_t* ptr_img;
-	int32_t idx;
-
-	
+	int32_t id_img;
 }			t_mlx;
 
 typedef struct s_data
