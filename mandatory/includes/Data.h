@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/29 16:39:15 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/29 18:24:46 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_player
 	int			m_size;
 	double 		start_angle;
 	double 		fov;
+	double 		mouse_l_p;
 }				t_player;
 
 typedef struct s_color

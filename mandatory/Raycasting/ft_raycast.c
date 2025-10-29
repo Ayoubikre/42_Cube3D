@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/29 16:42:46 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/29 18:33:18 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,37 +21,26 @@ void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 		mlx_close_window(data->mlx.ptr);
 }
 
-// void	ft_update_mouse_angle(t_data *data)
-// {
-// 	static double last_x = -1.0;
-// 	int x, y;
+void	ft_update_mouse_angle(t_data *data)
+{
+	int32_t		x;
+	int32_t		y;
+	double	new_x;
 
-// 	mlx_get_mouse_pos(data->mlx.ptr, &x, &y);
-
-// 	if (last_x < 0)
-// 	{
-// 		last_x = (double)x;
-// 		return;
-// 	}
-
-// 	double dx = (double)x - last_x;
-// 	last_x = (double)x;
-
-// 	double sensitivity = 0.0005; // tweak to taste
-// 	data->player.start_angle += dx * sensitivity;
-
-// 	// Normalize angle between 0 and 2π
-// 	if (data->player.start_angle < 0)
-// 		data->player.start_angle += 2 * M_PI;
-// 	if (data->player.start_angle >= 2 * M_PI)
-// 		data->player.start_angle -= 2 * M_PI;
-
-// 	// Optionally recenter the cursor to the middle each frame
-// 	mlx_set_mouse_pos(data->mlx.ptr, WIDTH / 2, HEIGHT / 2);
-// 	last_x = WIDTH / 2; // reset last_x to the middle
-// }
-
-
+	mlx_get_mouse_pos(data->mlx.ptr, &x, &y);
+	if (data->player.mouse_l_p == -1)
+	{
+		data->player.mouse_l_p = (double)x;
+		return ;
+	}
+	new_x = (double)x - data->player.mouse_l_p;
+	data->player.mouse_l_p = (double)x;
+	ANG += new_x * 0.005;
+	if (ANG < 0)
+		ANG += 2 * M_PI;
+	if (ANG >= 2 * M_PI)
+		ANG -= 2 * M_PI;
+}
 
 int	ft_find_walls(t_data *data, int x, int y)
 {
@@ -382,7 +371,7 @@ void	ft_all(void *param)
 	ft_draw_background(data, 0 ,0);
 	ft_draw_map_2d(data, 0, 0);
 	ft_capture_player_moves(data);
-	// ft_update_mouse_angle(data);
+	ft_update_mouse_angle(data);
 	ft_draw_player_2d(data, 0, 0);
 	draw_single_ray(data, data->player.start_angle);
 
@@ -423,7 +412,7 @@ int	ft_init_game(t_data *data)
 	data->mini.mini_h=HEIGHT / 4;
 	data->mini.m_cell_size=(int)fmin(data->mini.mini_h / data->map.grid_y,data->mini.mini_w / data->map.grid_x);
 	data->player.m_size = (int)fmax(data->mini.m_cell_size / 8, 4);
-	
+	data->player.mouse_l_p=-1.0;
 	return (0);
 }
 
@@ -433,6 +422,7 @@ int	ft_start(t_data *data)
 		return (-1);
 		
 	mlx_key_hook(data->mlx.ptr, ft_capture_keys, (void *)data);
+	mlx_set_cursor_mode(data->mlx.ptr,MLX_MOUSE_DISABLED);
 	mlx_loop_hook(data->mlx.ptr, ft_all, (void *)data);
 	mlx_loop(data->mlx.ptr);
 	mlx_delete_image(data->mlx.ptr, data->mlx.ptr_img);
