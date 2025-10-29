@@ -214,7 +214,7 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 				{
 					px = x * data->map.cell_size + i;
 					py = y * data->map.cell_size + j;
-					if (y < data->map.grid_y / 2)
+					if (py < HEIGHT / 2)
 						mlx_put_pixel(data->mlx.ptr_img, px, py, 0x000000);
 					else
 						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xFFFFFFA1);
@@ -343,8 +343,8 @@ void	draw_single_ray(t_data *data, double ray_angle)
     int x0 = (int)(data->player.pos_x * data->map.cell_size);
     int y0 = (int)(data->player.pos_y * data->map.cell_size);
 
-    int x1 = (int)(x0 + cos(data->player.start_angle) * 50);
-    int y1 = (int)(y0 + sin(data->player.start_angle) * 50);
+    int x1 = (int)(x0 + cos(ray_angle) * 50);
+    int y1 = (int)(y0 + sin(ray_angle) * 50);
 
     int dx = abs(x1 - x0);
     int sx = (x0 < x1) ? 1 : -1;
