@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/29 18:33:18 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/29 21:47:21 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@ void	ft_update_mouse_angle(t_data *data)
 	}
 	new_x = (double)x - data->player.mouse_l_p;
 	data->player.mouse_l_p = (double)x;
-	ANG += new_x * 0.005;
+	ANG += new_x * 0.004;
 	if (ANG < 0)
 		ANG += 2 * M_PI;
 	if (ANG >= 2 * M_PI)
 		ANG -= 2 * M_PI;
 }
+
+
+
+
 
 int	ft_find_walls(t_data *data, int x, int y)
 {
@@ -53,23 +57,111 @@ int	ft_find_walls(t_data *data, int x, int y)
 	return (0);
 }
 
-int	ft_buffer(t_data *data, double x, double y)
+int	ft_padding(t_data *data, double x, double y)
 {
-	double	buffer;
+	double	padding;
 
-	buffer = 0.1;
+	padding = 0.1;
 	if (ft_find_walls(data, (int)floor(x), (int)floor(y)))
 		return (1);
-	if (ft_find_walls(data, (int)floor(x + buffer), (int)floor(y + buffer)))
+	if (ft_find_walls(data, (int)floor(x + padding), (int)floor(y + padding)))
 		return (1);
-	if (ft_find_walls(data, (int)floor(x - buffer), (int)floor(y - buffer)))
+	if (ft_find_walls(data, (int)floor(x - padding), (int)floor(y - padding)))
 		return (1);
-	if (ft_find_walls(data, (int)floor(x + buffer), (int)floor(y - buffer)))
+	if (ft_find_walls(data, (int)floor(x + padding), (int)floor(y - padding)))
 		return (1);
-	if (ft_find_walls(data, (int)floor(x - buffer), (int)floor(y + buffer)))
+	if (ft_find_walls(data, (int)floor(x - padding), (int)floor(y + padding)))
 		return (1);
 	return (0);
 }
+
+
+
+
+
+// void	ft_try_move(t_data *data, double move_x, double move_y)
+// {
+// 	double	new_x;
+// 	double	new_y;
+
+// 	new_x = data->player.pos_x + move_x;
+// 	new_y = data->player.pos_y + move_y;
+	
+// 	// Try full movement (both X and Y)
+// 	if (!ft_padding(data, new_x, new_y))
+// 	{
+// 		data->player.pos_x = new_x;
+// 		data->player.pos_y = new_y;
+// 		return;
+// 	}
+	
+// 	// Try sliding along X axis only
+// 	if (!ft_padding(data, new_x, data->player.pos_y))
+// 	{
+// 		data->player.pos_x = new_x;
+// 		return;
+// 	}
+	
+// 	// Try sliding along Y axis only
+// 	if (!ft_padding(data, data->player.pos_x, new_y))
+// 	{
+// 		data->player.pos_y = new_y;
+// 		return;
+// 	}
+// }
+
+// void	ft_capture_player_moves(t_data *data)
+// {
+// 	double	move_x;
+// 	double	move_y;
+// 	double	speed;
+	
+// 	speed = 0.1;
+
+// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_W))
+// 	{
+// 		move_x = cos(ANG) * speed;
+// 		move_y = sin(ANG) * speed;
+// 		ft_try_move(data, move_x, move_y);
+// 	}
+// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_S))
+// 	{
+// 		move_x = -cos(ANG) * speed;
+// 		move_y = -sin(ANG) * speed;
+// 		ft_try_move(data, move_x, move_y);
+// 	}
+// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_D))
+// 	{
+// 		move_x = cos(ANG + M_PI / 2) * speed;
+// 		move_y = sin(ANG + M_PI / 2) * speed;
+// 		ft_try_move(data, move_x, move_y);
+// 	}
+// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_A))
+// 	{
+// 		move_x = cos(ANG - M_PI / 2) * speed;
+// 		move_y = sin(ANG - M_PI / 2) * speed;
+// 		ft_try_move(data, move_x, move_y);
+// 	}
+// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
+// 	{
+// 		data->player.start_angle -= RAD(2);
+// 	}
+// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_RIGHT))
+// 	{
+// 		data->player.start_angle += RAD(2);
+// 	}
+// }
+
+
+
+
+
+
+
+
+
+
+
 
 double	ft_if_valid_moves(t_data *data, double r, int f, int i)
 {
@@ -83,7 +175,7 @@ double	ft_if_valid_moves(t_data *data, double r, int f, int i)
 	{
 		tmp_ang = ANG + ((f == 1) * M_PI) + ((f == 2) * M_PI / 2) - ((f == 3)
 				* M_PI / 2);
-		if (!ft_buffer(data, tmp_x + cos(tmp_ang) * r, tmp_y + sin(tmp_ang) * r))
+		if (!ft_padding(data, tmp_x + cos(tmp_ang) * r, tmp_y + sin(tmp_ang) * r))
 			return (r);
 		r /= 2.0;
 	}
@@ -135,6 +227,15 @@ void	ft_capture_player_moves(t_data *data)
 		data->player.start_angle += RAD(2);
 	}
 }
+
+
+
+
+
+
+
+
+
 
 
 void	ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py)
@@ -382,7 +483,7 @@ void	ft_all(void *param)
 
 int	ft_init_game(t_data *data)
 {
-	data->mlx.ptr = mlx_init(WIDTH, HEIGHT, "Cube3D", true);
+	data->mlx.ptr = mlx_init(WIDTH, HEIGHT, "Cube3D", false);
 	if (!data->mlx.ptr)
 		return (-1);
 	data->mlx.ptr_img = mlx_new_image(data->mlx.ptr, WIDTH, HEIGHT);
