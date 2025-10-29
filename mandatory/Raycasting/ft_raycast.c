@@ -82,60 +82,68 @@ int	ft_buffer(t_data *data, double x, double y)
 	return (0);
 }
 
-double	ft_if_valid_moves(t_data *data, double r, int f, int i)
+void	ft_try_move(t_data *data, double move_x, double move_y)
 {
-	double	tmp_x;
-	double	tmp_y;
-	double	tmp_ang;
+	double	new_x;
+	double	new_y;
 
-	tmp_x = data->player.pos_x;
-	tmp_y = data->player.pos_y;
-	while (++i < 5)
+	new_x = data->player.pos_x + move_x;
+	new_y = data->player.pos_y + move_y;
+	
+	// Try full movement (both X and Y)
+	if (!ft_buffer(data, new_x, new_y))
 	{
-		tmp_ang = ANG + ((f == 1) * M_PI) + ((f == 2) * M_PI / 2) - ((f == 3)
-				* M_PI / 2);
-		if (!ft_buffer(data, tmp_x + cos(tmp_ang) * r, tmp_y + sin(tmp_ang) * r))
-			return (r);
-		r /= 2.0;
+		data->player.pos_x = new_x;
+		data->player.pos_y = new_y;
+		return;
 	}
-	return (-1);
+	
+	// Try sliding along X axis only
+	if (!ft_buffer(data, new_x, data->player.pos_y))
+	{
+		data->player.pos_x = new_x;
+		return;
+	}
+	
+	// Try sliding along Y axis only
+	if (!ft_buffer(data, data->player.pos_x, new_y))
+	{
+		data->player.pos_y = new_y;
+		return;
+	}
 }
 
 void	ft_capture_player_moves(t_data *data)
 {
-	double	r;
+	double	move_x;
+	double	move_y;
+	double	speed;
+	
+	speed = 0.1;
 	
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_W))
 	{
-		if ((r=ft_if_valid_moves(data, 0.1, 0, -1)) !=-1)
-		{
-			data->player.pos_x += cos(ANG) * r;
-			data->player.pos_y += sin(ANG) * r;
-		}
+		move_x = cos(ANG) * speed;
+		move_y = sin(ANG) * speed;
+		ft_try_move(data, move_x, move_y);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_S))
 	{
-		if ((r=ft_if_valid_moves(data, 0.1, 1, -1)) !=-1)
-		{
-			data->player.pos_x -= cos(ANG) * r;
-			data->player.pos_y -= sin(ANG) * r;
-		}
+		move_x = -cos(ANG) * speed;
+		move_y = -sin(ANG) * speed;
+		ft_try_move(data, move_x, move_y);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_D))
 	{
-		if ((r=ft_if_valid_moves(data, 0.1, 2, -1)) !=-1)
-		{
-			data->player.pos_x += cos(ANG + M_PI / 2) * r;
-			data->player.pos_y += sin(ANG + M_PI / 2) * r;
-		}
+		move_x = cos(ANG + M_PI / 2) * speed;
+		move_y = sin(ANG + M_PI / 2) * speed;
+		ft_try_move(data, move_x, move_y);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_A))
 	{
-		if ((r=ft_if_valid_moves(data, 0.1, 3, -1)) !=-1)
-		{
-			data->player.pos_x += cos(ANG - M_PI / 2) * r;
-			data->player.pos_y += sin(ANG - M_PI / 2) * r;
-		}
+		move_x = cos(ANG - M_PI / 2) * speed;
+		move_y = sin(ANG - M_PI / 2) * speed;
+		ft_try_move(data, move_x, move_y);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
 	{
