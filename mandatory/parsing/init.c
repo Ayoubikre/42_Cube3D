@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akzaza <akzaza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 20:56:32 by akzaza            #+#    #+#             */
-/*   Updated: 2025/10/22 20:58:12 by akzaza           ###   ########.fr       */
+/*   Updated: 2025/10/29 14:59:07 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	init_data(t_data *data)
 	data->floor_color = (t_color){0, 0, 0};
 	data->ceiling_color = (t_color){0, 0, 0};
 	data->map.grid = NULL;
-	data->map.width = 0;
-	data->map.height = 0;
+	data->map.grid_x  = 0;
+	data->map.grid_y  = 0;
 	data->player.pos_x = 0;
 	data->player.pos_y = 0;
 	data->player.orientation = 0;
@@ -58,7 +58,7 @@ static void	print_map(t_data *data)
 
 	printf("\nMAP GRID:\n");
 	i = 0;
-	while (i < data->map.height)
+	while (i < data->map.grid_y)
 	{
 		printf("  [%d] '%s'\n", i, data->map.grid[i]);
 		i++;
@@ -80,7 +80,7 @@ static void	print_parse_results(t_data *data)
 	printf("  Ceiling: RGB(%d, %d, %d)\n",
 		data->ceiling_color.r, data->ceiling_color.g, data->ceiling_color.b);
 	printf("\nMAP INFO:\n");
-	printf("  Size: %dx%d\n", data->map.width, data->map.height);
+	printf("  Size: %dx%d\n", data->map.grid_x, data->map.grid_y);
 	printf("  Player: (%.1f, %.1f) facing '%c'\n",
 		data->player.pos_x, data->player.pos_y, data->player.orientation);
 	print_map(data);

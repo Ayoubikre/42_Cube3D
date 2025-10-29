@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akzaza <akzaza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:49:54 by akzaza            #+#    #+#             */
-/*   Updated: 2025/10/19 07:34:18 by akzaza           ###   ########.fr       */
+/*   Updated: 2025/10/29 14:58:21 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,18 +63,18 @@ int	store_map_line(t_data *data, char *line)
 		return (0);
 	}
 	line_len = ft_strlen(trimmed);
-	if (line_len > data->map.width)
-		data->map.width = line_len;
-	data->map.grid = realloc_grid(data->map.grid, data->map.height,
-			data->map.height + 1);
+	if (line_len > data->map.grid_x)
+		data->map.grid_x = line_len;
+	data->map.grid = realloc_grid(data->map.grid, data->map.grid_y,
+			data->map.grid_y + 1);
 	if (!data->map.grid)
 	{
 		free(trimmed);
 		print_error("Memory allocation failed");
 		return (0);
 	}
-	data->map.grid[data->map.height] = trimmed;
-	data->map.height++;
+	data->map.grid[data->map.grid_y] = trimmed;
+	data->map.grid_y++;
 	return (1);
 }
 
@@ -86,7 +86,7 @@ int	find_player(t_data *data)
 
 	player_count = 0;
 	i = -1;
-	while (++i < data->map.height)
+	while (++i < data->map.grid_y)
 	{
 		j = -1;
 		while (data->map.grid[i][++j])
@@ -112,7 +112,7 @@ int	validate_map(t_data *data)
 		print_error("No map data");
 		return (0);
 	}
-	if (data->map.height == 0 || data->map.width == 0)
+	if (data->map.grid_y == 0 || data->map.grid_x == 0)
 	{
 		print_error("Empty map");
 		return (0);

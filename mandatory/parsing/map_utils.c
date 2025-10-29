@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:55:35 by akzaza            #+#    #+#             */
-/*   Updated: 2025/10/27 16:36:20 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/29 14:59:46 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_player_data(t_data *data, int i, int j)
 
 char	get_char_at(t_data *data, int y, int x)
 {
-	if (y < 0 || y >= data->map.height)
+	if (y < 0 || y >= data->map.grid_y)
 		return (' ');
 	if (x < 0 || x >= (int)ft_strlen(data->map.grid[y]))
 		return (' ');
@@ -77,7 +77,7 @@ int	check_map_closed(t_data *data)
 	char	c;
 
 	i = 0;
-	while (i < data->map.height)
+	while (i < data->map.grid_y)
 	{
 		j = 0;
 		while (data->map.grid[i][j])

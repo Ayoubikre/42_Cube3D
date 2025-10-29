@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/27 17:11:46 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/29 16:39:15 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,22 @@
 # define ANG 	data->player.start_angle
 
 
+typedef struct s_minimap
+{
+	mlx_image_t* ptr_img;
+	int32_t id_img;
+	double mini_w;
+	double mini_h;
+	int 	m_cell_size;
+}			t_mini;
+
 typedef struct s_player
 {
 	double		pos_x;
 	double		pos_y;
 	char		orientation;
 	int 		size;
+	int			m_size;
 	double 		start_angle;
 	double 		fov;
 }				t_player;
@@ -65,8 +75,8 @@ typedef struct s_color
 typedef struct s_map
 {
 	char		**grid;
-	int			width;
-	int			height;
+	int			grid_x;
+	int			grid_y;
 	int			cell_size;
 }				t_map;
 
@@ -77,6 +87,7 @@ typedef struct s_mlx
 	int32_t id_img;
 }			t_mlx;
 
+
 typedef struct s_data
 {
 	int			parsed[ELEM_COUNT];
@@ -86,6 +97,8 @@ typedef struct s_data
 	t_map		map;
 	t_mlx		mlx;
 	t_player	player;
+	t_mini		mini;
+
 }				t_data;
 
 #endif

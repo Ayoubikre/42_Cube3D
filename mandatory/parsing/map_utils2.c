@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils2.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akzaza <akzaza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 06:39:19 by akzaza            #+#    #+#             */
-/*   Updated: 2025/10/19 07:30:05 by akzaza           ###   ########.fr       */
+/*   Updated: 2025/10/29 14:59:50 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	parse_map(int fd, t_data *data, char *first_line)
 		free(line);
 		line = get_next_line(fd);
 	}
-	if (!map_started || data->map.height == 0)
+	if (!map_started || data->map.grid_y == 0)
 		return (handle_map_error(NULL, "No valid map found"));
 	return (1);
 }
@@ -83,7 +83,7 @@ int	check_map_characters(t_data *data)
 	int	j;
 
 	i = 0;
-	while (i < data->map.height)
+	while (i < data->map.grid_y)
 	{
 		j = 0;
 		while (data->map.grid[i][j])
