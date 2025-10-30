@@ -6,7 +6,7 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:15:00 by anktiri           #+#    #+#             */
-/*   Updated: 2025/10/29 19:54:58 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/10/30 21:06:11 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void t()
 
 int	main(int ac, char **av)
 {
-	atexit(t);
+	// atexit(t);
 	t_data	data;
 
 	if (ac != 2)

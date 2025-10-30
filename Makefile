@@ -19,8 +19,8 @@ endif
 
 CC = cc
 
-CFLAGS  = -Wall
-# CFLAGS  = -Wall -fsanitize=address -g
+# CFLAGS  = -Wall
+CFLAGS  = -Wall -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/29 18:24:46 by noctis           ###   ########.fr       */
+/*   Updated: 2025/10/30 21:50:51 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ typedef struct s_data
 	t_mlx		mlx;
 	t_player	player;
 	t_mini		mini;
-
 }				t_data;
 
 #endif

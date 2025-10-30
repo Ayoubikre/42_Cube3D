@@ -6,11 +6,15 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/29 21:47:21 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/10/30 21:51:21 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+//----------------------------------------------
+//------------------------------ keys :
+//----------------------------------------------
 
 void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 {
@@ -21,10 +25,15 @@ void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 		mlx_close_window(data->mlx.ptr);
 }
 
+//----------------------------------------------
+//------------------------------ player moves :
+//----------------------------------------------
+
+
 void	ft_update_mouse_angle(t_data *data)
 {
-	int32_t		x;
-	int32_t		y;
+	int32_t	x;
+	int32_t	y;
 	double	new_x;
 
 	mlx_get_mouse_pos(data->mlx.ptr, &x, &y);
@@ -41,10 +50,6 @@ void	ft_update_mouse_angle(t_data *data)
 	if (ANG >= 2 * M_PI)
 		ANG -= 2 * M_PI;
 }
-
-
-
-
 
 int	ft_find_walls(t_data *data, int x, int y)
 {
@@ -75,148 +80,51 @@ int	ft_padding(t_data *data, double x, double y)
 	return (0);
 }
 
-
-
-
-
-// void	ft_try_move(t_data *data, double move_x, double move_y)
-// {
-// 	double	new_x;
-// 	double	new_y;
-
-// 	new_x = data->player.pos_x + move_x;
-// 	new_y = data->player.pos_y + move_y;
-	
-// 	// Try full movement (both X and Y)
-// 	if (!ft_padding(data, new_x, new_y))
-// 	{
-// 		data->player.pos_x = new_x;
-// 		data->player.pos_y = new_y;
-// 		return;
-// 	}
-	
-// 	// Try sliding along X axis only
-// 	if (!ft_padding(data, new_x, data->player.pos_y))
-// 	{
-// 		data->player.pos_x = new_x;
-// 		return;
-// 	}
-	
-// 	// Try sliding along Y axis only
-// 	if (!ft_padding(data, data->player.pos_x, new_y))
-// 	{
-// 		data->player.pos_y = new_y;
-// 		return;
-// 	}
-// }
-
-// void	ft_capture_player_moves(t_data *data)
-// {
-// 	double	move_x;
-// 	double	move_y;
-// 	double	speed;
-	
-// 	speed = 0.1;
-
-// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_W))
-// 	{
-// 		move_x = cos(ANG) * speed;
-// 		move_y = sin(ANG) * speed;
-// 		ft_try_move(data, move_x, move_y);
-// 	}
-// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_S))
-// 	{
-// 		move_x = -cos(ANG) * speed;
-// 		move_y = -sin(ANG) * speed;
-// 		ft_try_move(data, move_x, move_y);
-// 	}
-// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_D))
-// 	{
-// 		move_x = cos(ANG + M_PI / 2) * speed;
-// 		move_y = sin(ANG + M_PI / 2) * speed;
-// 		ft_try_move(data, move_x, move_y);
-// 	}
-// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_A))
-// 	{
-// 		move_x = cos(ANG - M_PI / 2) * speed;
-// 		move_y = sin(ANG - M_PI / 2) * speed;
-// 		ft_try_move(data, move_x, move_y);
-// 	}
-// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
-// 	{
-// 		data->player.start_angle -= RAD(2);
-// 	}
-// 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_RIGHT))
-// 	{
-// 		data->player.start_angle += RAD(2);
-// 	}
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-double	ft_if_valid_moves(t_data *data, double r, int f, int i)
+int	ft_move(t_data *data, double move_x, double move_y, double r)
 {
-	double	tmp_x;
-	double	tmp_y;
-	double	tmp_ang;
+	int		i;
+	double	new_x;
+	double	new_y;
 
-	tmp_x = data->player.pos_x;
-	tmp_y = data->player.pos_y;
+	i = -1;
 	while (++i < 5)
 	{
-		tmp_ang = ANG + ((f == 1) * M_PI) + ((f == 2) * M_PI / 2) - ((f == 3)
-				* M_PI / 2);
-		if (!ft_padding(data, tmp_x + cos(tmp_ang) * r, tmp_y + sin(tmp_ang) * r))
-			return (r);
+		new_x = data->player.pos_x + (move_x * r);
+		new_y = data->player.pos_y + (move_y * r);
+		if (!ft_padding(data, new_x, new_y))
+		{
+			return (data->player.pos_x = new_x, data->player.pos_y = new_y, 1);
+		}
+		if (!ft_padding(data, new_x, data->player.pos_y))
+		{
+			return (data->player.pos_x = new_x, 1);
+		}
+		if (!ft_padding(data, data->player.pos_x, new_y))
+		{
+			return (data->player.pos_y = new_y, 1);
+		}
 		r /= 2.0;
 	}
-	return (-1);
+	return (0);
 }
 
 void	ft_capture_player_moves(t_data *data)
 {
-	double	r;
-	
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_W))
 	{
-		if ((r=ft_if_valid_moves(data, 0.1, 0, -1)) !=-1)
-		{
-			data->player.pos_x += cos(ANG) * r;
-			data->player.pos_y += sin(ANG) * r;
-		}
+		ft_move(data, cos(ANG), sin(ANG), 0.1);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_S))
 	{
-		if ((r=ft_if_valid_moves(data, 0.1, 1, -1)) !=-1)
-		{
-			data->player.pos_x -= cos(ANG) * r;
-			data->player.pos_y -= sin(ANG) * r;
-		}
+		ft_move(data, -cos(ANG), -sin(ANG), 0.1);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_D))
 	{
-		if ((r=ft_if_valid_moves(data, 0.1, 2, -1)) !=-1)
-		{
-			data->player.pos_x += cos(ANG + M_PI / 2) * r;
-			data->player.pos_y += sin(ANG + M_PI / 2) * r;
-		}
+		ft_move(data, cos(ANG + M_PI / 2), sin(ANG + M_PI / 2), 0.1);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_A))
 	{
-		if ((r=ft_if_valid_moves(data, 0.1, 3, -1)) !=-1)
-		{
-			data->player.pos_x += cos(ANG - M_PI / 2) * r;
-			data->player.pos_y += sin(ANG - M_PI / 2) * r;
-		}
+		ft_move(data, cos(ANG - M_PI / 2), sin(ANG - M_PI / 2), 0.1);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
 	{
@@ -228,24 +136,17 @@ void	ft_capture_player_moves(t_data *data)
 	}
 }
 
-
-
-
-
-
-
-
-
-
+//----------------------------------------------
+//------------------------------ player draw :
+//----------------------------------------------
 
 void	ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py)
 {
 	int (s), (player_px), (player_py), (j), i = -1;
-	
 	s = data->player.size;
 	player_px = data->player.pos_x * data->map.cell_size;
 	player_py = data->player.pos_y * data->map.cell_size;
-	while (++i <= s * 2) // draw the black square
+	while (++i <= s * 2)
 	{
 		j = -1;
 		while (++j <= s * 2)
@@ -255,13 +156,16 @@ void	ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py)
 			mlx_put_pixel(data->mlx.ptr_img, px, py, 0x000000);
 		}
 	}
-	mlx_put_pixel(data->mlx.ptr_img, player_px, player_py, 0xFFFFFF); // draw the center point
+	mlx_put_pixel(data->mlx.ptr_img, player_px, player_py, 0xFFFFFF);
 }
+
+//----------------------------------------------
+//------------------------------ map draw 2D :
+//----------------------------------------------
 
 void	ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py)
 {
 	int (i), (j), (y), x = -1;
-	
 	while (++x < data->map.grid_x)
 	{
 		y = -1;
@@ -285,12 +189,13 @@ void	ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py)
 	}
 }
 
-
+//----------------------------------------------
+//------------------------------ Bg draw :
+//----------------------------------------------
 
 void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 {
 	int (i), (j), (y), x = -1;
-	
 	while (++x < data->map.grid_x)
 	{
 		y = -1;
@@ -314,6 +219,40 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 	}
 }
 
+//----------------------------------------------
+//------------------------------ minimap :
+//----------------------------------------------
+
+void ft_init_minimap(t_data *data)
+{
+	data->mini.mini_w=WIDTH / 6;
+	data->mini.mini_h=HEIGHT / 4;
+	data->mini.m_cell_size=(int)fmin(data->mini.mini_h / data->map.grid_y,data->mini.mini_w / data->map.grid_x);
+	data->player.m_size = (int)fmax(data->mini.m_cell_size / 8, 4);
+	data->player.mouse_l_p=-1.0;
+}
+void	ft_clear_minimap(data)
+{
+
+}
+
+void	ft_draw_minimap2(data)
+{
+
+}
+
+void	ft_draw_player_minimap(data)
+{
+
+}
+
+void ft_draw_minimap(t_data *data)
+{
+	ft_init_minimap(data);
+	ft_clear_minimap(data);
+	ft_draw_minimap2(data);
+	ft_draw_player_minimap(data);
+}
 
 // void ft_draw_minimap(t_data *data)
 // {
@@ -427,6 +366,10 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 // }
 
 
+//----------------------------------------------
+//------------------------------ Raycasting :
+//----------------------------------------------
+
 void	draw_single_ray(t_data *data, double ray_angle)
 {
     // Starting point: player position in pixels
@@ -464,22 +407,29 @@ void	draw_single_ray(t_data *data, double ray_angle)
     }
 }
 
+
+//----------------------------------------------
+//------------------------------ the Engine :
+//----------------------------------------------
+
+
 void	ft_all(void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
-	ft_draw_background(data, 0 ,0);
+	ft_draw_background(data, 0, 0);
 	ft_draw_map_2d(data, 0, 0);
-	ft_capture_player_moves(data);
 	ft_update_mouse_angle(data);
+	ft_capture_player_moves(data);
 	ft_draw_player_2d(data, 0, 0);
 	draw_single_ray(data, data->player.start_angle);
-
-	
-	// ft_draw_minimap(data);
+	ft_draw_minimap(data);
 }
 
+//----------------------------------------------
+//------------------------------ init :
+//----------------------------------------------
 
 int	ft_init_game(t_data *data)
 {
@@ -509,21 +459,20 @@ int	ft_init_game(t_data *data)
 	if (data->mini.id_img == -1)
 		return (mlx_terminate(data->mlx.ptr), -1);
 		
-	data->mini.mini_w=WIDTH / 6;
-	data->mini.mini_h=HEIGHT / 4;
-	data->mini.m_cell_size=(int)fmin(data->mini.mini_h / data->map.grid_y,data->mini.mini_w / data->map.grid_x);
-	data->player.m_size = (int)fmax(data->mini.m_cell_size / 8, 4);
-	data->player.mouse_l_p=-1.0;
+
 	return (0);
 }
+
+//----------------------------------------------
+//------------------------------ Main :
+//----------------------------------------------
 
 int	ft_start(t_data *data)
 {
 	if (ft_init_game(data) == -1)
 		return (-1);
-		
 	mlx_key_hook(data->mlx.ptr, ft_capture_keys, (void *)data);
-	mlx_set_cursor_mode(data->mlx.ptr,MLX_MOUSE_DISABLED);
+	mlx_set_cursor_mode(data->mlx.ptr, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(data->mlx.ptr, ft_all, (void *)data);
 	mlx_loop(data->mlx.ptr);
 	mlx_delete_image(data->mlx.ptr, data->mlx.ptr_img);
