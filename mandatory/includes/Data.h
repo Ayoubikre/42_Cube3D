@@ -6,7 +6,7 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/10/30 21:50:51 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/11/01 20:13:06 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,34 @@
 # define ELEM_COUNT 6
 
 # define M_PI 	3.14159265358979323846
+# define RAYS	3
+# define RAY(x)	 data->rays[x]
 # define RAD(x)  (x * M_PI / 180.0)
+# define DEG(x)  (x * 180.0 / M_PI)
 # define FOV 	data->player.fov
 # define ANG 	data->player.start_angle
+# define CELL_S data->map.cell_size
 
+
+# define i(x) 	printf(">%d<\n",x)
+# define d(x) 	printf(">%f<\n",x)
+# define p() 	printf("-------------\n")
+
+
+typedef struct s_ray
+{
+	int i;
+	double angle;
+	double ang_cos;
+	double ang_sin;
+	int x;
+	int y;
+	double const_x;
+	double const_y;
+	double extra_x;
+	double extra_y;
+	
+}			t_ray;
 
 typedef struct s_minimap
 {
@@ -51,6 +75,7 @@ typedef struct s_minimap
 	int32_t id_img;
 	double mini_w;
 	double mini_h;
+	int		m_player_size;
 	int 	m_cell_size;
 }			t_mini;
 
@@ -59,8 +84,6 @@ typedef struct s_player
 	double		pos_x;
 	double		pos_y;
 	char		orientation;
-	int 		size;
-	int			m_size;
 	double 		start_angle;
 	double 		fov;
 	double 		mouse_l_p;
@@ -99,6 +122,7 @@ typedef struct s_data
 	t_mlx		mlx;
 	t_player	player;
 	t_mini		mini;
+	t_ray		*rays;
 }				t_data;
 
 #endif
