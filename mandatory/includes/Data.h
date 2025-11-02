@@ -6,7 +6,7 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/01 20:13:06 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/11/02 21:49:33 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@
 # define ELEM_COUNT 6
 
 # define M_PI 	3.14159265358979323846
-# define RAYS	3
+# define RAYS	500
+# define mouse_speed 0.005
 # define RAY(x)	 data->rays[x]
 # define RAD(x)  (x * M_PI / 180.0)
 # define DEG(x)  (x * 180.0 / M_PI)
@@ -66,7 +67,11 @@ typedef struct s_ray
 	double const_y;
 	double extra_x;
 	double extra_y;
-	
+	double len;
+	int    step_x;
+	int    step_y;
+	int    hit;
+	int    side;
 }			t_ray;
 
 typedef struct s_minimap
@@ -123,6 +128,11 @@ typedef struct s_data
 	t_player	player;
 	t_mini		mini;
 	t_ray		*rays;
+	
+	// int 		init_time;
+	// int 		final_time;
+	// int 		fps;
+	
 }				t_data;
 
 #endif

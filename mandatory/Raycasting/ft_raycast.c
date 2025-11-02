@@ -6,7 +6,7 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/01 20:15:00 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/11/02 21:49:08 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_update_mouse_angle(double xpos, double ypos, void *param)
 	}
 	new_x = xpos - data->player.mouse_l_p;
 	data->player.mouse_l_p = xpos;
-	ANG += new_x * 0.006;
+	ANG += new_x * mouse_speed;
 	if (ANG < 0)
 		ANG += 2 * M_PI;
 	else if (ANG >= 2 * M_PI)
@@ -231,47 +231,43 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 
 
 //----------------------------------------------
-//------------------------------ Raycasting :
+//------------------------------ Draw Rays :
 //----------------------------------------------
 
-void	draw_single_ray(t_data *data, double ag , int f)
+void	ft_draw_ray(t_data *data, double angle, int f, double ray_len)
 {
-    int x0 = (int)(data->player.pos_x * CELL_S);
-    int y0 = (int)(data->player.pos_y * CELL_S);
-
-	// double ray_len = fmax(data->map.grid_x, data->map.grid_y) * CELL_S;	
-	
-    // int x1 = (int)(x0 + cos(ag) * ray_len);
-    // int y1 = (int)(y0 + sin(ag) * ray_len);
-	
-    int x1 = (int)(x0 + cos(ag) * 50);
-    int y1 = (int)(y0 + sin(ag) * 50);
-
+    int x0 = (int)((data->player.pos_x * CELL_S)) ;
+    int y0 = (int)((data->player.pos_y * CELL_S));
+    double len_in_pixels = (ray_len ) * CELL_S;
+	int x1,y1;
+	if(f){
+		x1 = (int)(x0 + cos(angle) * len_in_pixels);
+		y1 = (int)(y0 + sin(angle) * len_in_pixels);
+	}
+	else{
+		x1 = (int)(x0 + cos(angle) * ray_len);
+		y1 = (int)(y0 + sin(angle) * ray_len);
+	}
     int dx = abs(x1 - x0);
     int sx = (x0 < x1) ? 1 : -1;
     int dy = -abs(y1 - y0);
     int sy = (y0 < y1) ? 1 : -1;
     int err = dx + dy;
     int e2;
-	
     while (1)
     {
-		if(f==0)
-			mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0xFF0000FF); 
-		else
+		if(f)
 			mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0xADD8E6FF);
-	
+		else
+			mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0xFF0000FF); 
         if (x0 == x1 && y0 == y1)
             break;
-
         e2 = 2 * err;
-        if (e2 >= dy)
-        {
+        if (e2 >= dy){
             err += dy;
             x0 += sx;
         }
-        if (e2 <= dx)
-        {
+        if (e2 <= dx){
             err += dx;
             y0 += sy;
         }
@@ -279,90 +275,83 @@ void	draw_single_ray(t_data *data, double ag , int f)
 }
 
 
-void ft_a(t_data *data)
+
+//----------------------------------------------
+//------------------------------ Raycasting :
+//----------------------------------------------
+
+
+void	ft_raycasting(t_data *data)
 {
-	
 	int i;
 	double r;
 
-	i=-1;
 	FOV = RAD(90);
-	r = FOV / RAYS ;
-	
-	// draw_single_ray(data, ANG , 0);
-	// draw_single_ray(data, ANG - ( FOV / 2) , 0);    //draw the limits
-	// draw_single_ray(data, ANG + ( FOV / 2) , 0);
+	r = FOV / RAYS;
+	i = -1;
 
-	while(++i<RAYS)
+	while (++i < RAYS)
 	{
-		RAY(i).angle= (ANG - ( FOV / 2) ) + (i * r);
+		RAY(i).angle = (ANG - (FOV / 2)) + (i * r);
 		if (RAY(i).angle < 0)
 			RAY(i).angle += 2 * M_PI;
 		else if (RAY(i).angle >= 2 * M_PI)
 			RAY(i).angle -= 2 * M_PI;
-			
-		RAY(i).x=floor(data->player.pos_x);
-		RAY(i).ang_cos= cos(RAY(i).angle);
-		RAY(i).const_x=fabs(CELL_S / RAY(i).ang_cos);
-		RAY(i).extra_x=
-		
-		RAY(i).y=floor(data->player.pos_y);
-		RAY(i).ang_sin= sin(RAY(i).angle);
-		RAY(i).const_y=fabs(CELL_S / RAY(i).ang_sin);
-		
-		if(i>0 && i < RAYS-1 && i != RAYS/2) // diff colors for edges and mid
-			draw_single_ray(data, RAY(i).angle , 1);
+
+		RAY(i).ang_cos = cos(RAY(i).angle);
+		RAY(i).ang_sin = sin(RAY(i).angle);
+		RAY(i).const_x = fabs(CELL_S / RAY(i).ang_cos);
+		RAY(i).const_y = fabs(CELL_S / RAY(i).ang_sin);
+		RAY(i).x = floor(data->player.pos_x);
+		RAY(i).y = floor(data->player.pos_y);
+
+		if (RAY(i).ang_cos < 0)
+		{
+			RAY(i).step_x = -1;
+			RAY(i).extra_x = (data->player.pos_x - RAY(i).x) * RAY(i).const_x;
+		}
 		else
-			draw_single_ray(data, RAY(i).angle , 0);
+		{
+			RAY(i).step_x = 1;
+			RAY(i).extra_x = (RAY(i).x + 1.0 - data->player.pos_x) * RAY(i).const_x;
+		}
 
-		d(RAY(i).const_y);
-		d(RAY(i).const_x);
-		p();
-	}
-	
-}
+		if (RAY(i).ang_sin < 0)
+		{
+			RAY(i).step_y = -1;
+			RAY(i).extra_y = (data->player.pos_y - RAY(i).y) * RAY(i).const_y;
+		}
+		else
+		{
+			RAY(i).step_y = 1;
+			RAY(i).extra_y = (RAY(i).y + 1.0 - data->player.pos_y) * RAY(i).const_y;
+		}
 
-void ft_raycasting(t_data *data)
-{
-	
-	// int i;
-	// double r;
-
-	// i=0;
-	// FOV = RAD(90);
-	// r = FOV / RAYS ;
-	
-	// // draw_single_ray(data, ANG , 0);
-	// // draw_single_ray(data, ANG - ( FOV / 2) , 0);    //draw the limits
-	// // draw_single_ray(data, ANG + ( FOV / 2) , 0);
-
-	// while(i<RAYS)
-	// {
-	// 	RAY(i).angle= (ANG - ( FOV / 2) ) + (i * r);
-	// 	if (RAY(i).angle < 0)
-	// 		RAY(i).angle += 2 * M_PI;
-	// 	else if (RAY(i).angle >= 2 * M_PI)
-	// 		RAY(i).angle -= 2 * M_PI;
-			
-	// 	RAY(i).x=floor(data->player.pos_x);
-	// 	RAY(i).ang_cos= cos(RAY(i).angle);
-	// 	RAY(i).const_x=fabs(CELL_S / RAY(i).ang_cos);
-		
-	// 	RAY(i).y=floor(data->player.pos_y);
-	// 	RAY(i).ang_sin= sin(RAY(i).angle);
-	// 	RAY(i).const_y=fabs(CELL_S / RAY(i).ang_sin);
-		
-	// 	if(i>0 && i < RAYS-1 && i != RAYS/2) // diff colors for edges and mid
-	// 		draw_single_ray(data, RAY(i).angle , 1);
-	// 	else
-	// 		draw_single_ray(data, RAY(i).angle , 0);
-
-	// 	d(RAY(i).const_y);
-	// 	d(RAY(i).const_x);
-	// 	p();
-	// 	i++;
-	// }
-	
+		RAY(i).hit = 0;
+		while (RAY(i).hit == 0)
+		{
+			if (RAY(i).extra_x < RAY(i).extra_y)
+			{
+				RAY(i).extra_x += RAY(i).const_x;
+				RAY(i).x += RAY(i).step_x;
+				RAY(i).len = (RAY(i).x - data->player.pos_x + (1 - RAY(i).step_x) / 2) / RAY(i).ang_cos;
+				RAY(i).side = 0;
+			}
+			else
+			{
+				RAY(i).extra_y += RAY(i).const_y;
+				RAY(i).y += RAY(i).step_y;
+				RAY(i).len = (RAY(i).y - data->player.pos_y + (1 - RAY(i).step_y) / 2) / RAY(i).ang_sin;
+				RAY(i).side = 1;
+			}
+			if (data->map.grid[RAY(i).y][RAY(i).x] == '1')
+				RAY(i).hit = 1;
+		}
+			ft_draw_ray(data, RAY(i).angle , 1, RAY(i).len);
+	}	
+	ft_draw_ray(data, ANG,0,50);
+	ft_draw_ray(data, ANG - ( FOV / 2),0,50);
+	ft_draw_ray(data, ANG + ( FOV / 2),0,50);
 }
 
 
@@ -390,18 +379,39 @@ void ft_clean(t_data *data, int f)
 //------------------------------ the Engine :
 //----------------------------------------------
 
+long long	get_timestamp(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
+
 void	ft_all(void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
-	ft_draw_background(data, 0, 0);
+	// ft_draw_background(data, 0, 0);
 	ft_draw_map_2d(data, 0, 0);
 	ft_capture_player_moves(data);
 	ft_draw_player_2d(data, 0, 0);
 	ft_raycasting(data);
+
+
 	
-	// ft_draw_minimap(data);
+	// struct timeval tv;
+	// gettimeofday(&tv, NULL);
+	// data->final_time = tv.tv_sec;
+	// if(data->final_time - data->init_time >= 1)
+	// {
+	// 	printf("fps : %d\n", data->fps);
+	// 	data->init_time = data->final_time;
+	// 	data->fps = 0;
+	// }
+	// else
+	// 	(data->fps)++;
+	
 }
 
 
@@ -469,6 +479,7 @@ int	ft_init_game(t_data *data)
 		return (ft_clean(data,2), -1);
 	// if(ft_init_textures(data)==-1)
 	// 	return (ft_clean(data,3), -1);
+	data->player.mouse_l_p = -1;
 	return (0);
 }
 
@@ -482,9 +493,13 @@ int	ft_start(t_data *data)
 {
 	if (ft_init_game(data) == -1)
 		return (-1);
-			
+		
+	// struct timeval tv;
+	// gettimeofday(&tv, NULL);
+	// data->init_time = tv.tv_sec;
+	// data->fps = 0;
+
 	ft_hooks(data);
-	ft_a(data);
 	mlx_loop_hook(data->mlx.ptr, ft_all, (void *)data);
 	mlx_loop(data->mlx.ptr);
 	
