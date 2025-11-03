@@ -3,15 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_raycast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/02 21:49:08 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/11/03 11:34:12 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+//----------------------------------------------
+//------------------------------ extra :
+//----------------------------------------------
+
+double	ft_rad(double x)
+{
+	return (x * M_PI / 180.0);
+}
+
+double	ft_deg(double x)
+{
+	return (x * 180.0 / M_PI);
+}
 
 //----------------------------------------------
 //------------------------------ keys :
@@ -21,13 +34,11 @@ void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 {
 	t_data	*data;
 
-	(void) keydata;
+	(void)keydata;
 	data = (t_data *)param;
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx.ptr);
 }
-
-
 
 //----------------------------------------------
 //------------------------------ player moves :
@@ -139,7 +150,14 @@ void	ft_capture_player_moves(t_data *data)
 	}
 }
 
+//----------------------------------------------
+//------------------------------ get colores:
+//----------------------------------------------
 
+unsigned int	ft_color(t_color clr)
+{
+	return (clr.r << 16 | clr.g << 8 | clr.b);
+}
 
 //----------------------------------------------
 //------------------------------ player draw 2D:
@@ -163,8 +181,6 @@ void	ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py)
 	}
 	mlx_put_pixel(data->mlx.ptr_img, player_px, player_py, 0xFFFFFF);
 }
-
-
 
 //----------------------------------------------
 //------------------------------ map draw 2D :
@@ -196,8 +212,6 @@ void	ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py)
 	}
 }
 
-
-
 //----------------------------------------------
 //------------------------------ Bg draw :
 //----------------------------------------------
@@ -219,16 +233,16 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 					px = x * CELL_S + i;
 					py = y * CELL_S + j;
 					if (y < data->map.grid_y / 2)
-						mlx_put_pixel(data->mlx.ptr_img, px, py, 0x000000);
+						mlx_put_pixel(data->mlx.ptr_img, px, py,
+							ft_color(data->ceiling_color));
 					else
-						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xFFFFFFA1);
+						mlx_put_pixel(data->mlx.ptr_img, px, py,
+							ft_color(data->floor_color));
 				}
 			}
 		}
 	}
 }
-
-
 
 //----------------------------------------------
 //------------------------------ Draw Rays :
@@ -259,9 +273,9 @@ void	ft_draw_ray(t_data *data, double angle, int f, double ray_len)
 		if(f)
 			mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0xADD8E6FF);
 		else
-			mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0xFF0000FF); 
+			mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0xFF0000FF);
         if (x0 == x1 && y0 == y1)
-            break;
+            break ;
         e2 = 2 * err;
         if (e2 >= dy){
             err += dy;
@@ -274,216 +288,194 @@ void	ft_draw_ray(t_data *data, double angle, int f, double ray_len)
     }
 }
 
-
-
 //----------------------------------------------
 //------------------------------ Raycasting :
 //----------------------------------------------
 
+void	ft_init_ray_data(t_data *data, int i, double r)
+{
+	RAY(i).angle = (ANG - (FOV / 2)) + (i * r);
+	if (RAY(i).angle < 0)
+		RAY(i).angle += 2 * M_PI;
+	else if (RAY(i).angle >= 2 * M_PI)
+		RAY(i).angle -= 2 * M_PI;
+	RAY(i).ang_cos = cos(RAY(i).angle);
+	RAY(i).const_x = fabs(CELL_S / RAY(i).ang_cos);
+	RAY(i).x = floor(data->player.pos_x);
+	RAY(i).ang_sin = sin(RAY(i).angle);
+	RAY(i).const_y = fabs(CELL_S / RAY(i).ang_sin);
+	RAY(i).y = floor(data->player.pos_y);
+	RAY(i).hit = 0;
+}
+
+void	ft_first_cell_len(t_data *data, int i)
+{
+	if (RAY(i).ang_cos < 0)
+	{
+		RAY(i).step_x = -1;
+		RAY(i).extra_x = (data->player.pos_x - RAY(i).x) * RAY(i).const_x;
+	}
+	else
+	{
+		RAY(i).step_x = 1;
+		RAY(i).extra_x = (RAY(i).x + 1.0 - data->player.pos_x) * RAY(i).const_x;
+	}
+	if (RAY(i).ang_sin < 0)
+	{
+		RAY(i).step_y = -1;
+		RAY(i).extra_y = (data->player.pos_y - RAY(i).y) * RAY(i).const_y;
+	}
+	else
+	{
+		RAY(i).step_y = 1;
+		RAY(i).extra_y = (RAY(i).y + 1.0 - data->player.pos_y) * RAY(i).const_y;
+	}
+}
+
+void	ft_dda(t_data *data, int i)
+{
+	while (RAY(i).hit == 0)
+	{
+		if (RAY(i).extra_x < RAY(i).extra_y)
+		{
+			RAY(i).extra_x += RAY(i).const_x;
+			RAY(i).x += RAY(i).step_x;
+			RAY(i).side = 0;
+			RAY(i).len = (RAY(i).x - data->player.pos_x + (1 - RAY(i).step_x)
+				/ 2) / RAY(i).ang_cos;
+		}
+		else
+		{
+			RAY(i).extra_y += RAY(i).const_y;
+			RAY(i).y += RAY(i).step_y;
+			RAY(i).side = 1;
+			RAY(i).len = (RAY(i).y - data->player.pos_y + (1 - RAY(i).step_y)
+				/ 2) / RAY(i).ang_sin;
+		}
+		if (data->map.grid[RAY(i).y][RAY(i).x] == '1')
+			RAY(i).hit = 1;
+	}
+}
 
 void	ft_raycasting(t_data *data)
 {
-	int i;
-	double r;
+	int		i;
+	double	r;
 
+	i = -1;
 	FOV = RAD(90);
 	r = FOV / RAYS;
-	i = -1;
-
 	while (++i < RAYS)
 	{
-		RAY(i).angle = (ANG - (FOV / 2)) + (i * r);
-		if (RAY(i).angle < 0)
-			RAY(i).angle += 2 * M_PI;
-		else if (RAY(i).angle >= 2 * M_PI)
-			RAY(i).angle -= 2 * M_PI;
-
-		RAY(i).ang_cos = cos(RAY(i).angle);
-		RAY(i).ang_sin = sin(RAY(i).angle);
-		RAY(i).const_x = fabs(CELL_S / RAY(i).ang_cos);
-		RAY(i).const_y = fabs(CELL_S / RAY(i).ang_sin);
-		RAY(i).x = floor(data->player.pos_x);
-		RAY(i).y = floor(data->player.pos_y);
-
-		if (RAY(i).ang_cos < 0)
-		{
-			RAY(i).step_x = -1;
-			RAY(i).extra_x = (data->player.pos_x - RAY(i).x) * RAY(i).const_x;
-		}
-		else
-		{
-			RAY(i).step_x = 1;
-			RAY(i).extra_x = (RAY(i).x + 1.0 - data->player.pos_x) * RAY(i).const_x;
-		}
-
-		if (RAY(i).ang_sin < 0)
-		{
-			RAY(i).step_y = -1;
-			RAY(i).extra_y = (data->player.pos_y - RAY(i).y) * RAY(i).const_y;
-		}
-		else
-		{
-			RAY(i).step_y = 1;
-			RAY(i).extra_y = (RAY(i).y + 1.0 - data->player.pos_y) * RAY(i).const_y;
-		}
-
-		RAY(i).hit = 0;
-		while (RAY(i).hit == 0)
-		{
-			if (RAY(i).extra_x < RAY(i).extra_y)
-			{
-				RAY(i).extra_x += RAY(i).const_x;
-				RAY(i).x += RAY(i).step_x;
-				RAY(i).len = (RAY(i).x - data->player.pos_x + (1 - RAY(i).step_x) / 2) / RAY(i).ang_cos;
-				RAY(i).side = 0;
-			}
-			else
-			{
-				RAY(i).extra_y += RAY(i).const_y;
-				RAY(i).y += RAY(i).step_y;
-				RAY(i).len = (RAY(i).y - data->player.pos_y + (1 - RAY(i).step_y) / 2) / RAY(i).ang_sin;
-				RAY(i).side = 1;
-			}
-			if (data->map.grid[RAY(i).y][RAY(i).x] == '1')
-				RAY(i).hit = 1;
-		}
-			ft_draw_ray(data, RAY(i).angle , 1, RAY(i).len);
-	}	
-	ft_draw_ray(data, ANG,0,50);
-	ft_draw_ray(data, ANG - ( FOV / 2),0,50);
-	ft_draw_ray(data, ANG + ( FOV / 2),0,50);
+		ft_init_ray_data(data, i, r);
+		ft_first_cell_len(data, i);
+		ft_dda(data, i);
+		ft_draw_ray(data, RAY(i).angle, 1, RAY(i).len);
+	}
+	ft_draw_ray(data, ANG, 0, 50);
+	ft_draw_ray(data, ANG - (FOV / 2), 0, 50);
+	ft_draw_ray(data, ANG + (FOV / 2), 0, 50);
 }
-
 
 //----------------------------------------------
 //------------------------------ clean :
 //----------------------------------------------
 
-void ft_clean(t_data *data, int f)
-{	
-	if(f>=0)
+void	ft_clean(t_data *data, int f)
+{
+	if (f >= 0)
 		mlx_delete_image(data->mlx.ptr, data->mlx.ptr_img);
-	if(f>=1)
+	if (f >= 1)
 		mlx_delete_image(data->mlx.ptr, data->mini.ptr_img);
-	if(f>=2)
+	if (f >= 2)
 		free(data->rays);
 	// if(f>=3)
-	// {	
+	// {
 	// }
 	mlx_terminate(data->mlx.ptr);
 }
-	
-
 
 //----------------------------------------------
 //------------------------------ the Engine :
 //----------------------------------------------
-
-long long	get_timestamp(void)
-{
-	struct timeval	tv;
-
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-}
 
 void	ft_all(void *param)
 {
 	t_data	*data;
 
 	data = (t_data *)param;
-	// ft_draw_background(data, 0, 0);
+	ft_draw_background(data, 0, 0);
 	ft_draw_map_2d(data, 0, 0);
 	ft_capture_player_moves(data);
 	ft_draw_player_2d(data, 0, 0);
 	ft_raycasting(data);
-
-
-	
-	// struct timeval tv;
-	// gettimeofday(&tv, NULL);
-	// data->final_time = tv.tv_sec;
-	// if(data->final_time - data->init_time >= 1)
-	// {
-	// 	printf("fps : %d\n", data->fps);
-	// 	data->init_time = data->final_time;
-	// 	data->fps = 0;
-	// }
-	// else
-	// 	(data->fps)++;
-	
 }
-
-
 
 //----------------------------------------------
 //------------------------------ hooks :
 //----------------------------------------------
 
-void ft_hooks(t_data *data)
+void	ft_hooks(t_data *data)
 {
 	mlx_key_hook(data->mlx.ptr, ft_capture_keys, (void *)data);
 	mlx_cursor_hook(data->mlx.ptr, ft_update_mouse_angle, (void *)data);
 	mlx_set_cursor_mode(data->mlx.ptr, MLX_MOUSE_DISABLED);
 }
 
-
-
 //----------------------------------------------
 //------------------------------ init :
 //----------------------------------------------
 
-int ft_init_mlx_map(t_data *data)
+int	ft_init_mlx_map(t_data *data)
 {
-	data->mlx.ptr = mlx_init(WIDTH, HEIGHT, "Cube3D", false);
+	data->mlx.ptr = mlx_init(WIDTH, HEIGHT, "Cube3D", true);
 	if (!data->mlx.ptr)
 		return (-1);
 	data->mlx.ptr_img = mlx_new_image(data->mlx.ptr, WIDTH, HEIGHT);
 	if (!data->mlx.ptr_img)
 		return (-1);
-	data->mlx.id_img = mlx_image_to_window(data->mlx.ptr, data->mlx.ptr_img, 0, 0);
+	data->mlx.id_img = mlx_image_to_window(data->mlx.ptr, data->mlx.ptr_img, 0,
+			0);
 	if (data->mlx.id_img == -1)
 		return (-1);
 	CELL_S = (int)fmin(HEIGHT / data->map.grid_y, WIDTH / data->map.grid_x);
 	return (0);
 }
 
-int ft_init_mlx_minimap(t_data *data)
+int	ft_init_mlx_minimap(t_data *data)
 {
 	data->mini.ptr_img = mlx_new_image(data->mlx.ptr, WIDTH / 5, HEIGHT / 3);
 	if (!data->mini.ptr_img)
 		return (-1);
-	data->mini.id_img = mlx_image_to_window(data->mlx.ptr, data->mini.ptr_img, 10,
-			10);
+	data->mini.id_img = mlx_image_to_window(data->mlx.ptr, data->mini.ptr_img,
+			10, 10);
 	if (data->mini.id_img == -1)
 		return (-1);
-	return 0;
+	return (0);
 }
 
-int ft_init_rays(t_data *data)
+int	ft_init_rays(t_data *data)
 {
-	data->rays=malloc(sizeof(t_ray) * RAYS);
-	if(!data->rays)
-		return -1;
+	data->rays = malloc(sizeof(t_ray) * RAYS);
+	if (!data->rays)
+		return (-1);
 	ft_memset(data->rays, 0, sizeof(t_ray) * RAYS);
-	return 0;
+	return (0);
 }
 
 int	ft_init_game(t_data *data)
 {
-	if(ft_init_mlx_map(data)==-1)
-		return (ft_clean(data,0), -1);
-	if(ft_init_mlx_minimap(data)==-1)
-		return (ft_clean(data,1), -1);
-	if(ft_init_rays(data)==-1)
-		return (ft_clean(data,2), -1);
+	if (ft_init_mlx_map(data) == -1)
+		return (ft_clean(data, 0), -1);
+	if (ft_init_mlx_minimap(data) == -1)
+		return (ft_clean(data, 1), -1);
+	if (ft_init_rays(data) == -1)
+		return (ft_clean(data, 2), -1);
 	// if(ft_init_textures(data)==-1)
 	// 	return (ft_clean(data,3), -1);
 	data->player.mouse_l_p = -1;
 	return (0);
 }
-
-
 
 //----------------------------------------------
 //------------------------------ Main :
@@ -493,338 +485,8 @@ int	ft_start(t_data *data)
 {
 	if (ft_init_game(data) == -1)
 		return (-1);
-		
-	// struct timeval tv;
-	// gettimeofday(&tv, NULL);
-	// data->init_time = tv.tv_sec;
-	// data->fps = 0;
-
 	ft_hooks(data);
 	mlx_loop_hook(data->mlx.ptr, ft_all, (void *)data);
 	mlx_loop(data->mlx.ptr);
-	
-	return (ft_clean(data,4), 0);
+	return (ft_clean(data, 4), 0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//----------------------------------------------
-//------------------------------ minimap :
-//----------------------------------------------
-
-// void ft_init_minimap(t_data *data)
-// {
-// 	data->mini.mini_w=WIDTH / 6;
-// 	data->mini.mini_h=HEIGHT / 4;
-// 	data->mini.m_cell_size=(int)fmin(data->mini.mini_h / data->map.grid_y,data->mini.mini_w / data->map.grid_x);
-// 	data->player.m_player_size = (int)fmax(data->mini.m_cell_size / 8, 4);
-// 	data->player.mouse_l_p=-1.0;
-// }
-
-// void	ft_clear_minimap(data)
-// {
-// }
-
-// void	ft_draw_minimap2(data)
-// {
-// }
-
-// void	ft_draw_player_minimap(data)
-// {
-// }
-
-// void ft_draw_minimap(t_data *data)
-// {
-// 	ft_init_minimap(data);
-// 	ft_clear_minimap(data);
-// 	ft_draw_minimap2(data);
-// 	ft_draw_player_minimap(data);
-// }
-
-
-// //----------------
-
-
-// void ft_draw_minimap(t_data *data)
-// {
-//     const int   mini_w   = data->mini.mini_w;
-//     const int   mini_h   = data->mini.mini_h;
-//     const int   map_w    = data->map.grid_x;
-//     const int   map_h    = data->map.grid_y;
-
-//     // Scale to fit entire map in minimap (keep square cells)
-//     const float scale_x  = (float)mini_w / map_w;
-//     const float scale_y  = (float)mini_h / map_h;
-//     const float scale    = fminf(scale_x, scale_y);
-//     const int   cell     = (int)scale;
-
-//     const int   center_x = mini_w / 2;
-//     const int   center_y = mini_h / 2;
-
-//     int   draw_x, draw_y;
-//     int   i, j;
-
-
-
-// // 1. Clear minimap :
-
-//     for (int y = 0; y < mini_h; ++y)
-//         for (int x = 0; x < mini_w; ++x)
-//             mlx_put_pixel(data->mini.ptr_img, x, y, 0x000000FF);
-
-
-
-// //  2. Compute visible map area (player at centre) :
-//     float player_map_x = data->player.pos_x;
-//     float player_map_y = data->player.pos_y;
-
-//     float visible_cells_x = mini_w / (2.0f * scale);
-//     float visible_cells_y = mini_h / (2.0f * scale);
-
-//     int start_x = (int)(player_map_x - visible_cells_x);
-//     int start_y = (int)(player_map_y - visible_cells_y);
-//     int end_x   = (int)(player_map_x + visible_cells_x) + 1;
-//     int end_y   = (int)(player_map_y + visible_cells_y) + 1;
-
-
-
-// // 3. Draw solid map cells (your colors, no lines)  :
-//     for (int gy = start_y; gy < end_y; ++gy)
-//     {
-//         for (int gx = start_x; gx < end_x; ++gx)
-//         {
-//             if (gx < 0 || gx >= map_w || gy < 0 || gy >= map_h)
-//                 continue;
-
-//             // Cell centre in map space → minimap pixel
-//             float cell_center_x = gx * scale + scale * 0.5f;
-//             float cell_center_y = gy * scale + scale * 0.5f;
-
-//             draw_x = (int)(center_x + (cell_center_x - player_map_x * scale));
-//             draw_y = (int)(center_y + (cell_center_y - player_map_y * scale));
-
-//             uint32_t color = (data->map.grid[gy][gx] == '1')
-//                              ? 0x350707A1   // wall
-//                              : 0xF5DEB388;  // floor
-
-//             int half = cell / 2;
-//             for (i = -half; i < half; ++i)
-//                 for (j = -half; j < half; ++j)
-//                 {
-//                     int px = draw_x + i;
-//                     int py = draw_y + j;
-//                     if (px >= 0 && px < mini_w && py >= 0 && py < mini_h)
-//                         mlx_put_pixel(data->mini.ptr_img, px, py, color);
-//                 }
-//         }
-//     }
-
-
-
-// // 4. Draw player (red square + white dot)  :
-//     int p_size = (int)fmaxf(cell * 0.4f, 3);
-
-//     for (i = -p_size; i <= p_size; ++i)
-//         for (j = -p_size; j <= p_size; ++j)
-//         {
-//             int px = center_x + i;
-//             int py = center_y + j;
-//             if (px >= 0 && px < mini_w && py >= 0 && py < mini_h)
-//                 mlx_put_pixel(data->mini.ptr_img, px, py, 0xFF0000FF);
-//         }
-//     mlx_put_pixel(data->mini.ptr_img, center_x, center_y, 0xFFFFFFFF);
-
-
-
-// // 5. Draw direction ray (yellow)           :
-//     int ray_len = (int)(cell * 2.5f);
-//     int rx = center_x + (int)(cos(ANG) * ray_len);
-//     int ry = center_y + (int)(sin(ANG) * ray_len);
-
-//     int dx = abs(rx - center_x), sx = center_x < rx ? 1 : -1;
-//     int dy = -abs(ry - center_y), sy = center_y < ry ? 1 : -1;
-//     int err = dx + dy, e2;
-//     int x0 = center_x, y0 = center_y;
-
-//     while (1)
-//     {
-//         if (x0 >= 0 && x0 < mini_w && y0 >= 0 && y0 < mini_h)
-//             mlx_put_pixel(data->mini.ptr_img, x0, y0, 0xFFFF00FF);
-//         if (x0 == rx && y0 == ry) break;
-//         e2 = 2 * err;
-//         if (e2 >= dy) { err += dy; x0 += sx; }
-//         if (e2 <= dx) { err += dx; y0 += sy; }
-//     }
-// }
