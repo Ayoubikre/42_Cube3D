@@ -145,9 +145,15 @@ void	ft_capture_player_moves(t_data *data)
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
 	{
 		data->ang -= ft_rad(2);
+		if (data->ang < 0)
+			data->ang += 2 * M_PI;
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_RIGHT))
+	{
 		data->ang += ft_rad(2);
+		if (data->ang >= 2 * M_PI)
+			data->ang -= 2 * M_PI;
+	}
 }
 
 //----------------------------------------------
@@ -292,10 +298,16 @@ void	ft_init_ray_data(t_data *data, t_ray *ray, int i, double r)
 	else if (ray->angle >= 2 * M_PI)
 		ray->angle -= 2 * M_PI;
 	ray->ang_cos = cos(ray->angle);
-	ray->const_x = fabs(data->map.cell_s / ray->ang_cos);
+	if (fabs(ray->ang_cos) < 1e-6)
+		ray->const_x = 1e30;
+	else
+		ray->const_x = fabs(1.0 / ray->ang_cos);
 	ray->x = floor(data->player.pos_x);
 	ray->ang_sin = sin(ray->angle);
-	ray->const_y = fabs(data->map.cell_s / ray->ang_sin);
+	if (fabs(ray->ang_sin) < 1e-6)
+		ray->const_y = 1e30;
+	else
+		ray->const_y = fabs(1.0 / ray->ang_sin);
 	ray->y = floor(data->player.pos_y);
 	ray->hit = 0;
 }
