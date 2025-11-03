@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/03 13:35:12 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/03 14:16:48 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,10 +145,15 @@ void	ft_capture_player_moves(t_data *data)
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
 	{
 		data->ang -= ft_rad(2);
+		if (data->ang < 0)
+			data->ang += 2 * M_PI;
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_RIGHT))
+	{
 		data->ang += ft_rad(2);
-}
+		if (data->ang >= 2 * M_PI)
+			data->ang -= 2 * M_PI;
+	}}
 
 //----------------------------------------------
 //------------------------------ get colores:
