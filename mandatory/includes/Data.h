@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/03 11:33:33 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/03 13:37:02 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,8 @@
 # define ELEM_COUNT 6
 
 # define M_PI 3.14159265358979323846
-# define RAYS 500
-# define mouse_speed 0.005
-# define RAY(x) data->rays[x]
-# define RAD(x) (x * M_PI / 180.0)
-# define DEG(x) (x * 180.0 / M_PI)
-# define FOV data->player.fov
-# define ANG data->player.start_angle
-# define CELL_S data->map.cell_size
+# define RAYS 1500
+# define MOUSE_SP 0.002
 
 typedef struct s_ray
 {
@@ -83,8 +77,6 @@ typedef struct s_player
 	double		pos_x;
 	double		pos_y;
 	char		orientation;
-	double		start_angle;
-	double		fov;
 	double		mouse_l_p;
 }				t_player;
 
@@ -100,7 +92,7 @@ typedef struct s_map
 	char		**grid;
 	int			grid_x;
 	int			grid_y;
-	int			cell_size;
+	int			cell_s;
 }				t_map;
 
 typedef struct s_mlx
@@ -121,6 +113,8 @@ typedef struct s_data
 	t_player	player;
 	t_mini		mini;
 	t_ray		*rays;
+	double		fov;
+	double		ang;
 	// int 		init_time;
 	// int 		final_time;
 	// int 		fps;

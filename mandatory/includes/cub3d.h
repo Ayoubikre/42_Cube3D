@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/03 11:22:28 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/03 12:45:17 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	init_data(t_data *data);
 
 // -------------------------------------------- Raycasting:
 
+double	ft_rad(double x);
+double	ft_deg(double x);
 int		ft_start(t_data *data);
 
 #endif

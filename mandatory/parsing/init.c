@@ -25,8 +25,8 @@ void	init_data(t_data *data)
 	data->floor_color = (t_color){0, 0, 0};
 	data->ceiling_color = (t_color){0, 0, 0};
 	data->map.grid = NULL;
-	data->map.grid_x  = 0;
-	data->map.grid_y  = 0;
+	data->map.grid_x = 0;
+	data->map.grid_y = 0;
 	data->player.pos_x = 0;
 	data->player.pos_y = 0;
 	data->player.orientation = 0;
@@ -75,14 +75,14 @@ static void	print_parse_results(t_data *data)
 	printf("  West:   %s\n", data->textures[WEST]);
 	printf("  East:   %s\n", data->textures[EAST]);
 	printf("\nCOLORS:\n");
-	printf("  Floor:   RGB(%d, %d, %d)\n",
-		data->floor_color.r, data->floor_color.g, data->floor_color.b);
-	printf("  Ceiling: RGB(%d, %d, %d)\n",
-		data->ceiling_color.r, data->ceiling_color.g, data->ceiling_color.b);
+	printf("  Floor:   RGB(%d, %d, %d)\n", data->floor_color.r,
+		data->floor_color.g, data->floor_color.b);
+	printf("  Ceiling: RGB(%d, %d, %d)\n", data->ceiling_color.r,
+		data->ceiling_color.g, data->ceiling_color.b);
 	printf("\nMAP INFO:\n");
 	printf("  Size: %dx%d\n", data->map.grid_x, data->map.grid_y);
-	printf("  Player: (%.1f, %.1f) facing '%c'\n",
-		data->player.pos_x, data->player.pos_y, data->player.orientation);
+	printf("  Player: (%.1f, %.1f) facing '%c'\n", data->player.pos_x,
+		data->player.pos_y, data->player.orientation);
 	print_map(data);
 	printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n");
 }

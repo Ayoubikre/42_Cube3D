@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:55:35 by akzaza            #+#    #+#             */
-/*   Updated: 2025/11/01 17:00:05 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/11/03 13:22:02 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ void	set_player_data(t_data *data, int i, int j)
 	data->player.pos_x = j + 0.5;
 	data->player.pos_y = i + 0.5;
 	data->player.orientation = data->map.grid[i][j];
-	if(data->player.orientation=='E')
-		data->player.start_angle=RAD(0);
-	if(data->player.orientation=='S')
-		data->player.start_angle=RAD(90);
-	if(data->player.orientation=='W')
-		data->player.start_angle=RAD(180);
-	if(data->player.orientation=='N')
-		data->player.start_angle=RAD(270);
+	if (data->player.orientation == 'E')
+		data->ang = ft_rad(0);
+	if (data->player.orientation == 'S')
+		data->ang = ft_rad(90);
+	if (data->player.orientation == 'W')
+		data->ang = ft_rad(180);
+	if (data->player.orientation == 'N')
+		data->ang = ft_rad(270);
 }
 
 char	get_char_at(t_data *data, int y, int x)
@@ -61,7 +61,8 @@ static int	check_surrounded(t_data *data, int y, int x)
 			c = get_char_at(data, y + dy, x + dx);
 			if (!is_valid_pos(c))
 				return ((print_error("Map not closed (space or \
-void near walkable area)")), 0);
+					void near walkable area)")),
+					0);
 			dx++;
 		}
 		dy++;

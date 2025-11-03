@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/03 11:34:12 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/03 13:35:12 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ void	ft_update_mouse_angle(double xpos, double ypos, void *param)
 	}
 	new_x = xpos - data->player.mouse_l_p;
 	data->player.mouse_l_p = xpos;
-	ANG += new_x * mouse_speed;
-	if (ANG < 0)
-		ANG += 2 * M_PI;
-	else if (ANG >= 2 * M_PI)
-		ANG -= 2 * M_PI;
+	data->ang += new_x * MOUSE_SP;
+	if (data->ang < 0)
+		data->ang += 2 * M_PI;
+	else if (data->ang >= 2 * M_PI)
+		data->ang -= 2 * M_PI;
 }
 
 int	ft_find_walls(t_data *data, int x, int y)
@@ -71,7 +71,7 @@ int	ft_find_walls(t_data *data, int x, int y)
 		return (1);
 	if (y < 0 || y >= data->map.grid_y)
 		return (1);
-	if (data->map.grid[y][x] == '1')
+	if (data->map.grid[y][x] == '1' || data->map.grid[y][x] == '2')
 		return (1);
 	return (0);
 }
@@ -126,28 +126,28 @@ void	ft_capture_player_moves(t_data *data)
 {
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_W))
 	{
-		ft_move(data, cos(ANG), sin(ANG), 0.1);
+		ft_move(data, cos(data->ang), sin(data->ang), 0.1);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_S))
 	{
-		ft_move(data, -cos(ANG), -sin(ANG), 0.1);
+		ft_move(data, -cos(data->ang), -sin(data->ang), 0.1);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_D))
 	{
-		ft_move(data, cos(ANG + M_PI / 2), sin(ANG + M_PI / 2), 0.1);
+		ft_move(data, cos(data->ang + M_PI / 2), sin(data->ang + M_PI / 2),
+			0.1);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_A))
 	{
-		ft_move(data, cos(ANG - M_PI / 2), sin(ANG - M_PI / 2), 0.1);
+		ft_move(data, cos(data->ang - M_PI / 2), sin(data->ang - M_PI / 2),
+			0.1);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
 	{
-		data->player.start_angle -= RAD(2);
+		data->ang -= ft_rad(2);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_RIGHT))
-	{
-		data->player.start_angle += RAD(2);
-	}
+		data->ang += ft_rad(2);
 }
 
 //----------------------------------------------
@@ -166,9 +166,9 @@ unsigned int	ft_color(t_color clr)
 void	ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py)
 {
 	int (s), (player_px), (player_py), (j), i = -1;
-	s = (int)fmax(CELL_S / 8, 4);
-	player_px = data->player.pos_x * CELL_S;
-	player_py = data->player.pos_y * CELL_S;
+	s = (int)fmax(data->map.cell_s / 8, 4);
+	player_px = data->player.pos_x * data->map.cell_s;
+	player_py = data->player.pos_y * data->map.cell_s;
 	while (++i <= s * 2)
 	{
 		j = -1;
@@ -195,15 +195,17 @@ void	ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py)
 		while (++y < data->map.grid_y)
 		{
 			i = -1;
-			while (++i < CELL_S)
+			while (++i < data->map.cell_s)
 			{
 				j = -1;
-				while (++j < CELL_S)
+				while (++j < data->map.cell_s)
 				{
-					px = x * CELL_S + i;
-					py = y * CELL_S + j;
+					px = x * data->map.cell_s + i;
+					py = y * data->map.cell_s + j;
 					if (data->map.grid[y][x] == '1')
 						mlx_put_pixel(data->mlx.ptr_img, px, py, 0x350707A1);
+					else if (data->map.grid[y][x] == '2')
+						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xA507A7A1);
 					else
 						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xF5DEB388);
 				}
@@ -225,13 +227,13 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 		while (++y < data->map.grid_y)
 		{
 			i = -1;
-			while (++i < CELL_S)
+			while (++i < data->map.cell_s)
 			{
 				j = -1;
-				while (++j < CELL_S)
+				while (++j < data->map.cell_s)
 				{
-					px = x * CELL_S + i;
-					py = y * CELL_S + j;
+					px = x * data->map.cell_s + i;
+					py = y * data->map.cell_s + j;
 					if (y < data->map.grid_y / 2)
 						mlx_put_pixel(data->mlx.ptr_img, px, py,
 							ft_color(data->ceiling_color));
@@ -248,20 +250,13 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 //------------------------------ Draw Rays :
 //----------------------------------------------
 
-void	ft_draw_ray(t_data *data, double angle, int f, double ray_len)
+void	ft_draw_ray(t_data *data, double angle, double ray_len)
 {
-    int x0 = (int)((data->player.pos_x * CELL_S)) ;
-    int y0 = (int)((data->player.pos_y * CELL_S));
-    double len_in_pixels = (ray_len ) * CELL_S;
-	int x1,y1;
-	if(f){
-		x1 = (int)(x0 + cos(angle) * len_in_pixels);
-		y1 = (int)(y0 + sin(angle) * len_in_pixels);
-	}
-	else{
-		x1 = (int)(x0 + cos(angle) * ray_len);
-		y1 = (int)(y0 + sin(angle) * ray_len);
-	}
+    int x0 = (int)((data->player.pos_x * data->map.cell_s)) ;
+    int y0 = (int)((data->player.pos_y * data->map.cell_s));
+    double len_in_pixels = (ray_len ) * data->map.cell_s;
+	int	x1 = (int)(x0 + cos(angle) * len_in_pixels);
+	int	y1 = (int)(y0 + sin(angle) * len_in_pixels);
     int dx = abs(x1 - x0);
     int sx = (x0 < x1) ? 1 : -1;
     int dy = -abs(y1 - y0);
@@ -270,10 +265,7 @@ void	ft_draw_ray(t_data *data, double angle, int f, double ray_len)
     int e2;
     while (1)
     {
-		if(f)
-			mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0xADD8E6FF);
-		else
-			mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0xFF0000FF);
+		mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0x500075FF);
         if (x0 == x1 && y0 == y1)
             break ;
         e2 = 2 * err;
@@ -292,68 +284,71 @@ void	ft_draw_ray(t_data *data, double angle, int f, double ray_len)
 //------------------------------ Raycasting :
 //----------------------------------------------
 
-void	ft_init_ray_data(t_data *data, int i, double r)
+void	ft_init_ray_data(t_data *data, t_ray *ray, int i, double r)
 {
-	RAY(i).angle = (ANG - (FOV / 2)) + (i * r);
-	if (RAY(i).angle < 0)
-		RAY(i).angle += 2 * M_PI;
-	else if (RAY(i).angle >= 2 * M_PI)
-		RAY(i).angle -= 2 * M_PI;
-	RAY(i).ang_cos = cos(RAY(i).angle);
-	RAY(i).const_x = fabs(CELL_S / RAY(i).ang_cos);
-	RAY(i).x = floor(data->player.pos_x);
-	RAY(i).ang_sin = sin(RAY(i).angle);
-	RAY(i).const_y = fabs(CELL_S / RAY(i).ang_sin);
-	RAY(i).y = floor(data->player.pos_y);
-	RAY(i).hit = 0;
+	ray->angle = (data->ang - (data->fov / 2)) + (i * r);
+	if (ray->angle < 0)
+		ray->angle += 2 * M_PI;
+	else if (ray->angle >= 2 * M_PI)
+		ray->angle -= 2 * M_PI;
+	ray->ang_cos = cos(ray->angle);
+	ray->const_x = fabs(data->map.cell_s / ray->ang_cos);
+	ray->x = floor(data->player.pos_x);
+	ray->ang_sin = sin(ray->angle);
+	ray->const_y = fabs(data->map.cell_s / ray->ang_sin);
+	ray->y = floor(data->player.pos_y);
+	ray->hit = 0;
 }
 
-void	ft_first_cell_len(t_data *data, int i)
+void	ft_first_cell_len(t_data *data, t_ray *ray)
 {
-	if (RAY(i).ang_cos < 0)
+	if (ray->ang_cos < 0)
 	{
-		RAY(i).step_x = -1;
-		RAY(i).extra_x = (data->player.pos_x - RAY(i).x) * RAY(i).const_x;
+		ray->step_x = -1;
+		ray->extra_x = (data->player.pos_x - ray->x) * ray->const_x;
 	}
 	else
 	{
-		RAY(i).step_x = 1;
-		RAY(i).extra_x = (RAY(i).x + 1.0 - data->player.pos_x) * RAY(i).const_x;
+		ray->step_x = 1;
+		ray->extra_x = (ray->x + 1.0 - data->player.pos_x) * ray->const_x;
 	}
-	if (RAY(i).ang_sin < 0)
+	if (ray->ang_sin < 0)
 	{
-		RAY(i).step_y = -1;
-		RAY(i).extra_y = (data->player.pos_y - RAY(i).y) * RAY(i).const_y;
+		ray->step_y = -1;
+		ray->extra_y = (data->player.pos_y - ray->y) * ray->const_y;
 	}
 	else
 	{
-		RAY(i).step_y = 1;
-		RAY(i).extra_y = (RAY(i).y + 1.0 - data->player.pos_y) * RAY(i).const_y;
+		ray->step_y = 1;
+		ray->extra_y = (ray->y + 1.0 - data->player.pos_y) * ray->const_y;
 	}
 }
 
-void	ft_dda(t_data *data, int i)
+void	ft_dda(t_data *data, t_ray *ray)
 {
-	while (RAY(i).hit == 0)
+	char	w;
+
+	while (ray->hit == 0)
 	{
-		if (RAY(i).extra_x < RAY(i).extra_y)
+		if (ray->extra_x < ray->extra_y)
 		{
-			RAY(i).extra_x += RAY(i).const_x;
-			RAY(i).x += RAY(i).step_x;
-			RAY(i).side = 0;
-			RAY(i).len = (RAY(i).x - data->player.pos_x + (1 - RAY(i).step_x)
-				/ 2) / RAY(i).ang_cos;
+			ray->extra_x += ray->const_x;
+			ray->x += ray->step_x;
+			ray->side = 0;
+			ray->len = (ray->x - data->player.pos_x + (1 - ray->step_x) / 2)
+				/ ray->ang_cos;
 		}
 		else
 		{
-			RAY(i).extra_y += RAY(i).const_y;
-			RAY(i).y += RAY(i).step_y;
-			RAY(i).side = 1;
-			RAY(i).len = (RAY(i).y - data->player.pos_y + (1 - RAY(i).step_y)
-				/ 2) / RAY(i).ang_sin;
+			ray->extra_y += ray->const_y;
+			ray->y += ray->step_y;
+			ray->side = 1;
+			ray->len = (ray->y - data->player.pos_y + (1 - ray->step_y) / 2)
+				/ ray->ang_sin;
 		}
-		if (data->map.grid[RAY(i).y][RAY(i).x] == '1')
-			RAY(i).hit = 1;
+		w = data->map.grid[ray->y][ray->x];
+		if (w == '1' || w == '2')
+			ray->hit = 1;
 	}
 }
 
@@ -363,18 +358,14 @@ void	ft_raycasting(t_data *data)
 	double	r;
 
 	i = -1;
-	FOV = RAD(90);
-	r = FOV / RAYS;
+	r = data->fov / RAYS;
 	while (++i < RAYS)
 	{
-		ft_init_ray_data(data, i, r);
-		ft_first_cell_len(data, i);
-		ft_dda(data, i);
-		ft_draw_ray(data, RAY(i).angle, 1, RAY(i).len);
+		ft_init_ray_data(data, &data->rays[i], i, r);
+		ft_first_cell_len(data, &data->rays[i]);
+		ft_dda(data, &data->rays[i]);
+		ft_draw_ray(data, data->rays[i].angle, data->rays[i].len);
 	}
-	ft_draw_ray(data, ANG, 0, 50);
-	ft_draw_ray(data, ANG - (FOV / 2), 0, 50);
-	ft_draw_ray(data, ANG + (FOV / 2), 0, 50);
 }
 
 //----------------------------------------------
@@ -438,7 +429,9 @@ int	ft_init_mlx_map(t_data *data)
 			0);
 	if (data->mlx.id_img == -1)
 		return (-1);
-	CELL_S = (int)fmin(HEIGHT / data->map.grid_y, WIDTH / data->map.grid_x);
+	data->map.cell_s = (int)fmin(HEIGHT / data->map.grid_y, WIDTH
+			/ data->map.grid_x);
+	data->fov = ft_rad(90);
 	return (0);
 }
 

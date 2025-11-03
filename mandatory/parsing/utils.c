@@ -67,7 +67,7 @@ void	free_map(t_map *map)
 	free(map->grid);
 	map->grid = NULL;
 	map->grid_y = 0;
-	map->grid_x  = 0;
+	map->grid_x = 0;
 }
 
 void	free_data(t_data *data)
