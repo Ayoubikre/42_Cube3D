@@ -1,0 +1,14 @@
+# Object files
+*.o
+*.a
+
+# Executables
+cub3D
+
+# IDE and editor files
+.vscode/
+.DS_Store
+*~
+
+# Debug files
+*.dSYM/
