@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/03 14:17:34 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/03 16:34:08 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define ELEM_COUNT 6
 
 # define M_PI 3.14159265358979323846
-# define RAYS 1500
+# define RAYS 400
 # define MOUSE_SP 0.002
 
 typedef struct s_ray
