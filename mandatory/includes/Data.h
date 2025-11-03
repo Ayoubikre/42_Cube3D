@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/03 13:37:02 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/03 13:46:29 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,6 @@ typedef struct s_data
 	t_ray		*rays;
 	double		fov;
 	double		ang;
-	// int 		init_time;
-	// int 		final_time;
-	// int 		fps;
 }				t_data;
 
 #endif
