@@ -1,17 +1,16 @@
 
 
-NO Tools/textures/simonkraft/respawn_anchor_side0.xpm
-EA Tools/textures/simonkraft/respawn_anchor_side2.xpm
-SO Tools/textures/simonkraft/respawn_anchor_side4.xpm
-WE Tools/textures/simonkraft/respawn_anchor_side3.xpm
+NO Tools/textures_2/Miscellaneous_Walls.png
+EA Tools/textures_2/Miscellaneous_Walls.png
+SO Tools/textures_2/Miscellaneous_Walls.png
+WE Tools/textures_2/Miscellaneous_Walls.png
+DR Tools/textures_2/door.png
+PR Tools/textures_2/1337.png
 
 
 
-
-F 52,254,0000000
-C 35,19,73
-
-
+C 20, 90, 255
+F 10, 20, 40
 
 
 
@@ -21,9 +20,9 @@ C 35,19,73
 1000000000000000000011111
 1000000000010010000000001
 1001010000110011000101001
-1000100000000000000010001
+1000100000200002000010001
 1001010000110011000101001
 1000000000010010000000001
-1111100000000000000000001
+1111100020000000000000001
 10E0000000000000000000001
 1111111111111111111111111

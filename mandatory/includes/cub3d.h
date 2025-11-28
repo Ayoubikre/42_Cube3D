@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/03 12:45:17 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/28 00:19:03 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,25 @@ void	init_data(t_data *data);
 
 // -------------------------------------------- Raycasting:
 
-double	ft_rad(double x);
-double	ft_deg(double x);
-int		ft_start(t_data *data);
+void		draw_background(t_data *data);
+double		norm_pi(double a);
+void		put_px(mlx_image_t *img, int x, int y, uint32_t color);
+
+void		calculate_wall_projection(t_data *data, t_render_vars *vars);
+double		calculate_wall_x(t_data *data, t_render_vars *vars);
+int			calculate_texture_x(t_data *data, t_render_vars *vars, double wallX, int tex_index);
+void		draw_column_pixels(t_data *data, t_render_vars *vars, int tex_index, int texX);
+int			get_text_index(t_ray *ray);
+uint32_t	get_fallback_color(int tex_index);
+uint32_t	get_texture_pixel(t_data *data, int tex_index, int x, int y);
+
+void			ft_render_column(t_data *data, t_render_vars *vars);
+void			cleanup_textures(t_data *data);
+void			ft_render3d(t_data *data);
+int				ft_init_textures(t_data *data);
+unsigned int	ft_color(t_color clr);
+double			ft_rad(double x);
+double			ft_deg(double x);
+int				ft_start(t_data *data);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akzaza <akzaza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 16:44:11 by anktiri           #+#    #+#             */
-/*   Updated: 2025/10/19 14:50:51 by akzaza           ###   ########.fr       */
+/*   Updated: 2025/11/27 20:28:58 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	is_map_char(char c)
 {
-	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E' || c == 'W'
-		|| c == ' ');
+	return (c == '0' || c == '1' || c == '2' || c == '4' || \
+	c == 'N' || c == 'S' || c == 'E' || c == 'W' || c == ' ');
 }
 
 int	element_line(char *line, t_data *data)

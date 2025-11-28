@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 20:56:32 by akzaza            #+#    #+#             */
-/*   Updated: 2025/10/29 14:59:07 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/28 00:20:52 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init_data(t_data *data)
 	while (i < TEX_COUNT)
 	{
 		data->textures[i] = NULL;
+		data->load_textures[i].tex = NULL;
+		data->load_textures[i].loaded = 0;
 		i++;
 	}
 	data->floor_color = (t_color){0, 0, 0};
@@ -65,7 +67,7 @@ static void	print_map(t_data *data)
 	}
 }
 
-static void	print_parse_results(t_data *data)
+void	print_parse_results(t_data *data)
 {
 	printf("\n✓ Parsing Complete!\n");
 	printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");

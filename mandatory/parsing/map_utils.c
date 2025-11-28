@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:55:35 by akzaza            #+#    #+#             */
-/*   Updated: 2025/11/03 13:22:02 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/28 00:21:06 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,19 @@ char	get_char_at(t_data *data, int y, int x)
 static int	check_surrounded(t_data *data, int y, int x)
 {
 	char	c;
-	int		dy;
-	int		dx;
 
-	dy = -1;
-	while (dy <= 1)
-	{
-		dx = -1;
-		while (dx <= 1)
-		{
-			if (dy == 0 && dx == 0)
-			{
-				dx++;
-				continue ;
-			}
-			c = get_char_at(data, y + dy, x + dx);
-			if (!is_valid_pos(c))
-				return ((print_error("Map not closed (space or \
-					void near walkable area)")),
-					0);
-			dx++;
-		}
-		dy++;
-	}
+	c = get_char_at(data, y - 1, x);
+	if (!is_valid_pos(c))
+		return (0);
+	c = get_char_at(data, y + 1, x);
+	if (!is_valid_pos(c))
+		return (0);
+	c = get_char_at(data, y, x - 1);
+	if (!is_valid_pos(c))
+		return (0);
+	c = get_char_at(data, y, x + 1);
+	if (!is_valid_pos(c))
+		return (0);
 	return (1);
 }
 
@@ -83,10 +73,12 @@ int	check_map_closed(t_data *data)
 		while (data->map.grid[i][j])
 		{
 			c = data->map.grid[i][j];
-			if (c == '0' || c == 'N' || c == 'S' || c == 'E' || c == 'W')
+			if (c == '0' || c == '2' || c == '4' || c == 'N' || c == 'S' \
+			|| c == 'E' || c == 'W')
 			{
 				if (!check_surrounded(data, i, j))
-					return (0);
+					return ((print_error("Map not closed (space or \
+void near walkable area)")), 0);
 			}
 			j++;
 		}

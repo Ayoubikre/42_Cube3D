@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Data.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/03 16:34:08 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/11/27 21:48:47 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 #  include "../../Tools/mlx/macOS/MLX42.h"
 # endif
 
-# define WIDTH 1280
-# define HEIGHT 565
+# define WIDTH 1100
+# define HEIGHT 1080
 
 // # define WIDTH 800
 // # define HEIGHT 600
@@ -29,19 +29,36 @@
 # define SOUTH 1
 # define WEST 2
 # define EAST 3
+# define DOOR 4
+# define PORTAL 5
 
-# define TEX_COUNT 4
+# define TEX_COUNT 6
 # define ELEM_NO 0
 # define ELEM_SO 1
 # define ELEM_WE 2
 # define ELEM_EA 3
-# define ELEM_F 4
-# define ELEM_C 5
-# define ELEM_COUNT 6
+# define ELEM_DR 4
+# define ELEM_PR 5
+# define ELEM_F 6
+# define ELEM_C 7
+# define ELEM_COUNT 8
 
 # define M_PI 3.14159265358979323846
-# define RAYS 400
+# define VISIBLE_DISTANCE 100
+# define RAYS WIDTH
 # define MOUSE_SP 0.002
+
+typedef struct	s_render_vars
+{
+	double		proj;
+	int			column;
+	int			ray_i;
+	double		wall_dist;
+	int			lineH;
+	int			drawStart;
+	int			drawEnd;
+	int			ray_side;
+}				t_render_vars;
 
 typedef struct s_ray
 {
@@ -60,6 +77,7 @@ typedef struct s_ray
 	int			step_y;
 	int			hit;
 	int			side;
+	char		drc;
 }				t_ray;
 
 typedef struct s_minimap
@@ -102,10 +120,22 @@ typedef struct s_mlx
 	int32_t		id_img;
 }				t_mlx;
 
+typedef struct s_texture
+{
+	mlx_texture_t	*tex;
+	unsigned int	width;
+	unsigned int	height;
+	uint8_t			*pixels;
+	int				bytes_per_pixel;
+	int				loaded;
+	xpm_t			*xpm;
+}	t_texture;
+
 typedef struct s_data
 {
 	int			parsed[ELEM_COUNT];
 	char		*textures[TEX_COUNT];
+	t_texture	load_textures[TEX_COUNT];
 	t_color		floor_color;
 	t_color		ceiling_color;
 	t_map		map;
@@ -115,6 +145,7 @@ typedef struct s_data
 	t_ray		*rays;
 	double		fov;
 	double		ang;
+	double		move_speed;
 }				t_data;
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akzaza <akzaza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 01:44:22 by anktiri           #+#    #+#             */
-/*   Updated: 2025/10/19 14:51:54 by akzaza           ###   ########.fr       */
+/*   Updated: 2025/11/27 20:55:04 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ int	is_texture_line(char *line)
 			&& (str[2] == '\0' || ft_isspace(str[2]))) || (ft_strncmp(str, "WE",
 				2) == 0 && (str[2] == '\0' || ft_isspace(str[2])))
 		|| (ft_strncmp(str, "EA", 2) == 0 && (str[2] == '\0'
-				|| ft_isspace(str[2]))))
+				|| ft_isspace(str[2]))) || (ft_strncmp(str, "DR", 2) == 0
+			&& (str[2] == '\0' || ft_isspace(str[2]))) || (ft_strncmp(str, "PR",
+				2) == 0 && (str[2] == '\0' || ft_isspace(str[2]))))
 		return (1);
 	return (0);
 }
@@ -88,7 +90,9 @@ int	is_element_line(char *line)
 			&& (str[2] == '\0' || ft_isspace(str[2]))) || (ft_strncmp(str, "WE",
 				2) == 0 && (str[2] == '\0' || ft_isspace(str[2])))
 		|| (ft_strncmp(str, "EA", 2) == 0 && (str[2] == '\0'
-				|| ft_isspace(str[2]))))
+				|| ft_isspace(str[2]))) || (ft_strncmp(str, "DR", 2) == 0
+			&& (str[2] == '\0' || ft_isspace(str[2]))) || (ft_strncmp(str, "PR",
+				2) == 0 && (str[2] == '\0' || ft_isspace(str[2]))))
 		return (1);
 	if ((str[0] == 'F' && (str[1] == '\0' || ft_isspace(str[1])))
 		|| (str[0] == 'C' && (str[1] == '\0' || ft_isspace(str[1]))))

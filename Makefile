@@ -22,7 +22,7 @@ CC = cc
 # CFLAGS  = -Wall
 # CFLAGS  = -Wall -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
-CFLAGS  = -Wall -Werror -Wextra
+# CFLAGS  = -Wall -Werror -Wextra
 
 
 Parse = mandatory/main.c \
@@ -37,7 +37,9 @@ Parse = mandatory/main.c \
 		mandatory/parsing/map_utils.c \
 		mandatory/parsing/map_utils2.c
 
-Rays = 	mandatory/Raycasting/ft_raycast.c \
+Rays = 	mandatory/Raycasting/ft_raycast.c mandatory/Raycasting/ft_3drendering.c \
+		mandatory/Raycasting/ft_textures.c mandatory/Raycasting/render_text.c \
+		mandatory/Raycasting/redering_text_utils.c
 
 SRC = $(Parse) \
 		$(Rays) \

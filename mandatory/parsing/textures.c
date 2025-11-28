@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akzaza <akzaza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 07:34:36 by anktiri           #+#    #+#             */
-/*   Updated: 2025/10/19 14:52:31 by akzaza           ###   ########.fr       */
+/*   Updated: 2025/11/27 20:56:42 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ int	get_texture_index(char *identifier, int *text, int *elemt)
 	else if (ft_strncmp(identifier, "EA", 2) == 0 && (identifier[2] == '\0'
 			|| ft_isspace(identifier[2])))
 		return ((*text = EAST), (*elemt = ELEM_EA), 1);
+	else if (ft_strncmp(identifier, "DR", 2) == 0 && (identifier[2] == '\0'
+			|| ft_isspace(identifier[2])))
+		return ((*text = DOOR), (*elemt = ELEM_DR), 1);
+	else if (ft_strncmp(identifier, "PR", 2) == 0 && (identifier[2] == '\0'
+			|| ft_isspace(identifier[2])))
+		return ((*text = PORTAL), (*elemt = ELEM_PR), 1);
 	return (0);
 }
 

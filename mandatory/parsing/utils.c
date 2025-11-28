@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 17:00:29 by anktiri           #+#    #+#             */
-/*   Updated: 2025/10/29 14:56:33 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/23 04:23:44 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,17 @@ int	check_extension(char *str, int flag)
 {
 	if (flag == 1)
 	{
-		if (ft_strncmp(str, ".cub", 5) != 0)
-			return (0);
+		if (ft_strncmp(str, ".cub", 4) == 0)
+			return (1);
+		return (0);
 	}
 	if (flag == 2)
 	{
-		if (ft_strncmp(str, ".xpm", 5) != 0)
+		if (ft_strncmp(str, ".xpm", 4) == 0)
 			return (1);
-		if (ft_strncmp(str, ".png", 5) != 0)
+		if (ft_strncmp(str, ".png", 4) == 0)
 			return (2);
+		return (0);
 	}
 	return (-1);
 }

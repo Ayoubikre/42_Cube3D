@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/03 14:16:48 by noctis           ###   ########.fr       */
+/*   Updated: 2025/11/28 04:23:03 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,38 @@ void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 	data = (t_data *)param;
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_ESCAPE))
 		mlx_close_window(data->mlx.ptr);
+	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_F))
+	{
+		if (data->rays[RAYS / 2].hit == 2)
+		{
+			if (data->rays[RAYS / 2].len <= 2.0 && data->rays[RAYS / 2].hit == 2)
+				data->map.grid[data->rays[RAYS / 2].y][data->rays[RAYS / 2].x] = '3';
+		}
+	}
+}
+
+void	ft_close_doors(t_data *data)
+{
+	int	x;
+	int	y;
+	int dff_x;
+	int dff_y;
+
+	y = -1;
+	while (++y < data->map.grid_y)
+	{
+		x = -1;
+		while (++x < data->map.grid_x)
+		{
+			if (data->map.grid[y][x] != '3')
+				continue ;
+			dff_x = (int)(data->player.pos_x) - x;
+			dff_y = (int)(data->player.pos_y) - y;
+			if (dff_x >= -2 && dff_x <= 2 && dff_y >= -2 && dff_y <= 2)
+				continue ;
+			data->map.grid[y][x] = '2';
+		}
+	}
 }
 
 //----------------------------------------------
@@ -71,7 +103,7 @@ int	ft_find_walls(t_data *data, int x, int y)
 		return (1);
 	if (y < 0 || y >= data->map.grid_y)
 		return (1);
-	if (data->map.grid[y][x] == '1' || data->map.grid[y][x] == '2')
+	if (data->map.grid[y][x] == '1' || data->map.grid[y][x] == '2' || data->map.grid[y][x] == '4')
 		return (1);
 	return (0);
 }
@@ -126,21 +158,21 @@ void	ft_capture_player_moves(t_data *data)
 {
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_W))
 	{
-		ft_move(data, cos(data->ang), sin(data->ang), 0.1);
+		ft_move(data, cos(data->ang), sin(data->ang), data->move_speed);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_S))
 	{
-		ft_move(data, -cos(data->ang), -sin(data->ang), 0.1);
+		ft_move(data, -cos(data->ang), -sin(data->ang), data->move_speed);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_D))
 	{
 		ft_move(data, cos(data->ang + M_PI / 2), sin(data->ang + M_PI / 2),
-			0.1);
+			data->move_speed);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_A))
 	{
 		ft_move(data, cos(data->ang - M_PI / 2), sin(data->ang - M_PI / 2),
-			0.1);
+			data->move_speed);
 	}
 	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
 	{
@@ -153,7 +185,32 @@ void	ft_capture_player_moves(t_data *data)
 		data->ang += ft_rad(2);
 		if (data->ang >= 2 * M_PI)
 			data->ang -= 2 * M_PI;
-	}}
+	}
+}
+
+void	ft_speed(t_data *data)
+{
+	double FOV_MAX;
+	double SPRINT_SPEED;
+	double target_fov;
+	double target_speed;
+	
+	FOV_MAX = ft_rad(120);
+	SPRINT_SPEED = 0.50;
+	target_fov = ft_rad(60);
+	target_speed = 0.10;
+	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT_SHIFT))
+	{
+		target_fov = FOV_MAX;
+		target_speed = SPRINT_SPEED;
+	}
+	data->fov += (target_fov - data->fov) * 0.05;
+	if (data->fov > FOV_MAX)
+		data->fov = FOV_MAX;
+	data->move_speed += (target_speed - data->move_speed) * 0.05;
+	if (data->move_speed > SPRINT_SPEED)
+		data->move_speed = SPRINT_SPEED;
+}
 
 //----------------------------------------------
 //------------------------------ get colores:
@@ -161,7 +218,10 @@ void	ft_capture_player_moves(t_data *data)
 
 unsigned int	ft_color(t_color clr)
 {
-	return (clr.r << 16 | clr.g << 8 | clr.b);
+	unsigned int r = (unsigned int)(clr.r & 0xFF);
+	unsigned int g = (unsigned int)(clr.g & 0xFF);
+	unsigned int b = (unsigned int)(clr.b & 0xFF);
+	return (r << 24) | (g << 16) | (b << 8) | 0xFFu;
 }
 
 //----------------------------------------------
@@ -211,6 +271,8 @@ void	ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py)
 						mlx_put_pixel(data->mlx.ptr_img, px, py, 0x350707A1);
 					else if (data->map.grid[y][x] == '2')
 						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xA507A7A1);
+					else if (data->map.grid[y][x] == '4')
+						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xFF07AFA1);
 					else
 						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xF5DEB388);
 				}
@@ -329,6 +391,24 @@ void	ft_first_cell_len(t_data *data, t_ray *ray)
 	}
 }
 
+void ft_set_texture_info(t_ray *ray)
+{
+	if(ray->side == 0)
+	{
+		if (ray->ang_cos < 0)
+			ray->drc = 'E';
+		else
+			ray->drc = 'W';
+	}
+	else
+	{
+		if (ray->ang_sin < 0)
+			ray->drc = 'S';
+		else
+			ray->drc = 'N';
+	}
+}
+
 void	ft_dda(t_data *data, t_ray *ray)
 {
 	char	w;
@@ -352,8 +432,16 @@ void	ft_dda(t_data *data, t_ray *ray)
 				/ ray->ang_sin;
 		}
 		w = data->map.grid[ray->y][ray->x];
-		if (w == '1' || w == '2')
-			ray->hit = 1;
+		if (w == '1' || w == '2' || w == '4')
+		{
+			if (w == '2')
+				ray->hit = 2;
+			else if (w == '4')
+				ray->hit = 4;
+			else
+				ray->hit = 1;
+		}
+		ft_set_texture_info(ray);
 	}
 }
 
@@ -385,9 +473,11 @@ void	ft_clean(t_data *data, int f)
 		mlx_delete_image(data->mlx.ptr, data->mini.ptr_img);
 	if (f >= 2)
 		free(data->rays);
-	// if(f>=3)
-	// {
-	// }
+	if (f >= 3)
+	{
+		cleanup_textures(data);
+		mlx_delete_image(data->mlx.ptr, data->mini.ptr_img);
+	}
 	mlx_terminate(data->mlx.ptr);
 }
 
@@ -400,11 +490,14 @@ void	ft_all(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	ft_draw_background(data, 0, 0);
+	// ft_draw_background(data, 0, 0);
 	ft_draw_map_2d(data, 0, 0);
 	ft_capture_player_moves(data);
+	ft_speed(data);
 	ft_draw_player_2d(data, 0, 0);
 	ft_raycasting(data);
+	ft_close_doors(data);
+	ft_render3d(data);
 }
 
 //----------------------------------------------
@@ -436,7 +529,8 @@ int	ft_init_mlx_map(t_data *data)
 		return (-1);
 	data->map.cell_s = (int)fmin(HEIGHT / data->map.grid_y, WIDTH
 			/ data->map.grid_x);
-	data->fov = ft_rad(90);
+	data->fov = ft_rad(60);
+	data->move_speed = 0.10;
 	return (0);
 }
 
@@ -469,8 +563,8 @@ int	ft_init_game(t_data *data)
 		return (ft_clean(data, 1), -1);
 	if (ft_init_rays(data) == -1)
 		return (ft_clean(data, 2), -1);
-	// if(ft_init_textures(data)==-1)
-	// 	return (ft_clean(data,3), -1);
+	if(ft_init_textures(data) == -1)
+		return (ft_clean(data,3), -1);
 	data->player.mouse_l_p = -1;
 	return (0);
 }

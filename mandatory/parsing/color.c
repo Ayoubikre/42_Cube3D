@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akzaza <akzaza@student.42.fr>              +#+  +:+       +#+        */
+/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 08:03:13 by anktiri           #+#    #+#             */
-/*   Updated: 2025/10/19 07:39:53 by akzaza           ###   ########.fr       */
+/*   Updated: 2025/11/28 00:20:27 by anktiri          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	validate_elements_complete(t_data *data)
 
 int	is_valid_pos(char c)
 {
-	return (c == '0' || c == '1' || c == 'N' || c == 'S' || c == 'E'
-		|| c == 'W');
+	return (c == '0' || c == '1' || c == '2' || c == '4' \
+	|| c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
 int	parse_floor_color(char *line, t_data *data)
