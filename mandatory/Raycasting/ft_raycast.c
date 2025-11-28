@@ -431,12 +431,8 @@ void	ft_dda(t_data *data, t_ray *ray)
 			ray->len = (ray->y - data->player.pos_y + (1 - ray->step_y) / 2)
 				/ ray->ang_sin;
 		}
-		if (ray->y < 0 || ray->y >= data->map.grid_y || ray->x < 0)
-		{
-			ray->hit = 1;
-			break ;
-		}
-		if (ray->x >= (int)ft_strlen(data->map.grid[ray->y]))
+		if (ray->y < 0 || ray->y >= data->map.grid_y || ray->x < 0
+			|| ray->x >= (int)ft_strlen(data->map.grid[ray->y]))
 		{
 			ray->hit = 1;
 			break ;
