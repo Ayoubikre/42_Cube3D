@@ -77,6 +77,8 @@ int tex_x)
 	int			tex_height;
 	uint32_t	color;
 
+	if (!data->load_textures[tex_index].tex)
+		return ;
 	tex_height = data->load_textures[tex_index].tex->height;
 	if (vars->lineH <= 0 || tex_height <= 0)
 		return ;

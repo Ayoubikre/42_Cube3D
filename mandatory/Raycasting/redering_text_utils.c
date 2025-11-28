@@ -19,9 +19,11 @@ double wallX, int tex_index)
 	int		tex_x;
 	int		tex_width;
 
+	if (!data->load_textures[tex_index].tex)
+		return (0);
 	ray = &data->rays[vars->ray_i];
-	tex_x = (int)(wallX * tex_width);
 	tex_width = data->load_textures[tex_index].tex->width;
+	tex_x = (int)(wallX * tex_width);
 	if (ray->side == 0)
 	{
 		if (ray->ang_cos < 0)

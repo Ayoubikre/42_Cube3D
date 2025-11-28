@@ -55,6 +55,8 @@ void	ft_render_column(t_data *data, t_render_vars *vars)
 	calculate_wall_projection(data, vars);
 	vars->ray_side = data->rays[vars->ray_i].side;
 	tex_index = get_text_index(&data->rays[vars->ray_i]);
+	if (tex_index < 0 || tex_index >= TEX_COUNT)
+		return ;
 	wall_x = calculate_wall_x(data, vars);
 	tex_x = calculate_texture_x(data, vars, wall_x, tex_index);
 	draw_column_pixels(data, vars, tex_index, tex_x);

@@ -59,7 +59,7 @@ void	ft_close_doors(t_data *data)
 	while (++y < data->map.grid_y)
 	{
 		x = -1;
-		while (++x < data->map.grid_x)
+		while (++x < (int)ft_strlen(data->map.grid[y]))
 		{
 			if (data->map.grid[y][x] != '3')
 				continue ;
@@ -430,6 +430,16 @@ void	ft_dda(t_data *data, t_ray *ray)
 			ray->side = 1;
 			ray->len = (ray->y - data->player.pos_y + (1 - ray->step_y) / 2)
 				/ ray->ang_sin;
+		}
+		if (ray->y < 0 || ray->y >= data->map.grid_y || ray->x < 0)
+		{
+			ray->hit = 1;
+			break ;
+		}
+		if (ray->x >= (int)ft_strlen(data->map.grid[ray->y]))
+		{
+			ray->hit = 1;
+			break ;
 		}
 		w = data->map.grid[ray->y][ray->x];
 		if (w == '1' || w == '2' || w == '4')
