@@ -7,7 +7,7 @@ WE Tools/textures_2/M_W.png
 DR Tools/textures_2/door.png
 PR Tools/textures_2/1337.png
 
-
+LV  ./map2.cub
 
 C 20, 90, 255
 F 10, 20, 40 

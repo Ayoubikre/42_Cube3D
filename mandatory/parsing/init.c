@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 20:56:32 by akzaza            #+#    #+#             */
-/*   Updated: 2025/12/03 13:13:34 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/03 13:54:32 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_data(t_data *data)
 	data->player.pos_x = 0;
 	data->player.pos_y = 0;
 	data->player.orientation = 0;
+	data->next_file = NULL;
 	i = 0;
 	while (i < ELEM_COUNT)
 	{

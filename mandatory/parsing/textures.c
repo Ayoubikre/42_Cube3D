@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 07:34:36 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/27 20:56:42 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/03 14:41:19 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	set_texture(t_data *data, int tex_idx, int elem_idx, char *path)
 	return (1);
 }
 
-int	parse_texture_line(char *line, t_data *data)
+int	parse_texture_line(char *line, t_data *data, int f)
 {
 	char	*identifier;
 	char	*path;
@@ -97,15 +97,17 @@ int	parse_texture_line(char *line, t_data *data)
 	identifier = skip_spaces(line);
 	if (!identifier || !*identifier)
 		return (0);
-	if (!get_texture_index(identifier, &tex_idx, &elem_idx))
+	if (!f && !get_texture_index(identifier, &tex_idx, &elem_idx))
 		return (0);
 	identifier += 2;
 	identifier = skip_spaces(identifier);
 	path = extract_texture_path(identifier);
-	if (!path)
+	if (f==0 && !path)
 	{
 		print_error("Invalid texture path");
 		return (0);
 	}
+	else if (f == 1)
+		return ((data->next_file = path), 1);
 	return (set_texture(data, tex_idx, elem_idx, path));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 01:44:22 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/27 20:55:04 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/03 14:06:52 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	is_element_line(char *line)
 		return (1);
 	if ((str[0] == 'F' && (str[1] == '\0' || ft_isspace(str[1])))
 		|| (str[0] == 'C' && (str[1] == '\0' || ft_isspace(str[1]))))
+		return (1);
+	if (ft_strncmp(str, "LV", 2) == 0 && (str[2] == '\0' || ft_isspace(str[2])))
 		return (1);
 	return (0);
 }

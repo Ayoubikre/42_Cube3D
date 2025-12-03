@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/03 12:40:00 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/03 14:14:42 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				main_core(t_data *data, char *file_name);
 
 int				check_file(char *filename, int flag);
 
-int				parse_texture_line(char *line, t_data *data);
+int				parse_texture_line(char *line, t_data *data, int f);
 int				parse_color_line(char *line, t_data *data);
 int				parse_rgb(char *str, t_color *color);
 
@@ -63,6 +63,9 @@ void			set_player_data(t_data *data, int i, int j);
 char			get_char_at(t_data *data, int y, int x);
 int				is_valid_pos(char c);
 int				is_player_char(char c);
+
+int				parse_lvl_line(char *line, t_data *data);
+int				is_lvl_line(char *line);
 
 void			print_error(char *msg);
 void			free_data(t_data *data);

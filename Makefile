@@ -20,7 +20,7 @@ endif
 CC = cc
 
 # CFLAGS  = -Wall
-# CFLAGS  = -Wall -fsanitize=address 
+# CFLAGS  = -Wall -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra
 
@@ -29,6 +29,7 @@ Parse = mandatory/main.c \
 		mandatory/parsing/utils.c \
 		mandatory/parsing/parsing.c \
 		mandatory/parsing/parsing_utils.c \
+		mandatory/parsing/parse_levels.c \
 	  	mandatory/parsing/textures.c \
 		mandatory/parsing/color.c \
 		mandatory/parsing/color_utils.c \

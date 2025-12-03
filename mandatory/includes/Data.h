@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/03 05:08:55 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/03 13:55:26 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ typedef struct s_data
 {
 	int				parsed[ELEM_COUNT];
 	char			*textures[TEX_COUNT];
+	char			*next_file;
 	t_texture		load_textures[TEX_COUNT];
 	t_color			floor_color;
 	t_color			ceiling_color;
@@ -148,25 +149,5 @@ typedef struct s_data
 	double			move_speed;
 }					t_data;
 
-
-typedef struct s_data
-{
-	
-	int				parsed[ELEM_COUNT];
-	char			*textures[TEX_COUNT];
-	t_texture		load_textures[TEX_COUNT];
-	
-	t_color			floor_color;
-	t_color			ceiling_color;
-	
-	t_map			map;
-	t_mlx			mlx;
-	t_player		player;
-	t_mini			mini;
-	t_ray			*rays;
-	double			fov;
-	double			ang;
-	double			move_speed;
-}					t_data;
 
 #endif

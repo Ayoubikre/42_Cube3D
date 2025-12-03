@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:55:49 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/03 12:59:32 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/03 13:56:35 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ void	print_parse_results(t_data *data)
 	printf("  East:   %s\n", data->textures[EAST]);
 	printf("  Door:   %s\n", data->textures[DOOR]);
 	printf("  Portal:   %s\n", data->textures[PORTAL]);
+	printf("\nPATH:\n");
+	printf("  Next lvl Path:   %s\n", data->next_file);
 	printf("\nCOLORS:\n");
 	printf("  Floor:   RGB(%d, %d, %d)\n", data->floor_color.r,
 		data->floor_color.g, data->floor_color.b);
