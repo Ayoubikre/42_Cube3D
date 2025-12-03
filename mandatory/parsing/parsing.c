@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 16:44:11 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/27 20:28:58 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/03 12:53:07 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	parse_file(char *filename, t_data *data)
 		return ((print_error("Cannot open file")), 0);
 	first_mline = NULL;
 	if (!parse_elements(fd, data, &first_mline))
-		return ((close(fd)), 0);
+		return (get_next_line(-1),(close(fd)), 0);
 	if (!validate_elements_complete(data))
 		return ((frr(fd, first_mline)), 0);
 	if (!parse_map(fd, data, first_mline))

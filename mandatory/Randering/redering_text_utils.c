@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redering_text_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 16:02:25 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/27 19:35:34 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/11/29 20:36:22 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ double wallX, int tex_index)
 	int		tex_width;
 
 	ray = &data->rays[vars->ray_i];
-	tex_x = (int)(wallX * tex_width);
 	tex_width = data->load_textures[tex_index].tex->width;
+	tex_x = (int)(wallX * tex_width);
 	if (ray->side == 0)
 	{
 		if (ray->ang_cos < 0)

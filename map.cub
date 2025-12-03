@@ -1,16 +1,18 @@
 
+NO Tools/textures_2/M_W.png
+EA Tools/textures_2/M_W.png
+SO Tools/textures_2/M_W.png
+WE Tools/textures_2/M_W.png
 
-NO Tools/textures_2/Miscellaneous_Walls.png
-EA Tools/textures_2/Miscellaneous_Walls.png
-SO Tools/textures_2/Miscellaneous_Walls.png
-WE Tools/textures_2/Miscellaneous_Walls.png
 DR Tools/textures_2/door.png
 PR Tools/textures_2/1337.png
 
 
 
 C 20, 90, 255
-F 10, 20, 40
+F 10, 20, 40 
+
+
 
 
 
@@ -23,6 +25,6 @@ F 10, 20, 40
 1000100000200002000010001
 1001010000110011000101001
 1000000000010010000000001
-1111100020000000000000001
+1111100020400000000000001
 10E0000000000000000000001
 1111111111111111111111111

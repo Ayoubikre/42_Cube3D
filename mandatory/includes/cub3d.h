@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/28 00:19:03 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/03 12:40:00 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,69 +28,101 @@
 #  include "../../Tools/mlx/macOS/MLX42.h"
 # endif
 
-int		main(int ac, char **av);
+int				main(int ac, char **av);
 
 // -------------------------------------------- Parsing:
 
-int		parse_file(char *filename, t_data *data);
-int		main_core(t_data *data, char *file_name);
+int				parse_file(char *filename, t_data *data);
+int				main_core(t_data *data, char *file_name);
 
-int		check_file(char *filename, int flag);
+int				check_file(char *filename, int flag);
 
-int		parse_texture_line(char *line, t_data *data);
-int		parse_color_line(char *line, t_data *data);
-int		parse_rgb(char *str, t_color *color);
+int				parse_texture_line(char *line, t_data *data);
+int				parse_color_line(char *line, t_data *data);
+int				parse_rgb(char *str, t_color *color);
 
-int		is_texture_line(char *line);
-int		is_element_line(char *line);
-int		is_map_line(char *line);
+int				is_texture_line(char *line);
+int				is_element_line(char *line);
+int				is_map_line(char *line);
 
-int		parse_map(int fd, t_data *data, char *first_line);
-int		store_map_line(t_data *data, char *line);
+int				parse_map(int fd, t_data *data, char *first_line);
+int				store_map_line(t_data *data, char *line);
 
-int		validate_map(t_data *data);
-int		check_map_closed(t_data *data);
-int		check_map_characters(t_data *data);
-int		find_player(t_data *data);
-int		validate_elements_complete(t_data *data);
-int		all_elements_parsed(t_data *data);
+int				validate_map(t_data *data);
+int				check_map_closed(t_data *data);
+int				check_map_characters(t_data *data);
+int				find_player(t_data *data);
+int				validate_elements_complete(t_data *data);
+int				all_elements_parsed(t_data *data);
 
-int		is_empty_line(char *line);
-char	*skip_spaces(char *str);
-int		is_map_char(char c);
-int		ft_isspace(char c);
-void	set_player_data(t_data *data, int i, int j);
-char	get_char_at(t_data *data, int y, int x);
-int		is_valid_pos(char c);
-int		is_player_char(char c);
+int				is_empty_line(char *line);
+char			*skip_spaces(char *str);
+int				is_map_char(char c);
+int				ft_isspace(char c);
+void			set_player_data(t_data *data, int i, int j);
+char			get_char_at(t_data *data, int y, int x);
+int				is_valid_pos(char c);
+int				is_player_char(char c);
 
-void	print_error(char *msg);
-void	free_data(t_data *data);
-void	free_map(t_map *map);
+void			print_error(char *msg);
+void			free_data(t_data *data);
+void			free_map(t_map *map);
 
-void	init_data(t_data *data);
+void			init_data(t_data *data);
 
-// -------------------------------------------- Raycasting:
+// -------------------------------------------- Game:
 
-void		draw_background(t_data *data);
-double		norm_pi(double a);
-void		put_px(mlx_image_t *img, int x, int y, uint32_t color);
+void			draw_background(t_data *data);
+double			norm_pi(double a);
+void			put_px(mlx_image_t *img, int x, int y, uint32_t color);
 
-void		calculate_wall_projection(t_data *data, t_render_vars *vars);
-double		calculate_wall_x(t_data *data, t_render_vars *vars);
-int			calculate_texture_x(t_data *data, t_render_vars *vars, double wallX, int tex_index);
-void		draw_column_pixels(t_data *data, t_render_vars *vars, int tex_index, int texX);
-int			get_text_index(t_ray *ray);
-uint32_t	get_fallback_color(int tex_index);
-uint32_t	get_texture_pixel(t_data *data, int tex_index, int x, int y);
-
+void			calculate_wall_projection(t_data *data, t_render_vars *vars);
+double			calculate_wall_x(t_data *data, t_render_vars *vars);
+int				calculate_texture_x(t_data *data, t_render_vars *vars,
+					double wallX, int tex_index);
+void			draw_column_pixels(t_data *data, t_render_vars *vars,
+					int tex_index, int texX);
+int				get_text_index(t_ray *ray);
+uint32_t		get_fallback_color(int tex_index);
+uint32_t		get_texture_pixel(t_data *data, int tex_index, int x, int y);
 void			ft_render_column(t_data *data, t_render_vars *vars);
 void			cleanup_textures(t_data *data);
 void			ft_render3d(t_data *data);
 int				ft_init_textures(t_data *data);
+
+//-------
+
+int				ft_start(t_data *data);
+void			ft_hooks(t_data *data);
+void			ft_all(void *param);
+int				ft_init_game(t_data *data);
+int				ft_init_rays(t_data *data);
+int				ft_init_mlx_minimap(t_data *data);
+int				ft_init_mlx_map(t_data *data);
+void			ft_raycasting(t_data *data);
+void			ft_dda(t_data *data, t_ray *ray);
+void			ft_set_info(t_ray *ray, char w);
+void			ft_first_cell_len(t_data *data, t_ray *ray);
+void			ft_init_ray_data(t_data *data, t_ray *ray, int i, double r);
+void			ft_capture_player_moves(t_data *data);
+int				ft_move(t_data *data, double move_x, double move_y, double r);
+int				ft_padding(t_data *data, double x, double y);
+int				ft_find_walls(t_data *data, int x, int y);
+void			ft_update_mouse_angle(double xpos, double ypos, void *param);
+void			ft_speed(t_data *data);
+void			ft_capture_keys(mlx_key_data_t keydata, void *param);
+void			ft_close_doors(t_data *data);
 unsigned int	ft_color(t_color clr);
 double			ft_rad(double x);
 double			ft_deg(double x);
-int				ft_start(t_data *data);
+void			ft_clean(t_data *data, int f);
+
+//-------
+
+void			ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py);
+void			ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py);
+void			ft_draw_background(t_data *data, uint32_t px, uint32_t py);
+void			ft_draw_ray(t_data *data, double angle, double ray_len);
+void			print_parse_results(t_data *data);
 
 #endif

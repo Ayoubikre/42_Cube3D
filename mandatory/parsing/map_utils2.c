@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/19 06:39:19 by akzaza            #+#    #+#             */
-/*   Updated: 2025/10/29 14:59:50 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/03 12:53:11 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int	parse_map(int fd, t_data *data, char *first_line)
 	while (line)
 	{
 		if (map_started && !map_exists(data, line))
-			return (0);
+			return (get_next_line(-1),0);
 		if (!map_started && !handle_non_map_line(line, data, &map_started))
-			return (0);
+			return (get_next_line(-1),0);
 		free(line);
 		line = get_next_line(fd);
 	}

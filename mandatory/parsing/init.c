@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 20:56:32 by akzaza            #+#    #+#             */
-/*   Updated: 2025/11/28 00:20:52 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/03 13:13:34 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,44 +54,11 @@ int	all_elements_parsed(t_data *data)
 	return (1);
 }
 
-static void	print_map(t_data *data)
-{
-	int	i;
-
-	printf("\nMAP GRID:\n");
-	i = 0;
-	while (i < data->map.grid_y)
-	{
-		printf("  [%d] '%s'\n", i, data->map.grid[i]);
-		i++;
-	}
-}
-
-void	print_parse_results(t_data *data)
-{
-	printf("\n✓ Parsing Complete!\n");
-	printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
-	printf("TEXTURES:\n");
-	printf("  North:  %s\n", data->textures[NORTH]);
-	printf("  South:  %s\n", data->textures[SOUTH]);
-	printf("  West:   %s\n", data->textures[WEST]);
-	printf("  East:   %s\n", data->textures[EAST]);
-	printf("\nCOLORS:\n");
-	printf("  Floor:   RGB(%d, %d, %d)\n", data->floor_color.r,
-		data->floor_color.g, data->floor_color.b);
-	printf("  Ceiling: RGB(%d, %d, %d)\n", data->ceiling_color.r,
-		data->ceiling_color.g, data->ceiling_color.b);
-	printf("\nMAP INFO:\n");
-	printf("  Size: %dx%d\n", data->map.grid_x, data->map.grid_y);
-	printf("  Player: (%.1f, %.1f) facing '%c'\n", data->player.pos_x,
-		data->player.pos_y, data->player.orientation);
-	print_map(data);
-	printf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n");
-}
 
 int	main_core(t_data *data, char *file_name)
 {
 	init_data(data);
+	// ft_memset(data, 0, sizeof(t_data));
 	if (!check_file(file_name, 1))
 	{
 		print_error("Invalid file extension (must be .cub)");

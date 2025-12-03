@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:15:00 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/27 21:56:48 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/03 13:35:34 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,3 +30,14 @@ int	main(int ac, char **av)
 		return (1);
 	return (free_data(&data), 0);
 }
+
+
+// t_game
+// │
+// ├── mlx_t *mlx     ← only one MLX instance & window
+// │
+// └── t_level *levels  ← linked list
+//        │
+//        ├── char *path
+//        ├── t_data *data   ← parsed map + textures + player spawn
+//        └── next / prev

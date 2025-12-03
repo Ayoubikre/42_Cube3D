@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/08 21:43:44 by aakritah          #+#    #+#             */
-/*   Updated: 2025/06/26 21:50:58 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/11/30 02:26:54 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap(t_list *lst, void *(*f)(void *),
 						void (*del)(void *));
 
-char				*get_next_line(int fd);
+// char				*get_next_line(int fd);
 
 char				*ft_fix_str(char *str, int i);
 char				*ft_get_line(char *str, int *i);
@@ -95,5 +95,13 @@ int					ft_print_x(char n, va_list ptr);
 void				ft_putchar(char c);
 void				ft_putnbr(int n);
 void				ft_putstr(const char *s);
+
+
+char	*get_next_line(int fd);
+int		ft_strchr3(const char *s, char c);
+size_t	ft_strlen3(const char *s);
+void	*ft_free3(char **buffer);
+char	*ft_calloc3(size_t size);
+char	*join(char *s1, char *s2);
 
 #endif
