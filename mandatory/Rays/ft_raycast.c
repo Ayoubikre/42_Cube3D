@@ -101,12 +101,12 @@ void	ft_dda(t_data *data, t_ray *ray)
 		}
 		if (ray->y < 0 || ray->y >= data->map.grid_y)
 		{
-			ray->hit = 1;
+			ft_set_info(ray, '1');
 			break ;
 		}
 		if (ray->x < 0 || ray->x >= (int)ft_strlen(data->map.grid[ray->y]))
 		{
-			ray->hit = 1;
+			ft_set_info(ray, '1');
 			break ;
 		}
 		ft_set_info(ray, data->map.grid[ray->y][ray->x]);
