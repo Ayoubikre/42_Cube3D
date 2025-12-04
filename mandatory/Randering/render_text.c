@@ -55,7 +55,7 @@ uint32_t	get_texture_pixel(t_data *data, int tex_index, int x, int y)
 	uint8_t			*pixels;
 
 	if (tex_index < 0 || tex_index >= TEX_COUNT)
-		return (0xFFFFFFFF);
+		return (get_fallback_color(-1));
 	if (data->load_textures[tex_index].loaded
 		&& data->load_textures[tex_index].tex)
 	{
