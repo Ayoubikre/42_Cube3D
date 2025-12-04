@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:01:30 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 18:44:59 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 19:52:20 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	ft_switch_lvl(t_game *game, t_data *data)
 			game->g_state = GAME_END;
 		}
 		ft_init_lvl(game, &game->c_lvl->data);
-		ft_hooks(game, &game->c_lvl->data);
 	}
 }
 
@@ -42,6 +41,11 @@ void	ft_draw_level_text(t_game *game)
 
 	if (!game || !game->c_lvl)
 		return ;
+	if (game->level_text_img)
+	{
+		mlx_delete_image(game->mlx.ptr, game->level_text_img);
+		game->level_text_img = NULL;
+	}
 	curr = ft_itoa(game->c_lvl->id);
 	total = ft_itoa(game->id_max);
 	if (!curr || !total)
@@ -49,7 +53,7 @@ void	ft_draw_level_text(t_game *game)
 	lvl_str = ft_strjoin3("Lvl ", curr, " / ");
 	final_str = ft_strjoin3(lvl_str, total, "");
 	x = WIDTH - (ft_strlen(final_str) * 10) - 10;
-	mlx_put_string(game->mlx.ptr, final_str, x, 10);
+	game->level_text_img = mlx_put_string(game->mlx.ptr, final_str, x, 10);
 	free(curr);
 	free(total);
 	free(lvl_str);

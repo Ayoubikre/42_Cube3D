@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 18:52:15 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 18:52:31 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 19:45:34 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void	ft_speed(t_game *game, t_data *data)
 
 void	ft_update_mouse_angle(double xpos, double ypos, void *param)
 {
+	t_game	*game;
 	t_data	*data;
 	double	new_x;
 
 	(void)ypos;
-	data = (t_data *)param;
+	game = (t_game *)param;
+	data = &game->c_lvl->data;
 	if (data->player.mouse_l_p == -1)
 	{
 		data->player.mouse_l_p = xpos;

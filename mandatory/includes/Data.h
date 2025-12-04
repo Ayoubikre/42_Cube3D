@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 17:39:53 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 19:40:57 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,7 @@ typedef struct s_game
 	t_levels		*lvls;
 	t_levels		*c_lvl;
 	int				g_state;
+	mlx_image_t		*level_text_img;
 }					t_game;
 
 #endif

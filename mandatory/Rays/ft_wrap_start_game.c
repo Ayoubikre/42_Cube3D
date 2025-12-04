@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:52:53 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 19:10:46 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 19:46:46 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_all(void *param)
 void	ft_hooks(t_game *game, t_data *data)
 {
 	mlx_key_hook(game->mlx.ptr, ft_capture_keys, (void *)game);
-	mlx_cursor_hook(game->mlx.ptr, ft_update_mouse_angle, (void *)data);
+	mlx_cursor_hook(game->mlx.ptr, ft_update_mouse_angle, (void *)game);
 	mlx_set_cursor_mode(game->mlx.ptr, MLX_MOUSE_DISABLED);
 }
 

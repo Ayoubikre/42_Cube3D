@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:50:35 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 16:39:29 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 19:41:57 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,11 @@
 void	ft_free_mlx(t_game *game)
 {
 	if (game->mlx.ptr)
+	{
+		if (game->level_text_img)
+			mlx_delete_image(game->mlx.ptr, game->level_text_img);
 		mlx_delete_image(game->mlx.ptr, game->mlx.ptr_img);
+	}
 	mlx_terminate(game->mlx.ptr);
 }
 
