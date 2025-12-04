@@ -74,22 +74,27 @@ void	ft_set_info(t_ray *ray, char w)
 			ray->hit = 2;
 		else if (w == '4')
 			ray->hit = 4;
+		else if (w == ' ')
+			ray->hit = 3;
 		else
 			ray->hit = 1;
 	}
-	if (ray->side == 0)
+	if (ray->hit != 0 && ray->hit != 3)
 	{
-		if (ray->ang_cos < 0)
-			ray->drc = 'E';
+		if (ray->side == 0)
+		{
+			if (ray->ang_cos < 0)
+				ray->drc = 'E';
+			else
+				ray->drc = 'W';
+		}
 		else
-			ray->drc = 'W';
-	}
-	else
-	{
-		if (ray->ang_sin < 0)
-			ray->drc = 'S';
-		else
-			ray->drc = 'N';
+		{
+			if (ray->ang_sin < 0)
+				ray->drc = 'S';
+			else
+				ray->drc = 'N';
+		}
 	}
 }
 

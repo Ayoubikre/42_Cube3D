@@ -52,6 +52,8 @@ void	ft_render_column(t_game *game, t_data *data, t_render_vars *vars)
 	int		tex_x;
 	double	wall_x;
 
+	if (data->rays[vars->ray_i].hit == 3)
+		return ;
 	calculate_wall_projection(data, vars);
 	vars->ray_side = data->rays[vars->ray_i].side;
 	tex_index = get_text_index(&data->rays[vars->ray_i]);
