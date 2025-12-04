@@ -28,7 +28,6 @@ void	ft_switch_lvl(t_game *game, t_data *data)
 			game->g_state = GAME_END;
 		}
 		ft_init_lvl(game, &game->c_lvl->data);
-		ft_hooks(game, &game->c_lvl->data);
 	}
 }
 

@@ -38,11 +38,13 @@ void	ft_speed(t_game *game, t_data *data)
 
 void	ft_update_mouse_angle(double xpos, double ypos, void *param)
 {
+	t_game	*game;
 	t_data	*data;
 	double	new_x;
 
 	(void)ypos;
-	data = (t_data *)param;
+	game = (t_game *)param;
+	data = &game->c_lvl->data;
 	if (data->player.mouse_l_p == -1)
 	{
 		data->player.mouse_l_p = xpos;

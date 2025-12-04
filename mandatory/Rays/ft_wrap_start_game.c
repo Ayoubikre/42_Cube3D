@@ -49,8 +49,9 @@ void	ft_all(void *param)
 
 void	ft_hooks(t_game *game, t_data *data)
 {
+	(void)data;
 	mlx_key_hook(game->mlx.ptr, ft_capture_keys, (void *)game);
-	mlx_cursor_hook(game->mlx.ptr, ft_update_mouse_angle, (void *)data);
+	mlx_cursor_hook(game->mlx.ptr, ft_update_mouse_angle, (void *)game);
 	mlx_set_cursor_mode(game->mlx.ptr, MLX_MOUSE_DISABLED);
 }
 
