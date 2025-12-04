@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:57:21 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/02 18:25:07 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 03:18:19 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,31 @@
 
 void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 {
+	t_game	*game;
 	t_data	*data;
 
 	(void)keydata;
-	data = (t_data *)param;
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_ESCAPE))
-		mlx_close_window(data->mlx.ptr);
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_F))
+	game = (t_game *)param;
+	data = &game->c_lvl->data;
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_ESCAPE))
+		mlx_close_window(game->mlx.ptr);
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_F))
 	{
-		if (data->rays[RAYS / 2].hit == 2)
+		if (data->rays[RAYS / 2].len <= 2.0 && data->rays[RAYS / 2].hit == 2)
+			data->map.grid[data->rays[RAYS / 2].y][data->rays[RAYS
+				/ 2].x] = '3';
+	}
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_V))
+	{
+		if (data->rays[RAYS / 2].len <= 2.0 && data->rays[RAYS / 2].hit == 4)
 		{
-			if (data->rays[RAYS / 2].len <= 2.0 && data->rays[RAYS
-					/ 2].hit == 2)
-				data->map.grid[data->rays[RAYS / 2].y][data->rays[RAYS
-					/ 2].x] = '3';
+			ft_destroy_lvl(game, data, 3);
+			if (game->c_lvl->next)
+				game->c_lvl = game->c_lvl->next;
+			else
+				game->c_lvl = game->lvls;
+			ft_init_lvl(game, &game->c_lvl->data);
+			ft_hooks(game, &game->c_lvl->data);
 		}
 	}
 }

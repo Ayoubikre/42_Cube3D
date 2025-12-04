@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:55:35 by akzaza            #+#    #+#             */
-/*   Updated: 2025/11/28 00:21:06 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/04 03:33:41 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,13 @@ int	check_map_closed(t_data *data)
 		while (data->map.grid[i][j])
 		{
 			c = data->map.grid[i][j];
-			if (c == '0' || c == '2' || c == '4' || c == 'N' || c == 'S' \
-			|| c == 'E' || c == 'W')
+			if (c == '0' || c == '2' || c == '4' || c == 'N' || c == 'S'
+				|| c == 'E' || c == 'W')
 			{
 				if (!check_surrounded(data, i, j))
 					return ((print_error("Map not closed (space or \
-void near walkable area)")), 0);
+						void near walkable area)")),
+						0);
 			}
 			j++;
 		}

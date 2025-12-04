@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:15:00 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/03 14:22:52 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 03:39:35 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,15 @@ void	t(void)
 
 int	main(int ac, char **av)
 {
-	t_data	data;
+	t_game	game;
 
-	// atexit(t);
+	atexit(t);
 	if (ac != 2)
 		return ((print_error("Usage: ./cub3D <map.cub>")), 1);
-	if (main_core(&data, av[1]))
-		return (1);
-	// if (ft_start(&data) == -1)
-	// 	return (1);
-	return (free_data(&data), 0);
+	if (ft_wrap_main_core(&game, av[1]))
+		ft_wrap_start_game(&game);
+	return (ft_free_list(&game), 0);
 }
-
 
 // t_game
 // │

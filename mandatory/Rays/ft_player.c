@@ -6,13 +6,13 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:58:46 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/29 23:16:34 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 01:57:08 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	ft_speed(t_data *data)
+void	ft_speed(t_game *game, t_data *data)
 {
 	double	fov_max;
 	double	sprint_speed;
@@ -23,7 +23,7 @@ void	ft_speed(t_data *data)
 	sprint_speed = 0.50;
 	target_fov = ft_rad(60);
 	target_speed = 0.10;
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT_SHIFT))
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_LEFT_SHIFT))
 	{
 		target_fov = fov_max;
 		target_speed = sprint_speed;
@@ -115,33 +115,33 @@ int	ft_move(t_data *data, double move_x, double move_y, double r)
 	return (0);
 }
 
-void	ft_capture_player_moves(t_data *data)
+void	ft_capture_player_moves(t_game *game, t_data *data)
 {
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_W))
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_W))
 	{
 		ft_move(data, cos(data->ang), sin(data->ang), data->move_speed);
 	}
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_S))
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_S))
 	{
 		ft_move(data, -cos(data->ang), -sin(data->ang), data->move_speed);
 	}
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_D))
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_D))
 	{
 		ft_move(data, cos(data->ang + M_PI / 2), sin(data->ang + M_PI / 2),
 			data->move_speed);
 	}
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_A))
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_A))
 	{
 		ft_move(data, cos(data->ang - M_PI / 2), sin(data->ang - M_PI / 2),
 			data->move_speed);
 	}
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_LEFT))
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_LEFT))
 	{
 		data->ang -= ft_rad(2);
 		if (data->ang < 0)
 			data->ang += 2 * M_PI;
 	}
-	if (mlx_is_key_down(data->mlx.ptr, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_RIGHT))
 	{
 		data->ang += ft_rad(2);
 		if (data->ang >= 2 * M_PI)

@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/28 21:18:20 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/03 14:37:51 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/03 18:52:37 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	is_lvl_line(char *line)
 	return (0);
 }
 
-int		parse_lvl_line(char *line, t_data *data)
+int	parse_lvl_line(char *line, t_data *data)
 {
 	parse_texture_line(line, data, 1);
 	if (!check_file(data->next_file, 3))

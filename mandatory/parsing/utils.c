@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/11 17:00:29 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/03 14:19:15 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/03 17:51:33 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,43 +53,18 @@ int	check_file(char *filename, int flag)
 	return (-2);
 }
 
-void	free_map(t_map *map)
+int	all_elements_parsed(t_data *data)
 {
 	int	i;
 
-	if (!map || !map->grid)
-		return ;
 	i = 0;
-	while (i < map->grid_y)
+	while (i < ELEM_COUNT)
 	{
-		if (map->grid[i])
-			free(map->grid[i]);
+		if (data->parsed[i] == 0)
+			return (0);
 		i++;
 	}
-	free(map->grid);
-	map->grid = NULL;
-	map->grid_y = 0;
-	map->grid_x = 0;
-}
-
-void	free_data(t_data *data)
-{
-	int	i;
-
-	if (!data)
-		return ;
-	i = 0;
-	while (i < TEX_COUNT)
-	{
-		if (data->textures[i])
-		{
-			free(data->textures[i]);
-			data->textures[i] = NULL;
-		}
-		i++;
-	}
-	free(data->next_file);
-	free_map(&data->map);
+	return (1);
 }
 
 void	print_error(char *msg)

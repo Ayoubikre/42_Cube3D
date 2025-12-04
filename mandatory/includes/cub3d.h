@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/03 14:14:42 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 03:25:27 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int				main(int ac, char **av);
 // -------------------------------------------- Parsing:
 
 int				parse_file(char *filename, t_data *data);
-int				main_core(t_data *data, char *file_name);
-
 int				check_file(char *filename, int flag);
 
 int				parse_texture_line(char *line, t_data *data, int f);
@@ -68,14 +66,10 @@ int				parse_lvl_line(char *line, t_data *data);
 int				is_lvl_line(char *line);
 
 void			print_error(char *msg);
-void			free_data(t_data *data);
-void			free_map(t_map *map);
-
-void			init_data(t_data *data);
 
 // -------------------------------------------- Game:
 
-void			draw_background(t_data *data);
+void			draw_background(t_game *game, t_data *data);
 double			norm_pi(double a);
 void			put_px(mlx_image_t *img, int x, int y, uint32_t color);
 
@@ -83,49 +77,76 @@ void			calculate_wall_projection(t_data *data, t_render_vars *vars);
 double			calculate_wall_x(t_data *data, t_render_vars *vars);
 int				calculate_texture_x(t_data *data, t_render_vars *vars,
 					double wallX, int tex_index);
-void			draw_column_pixels(t_data *data, t_render_vars *vars,
-					int tex_index, int texX);
+void			draw_column_pixels(t_game *game, t_render_vars *vars,
+					int tex_index, int tex_x);
 int				get_text_index(t_ray *ray);
 uint32_t		get_fallback_color(int tex_index);
 uint32_t		get_texture_pixel(t_data *data, int tex_index, int x, int y);
-void			ft_render_column(t_data *data, t_render_vars *vars);
+void			ft_render_column(t_game *game, t_data *data,
+					t_render_vars *vars);
 void			cleanup_textures(t_data *data);
-void			ft_render3d(t_data *data);
+void			ft_render3d(t_game *game, t_data *data);
 int				ft_init_textures(t_data *data);
 
 //-------
 
-int				ft_start(t_data *data);
-void			ft_hooks(t_data *data);
+int				ft_wrap_main_core(t_game *game, char *path);
+int				ft_main_core(t_data *data, char *file_name);
+int				ft_insert_dome_data(t_data *data);
+void			ft_set_player_data_bak(t_data *data);
+
+int				ft_wrap_start_game(t_game *game);
+void			ft_start_game(t_game *game, t_data *data);
+void			ft_hooks(t_game *game, t_data *data);
 void			ft_all(void *param);
-int				ft_init_game(t_data *data);
-int				ft_init_rays(t_data *data);
-int				ft_init_mlx_minimap(t_data *data);
-int				ft_init_mlx_map(t_data *data);
-void			ft_raycasting(t_data *data);
-void			ft_dda(t_data *data, t_ray *ray);
-void			ft_set_info(t_ray *ray, char w);
-void			ft_first_cell_len(t_data *data, t_ray *ray);
+
+int				ft_init_lvl(t_game *game, t_data *data);
+void			ft_reset_player(t_data *data);
+void			ft_destroy_lvl(t_game *game, t_data *data, int f);
+int				ft_init_mlx_minimap(t_game *game, t_data *data);
+int				ft_init_mlx_map(t_game *game);
+
+t_levels		*ft_creat_new_list(char *path);
+void			ft_add_list_end(t_levels **lvls, t_levels *n);
+int				ft_list_count(t_levels *lvls);
+
 void			ft_init_ray_data(t_data *data, t_ray *ray, int i, double r);
-void			ft_capture_player_moves(t_data *data);
-int				ft_move(t_data *data, double move_x, double move_y, double r);
-int				ft_padding(t_data *data, double x, double y);
-int				ft_find_walls(t_data *data, int x, int y);
+void			ft_first_cell_len(t_data *data, t_ray *ray);
+void			ft_set_info(t_ray *ray, char w);
+void			ft_dda(t_data *data, t_ray *ray);
+void			ft_raycasting(t_game *game, t_data *data);
+
+void			ft_speed(t_game *game, t_data *data);
 void			ft_update_mouse_angle(double xpos, double ypos, void *param);
-void			ft_speed(t_data *data);
+int				ft_find_walls(t_data *data, int x, int y);
+int				ft_padding(t_data *data, double x, double y);
+int				ft_move(t_data *data, double move_x, double move_y, double r);
+void			ft_capture_player_moves(t_game *game, t_data *data);
+
 void			ft_capture_keys(mlx_key_data_t keydata, void *param);
 void			ft_close_doors(t_data *data);
+
 unsigned int	ft_color(t_color clr);
 double			ft_rad(double x);
 double			ft_deg(double x);
-void			ft_clean(t_data *data, int f);
 
-//-------
+void			ft_free_mlx(t_game *game);
+void			ft_free_map(t_map *map);
+void			ft_free_data(t_data *data);
+void			ft_free_lvl(t_levels *lvl);
+void			ft_free_list(t_game *game);
 
-void			ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py);
-void			ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py);
-void			ft_draw_background(t_data *data, uint32_t px, uint32_t py);
-void			ft_draw_ray(t_data *data, double angle, double ray_len);
+// -------
+
+void			ft_draw_player_2d(t_game *game, t_data *data, uint32_t px,
+					uint32_t py);
+void			ft_draw_map_2d(t_game *game, t_data *data, uint32_t px,
+					uint32_t py);
+void			ft_draw_background(t_game *game, t_data *data, uint32_t px,
+					uint32_t py);
+void			ft_draw_ray(t_game *game, t_data *data, double angle,
+					double ray_len);
+void			print_map(t_data *data);
 void			print_parse_results(t_data *data);
 
 #endif

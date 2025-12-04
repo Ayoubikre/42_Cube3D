@@ -6,14 +6,14 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 16:02:25 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/29 20:36:22 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 03:22:29 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	calculate_texture_x(t_data *data, t_render_vars *vars, \
-double wallX, int tex_index)
+int	calculate_texture_x(t_data *data, t_render_vars *vars, double wallX,
+		int tex_index)
 {
 	t_ray	*ray;
 	int		tex_x;
@@ -46,7 +46,7 @@ void	put_px(mlx_image_t *img, int x, int y, uint32_t color)
 	mlx_put_pixel(img, x, y, color);
 }
 
-void	draw_background(t_data *data)
+void	draw_background(t_game *game, t_data *data)
 {
 	uint32_t	ceil_c;
 	uint32_t	floor_c;
@@ -64,7 +64,7 @@ void	draw_background(t_data *data)
 			color = floor_c;
 		x = 0;
 		while (x < WIDTH)
-			put_px(data->mlx.ptr_img, x++, y, color);
+			put_px(game->mlx.ptr_img, x++, y, color);
 		y++;
 	}
 }

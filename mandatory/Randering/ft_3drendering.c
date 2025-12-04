@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_3drendering.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:28:03 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/28 00:22:15 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/04 03:24:20 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	calculate_wall_projection(t_data *data, t_render_vars *vars)
 	vars->wall_dist = ray->len * cos(ray->angle - data->ang);
 	if (vars->wall_dist < 1e-6)
 		vars->wall_dist = 1e-6;
-	vars->lineH = (int)(vars->proj / vars->wall_dist);
-	vars->drawStart = -vars->lineH / 2 + HEIGHT / 2;
-	vars->drawEnd = vars->lineH / 2 + HEIGHT / 2;
-	if (vars->drawStart < 0)
-		vars->drawStart = 0;
-	if (vars->drawEnd >= HEIGHT)
-		vars->drawEnd = HEIGHT - 1;
+	vars->line_h = (int)(vars->proj / vars->wall_dist);
+	vars->draw_start = -vars->line_h / 2 + HEIGHT / 2;
+	vars->draw_end = vars->line_h / 2 + HEIGHT / 2;
+	if (vars->draw_start < 0)
+		vars->draw_start = 0;
+	if (vars->draw_end >= HEIGHT)
+		vars->draw_end = HEIGHT - 1;
 }
 
 int	get_text_index(t_ray *ray)
@@ -46,7 +46,7 @@ int	get_text_index(t_ray *ray)
 	return (-1);
 }
 
-void	ft_render_column(t_data *data, t_render_vars *vars)
+void	ft_render_column(t_game *game, t_data *data, t_render_vars *vars)
 {
 	int		tex_index;
 	int		tex_x;
@@ -57,7 +57,7 @@ void	ft_render_column(t_data *data, t_render_vars *vars)
 	tex_index = get_text_index(&data->rays[vars->ray_i]);
 	wall_x = calculate_wall_x(data, vars);
 	tex_x = calculate_texture_x(data, vars, wall_x, tex_index);
-	draw_column_pixels(data, vars, tex_index, tex_x);
+	draw_column_pixels(game, vars, tex_index, tex_x);
 }
 
 void	fps(void)
@@ -80,11 +80,11 @@ void	fps(void)
 	}
 }
 
-void	ft_render3d(t_data *data)
+void	ft_render3d(t_game *game, t_data *data)
 {
 	t_render_vars	vars;
 
-	draw_background(data);
+	draw_background(game, data);
 	vars.proj = ((double)WIDTH / 2.0) / tan(data->fov / 2.0);
 	vars.column = 0;
 	while (vars.column < WIDTH)
@@ -94,7 +94,7 @@ void	ft_render3d(t_data *data)
 			vars.ray_i = 0;
 		if (vars.ray_i >= RAYS)
 			vars.ray_i = RAYS - 1;
-		ft_render_column(data, &vars);
+		ft_render_column(game, data, &vars);
 		vars.column++;
 	}
 	fps();

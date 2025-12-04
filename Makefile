@@ -19,39 +19,45 @@ endif
 
 CC = cc
 
-# CFLAGS  = -Wall
+CFLAGS  = -Wall
 # CFLAGS  = -Wall -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra
 
 
-Parse = mandatory/main.c \
-		mandatory/parsing/utils.c \
+Parse = mandatory/parsing/utils.c \
 		mandatory/parsing/parsing.c \
 		mandatory/parsing/parsing_utils.c \
 		mandatory/parsing/parse_levels.c \
 	  	mandatory/parsing/textures.c \
 		mandatory/parsing/color.c \
 		mandatory/parsing/color_utils.c \
-		mandatory/parsing/init.c \
 		mandatory/parsing/map.c \
 		mandatory/parsing/map_utils.c \
 		mandatory/parsing/map_utils2.c
 
-Game = 	mandatory/ft_start.c \
+
+Game = 	mandatory/Rays/ft_wrap_start_game.c \
+		mandatory/Rays/ft_wrap_main_core.c \
 		mandatory/Rays/ft_init.c \
 		mandatory/Rays/ft_raycast.c \
 		mandatory/Rays/ft_player.c \
 		mandatory/Rays/ft_keys.c\
+		mandatory/Rays/ft_list.c\
 		mandatory/Rays/ft_utils.c \
 		mandatory/Rays/ft_remove.c \
+		mandatory/Rays/ft_free.c \
 		mandatory/Randering/ft_3drendering.c \
 		mandatory/Randering/ft_textures.c \
 		mandatory/Randering/render_text.c \
 		mandatory/Randering/redering_text_utils.c
+		
 
-SRC = $(Parse) \
-		$(Game) \
+SRC = 	mandatory/main.c \
+		$(Parse)  \
+		$(Game)
+		
+	
 
 
 OBJ = $(SRC:.c=.o)
@@ -68,7 +74,7 @@ all: clean $(NAME)
 
 $(NAME): $(OBJ)
 #	@make -C $(libft_DIR)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME) -lm && make clean 
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME) -lm && make clean && $(add)
 
 
 %.o: %.c $(INC) $(libft_DIR)/libft.h

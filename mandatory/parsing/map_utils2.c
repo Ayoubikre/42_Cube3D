@@ -66,9 +66,9 @@ int	parse_map(int fd, t_data *data, char *first_line)
 	while (line)
 	{
 		if (map_started && !map_exists(data, line))
-			return (get_next_line(-1),0);
+			return (get_next_line(-1), 0);
 		if (!map_started && !handle_non_map_line(line, data, &map_started))
-			return (get_next_line(-1),0);
+			return (get_next_line(-1), 0);
 		free(line);
 		line = get_next_line(fd);
 	}

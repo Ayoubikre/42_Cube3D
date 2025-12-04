@@ -102,7 +102,7 @@ int	parse_texture_line(char *line, t_data *data, int f)
 	identifier += 2;
 	identifier = skip_spaces(identifier);
 	path = extract_texture_path(identifier);
-	if (f==0 && !path)
+	if (f == 0 && !path)
 	{
 		print_error("Invalid texture path");
 		return (0);

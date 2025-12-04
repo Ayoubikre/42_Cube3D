@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_textures.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:40:14 by anktiri           #+#    #+#             */
-/*   Updated: 2025/11/27 15:55:33 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/04 03:36:01 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int	load_xpm(t_data *data, int tex_index)
 	printf("XPM text width: %d\n", data->load_textures[tex_index].width);
 	data->load_textures[tex_index].height = xpm->texture.height;
 	data->load_textures[tex_index].pixels = xpm->texture.pixels;
-	data->load_textures[tex_index].bytes_per_pixel = \
-	xpm->texture.bytes_per_pixel;
+	data->load_textures[tex_index].bytes_per_pixel = xpm->texture.bytes_per_pixel;
 	data->load_textures[tex_index].loaded = 1;
 	data->load_textures[tex_index].xpm = xpm;
 	return (0);
@@ -62,14 +61,14 @@ int	ft_init_textures(t_data *data)
 		if (check_file(data->textures[a], 2) == 1)
 		{
 			if (load_xpm(data, a))
-				return ((printf("Error\nFailed to load XMP texture %d: %s\n", \
-				a, data->textures[a])), -1);
+				return ((printf("Error\nFailed to load XMP texture %d: %s\n", a,
+							data->textures[a])), -1);
 		}
 		else if (check_file(data->textures[a], 2) == 2)
 		{
 			if (load_png(data, a))
-				return ((printf("Error\nFailed to load PNG texture %d: %s\n", \
-				a, data->textures[a])), -1);
+				return ((printf("Error\nFailed to load PNG texture %d: %s\n", a,
+							data->textures[a])), -1);
 		}
 		a++;
 	}

@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/03 13:55:26 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 03:05:12 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@
 # define ELEM_C 7
 # define ELEM_COUNT 8
 
-# define VISIBLE_DISTANCE  100
-# define RAYS              WIDTH
-# define MOUSE_SP          0.002
+# define VISIBLE_DISTANCE 100
+# define RAYS WIDTH
+# define MOUSE_SP 0.002
 # define M_PI 3.14159265358979323846
 
 typedef struct s_render_vars
@@ -54,9 +54,9 @@ typedef struct s_render_vars
 	int				column;
 	int				ray_i;
 	double			wall_dist;
-	int				lineH;
-	int				drawStart;
-	int				drawEnd;
+	int				line_h;
+	int				draw_start;
+	int				draw_end;
 	int				ray_side;
 }					t_render_vars;
 
@@ -89,6 +89,15 @@ typedef struct s_minimap
 	int				m_player_size;
 	int				m_cell_size;
 }					t_mini;
+
+typedef struct s_player_bak
+{
+	double			pos_x;
+	double			pos_y;
+	char			orientation;
+	double			mouse_l_p;
+	double			ang;
+}					t_player_bak;
 
 typedef struct s_player
 {
@@ -140,8 +149,8 @@ typedef struct s_data
 	t_color			floor_color;
 	t_color			ceiling_color;
 	t_map			map;
-	t_mlx			mlx;
 	t_player		player;
+	t_player_bak	player_bak;
 	t_mini			mini;
 	t_ray			*rays;
 	double			fov;
@@ -149,5 +158,22 @@ typedef struct s_data
 	double			move_speed;
 }					t_data;
 
+typedef struct s_levels
+{
+	int				id;
+	char			*path;
+	t_data			data;
+	struct s_levels	*next;
+	struct s_levels	*prev;
+}					t_levels;
+
+typedef struct s_game
+{
+	t_mlx			mlx;
+	int				id_max;
+	t_levels		*lvls;
+	t_levels		*c_lvl;
+
+}					t_game;
 
 #endif

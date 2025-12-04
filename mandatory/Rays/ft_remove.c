@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:55:49 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/03 13:56:35 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 02:03:12 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #include "../includes/cub3d.h"
 
 
-void	ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py)
+void	ft_draw_player_2d(t_game *game,t_data *data, uint32_t px, uint32_t py)
 {
 	int (s), (player_px), (player_py), (j), i = -1;
 	s = (int)fmax(data->map.cell_s / 8, 4);
@@ -31,17 +31,17 @@ void	ft_draw_player_2d(t_data *data, uint32_t px, uint32_t py)
 		{
 			px = (player_px - s) + i;
 			py = (player_py - s) + j;
-			mlx_put_pixel(data->mlx.ptr_img, px, py, 0x000000);
+			mlx_put_pixel(game->mlx.ptr_img, px, py, 0x000000);
 		}
 	}
-	mlx_put_pixel(data->mlx.ptr_img, player_px, player_py, 0xFFFFFF);
+	mlx_put_pixel(game->mlx.ptr_img, player_px, player_py, 0xFFFFFF);
 }
 
 //----------------------------------------------
 //------------------------------ map draw 2D :
 //----------------------------------------------
 
-void	ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py)
+void	ft_draw_map_2d(t_game *game,t_data *data, uint32_t px, uint32_t py)
 {
 	int (i), (j), (y), x = -1;
 	while (++x < data->map.grid_x)
@@ -58,13 +58,13 @@ void	ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py)
 					px = x * data->map.cell_s + i;
 					py = y * data->map.cell_s + j;
 					if (data->map.grid[y][x] == '1')
-						mlx_put_pixel(data->mlx.ptr_img, px, py, 0x350707A1);
+						mlx_put_pixel(game->mlx.ptr_img, px, py, 0x350707A1);
 					else if (data->map.grid[y][x] == '2')
-						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xA507A7A1);
+						mlx_put_pixel(game->mlx.ptr_img, px, py, 0xA507A7A1);
 					else if (data->map.grid[y][x] == '4')
-						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xFF07AFA1);
+						mlx_put_pixel(game->mlx.ptr_img, px, py, 0xFF07AFA1);
 					else
-						mlx_put_pixel(data->mlx.ptr_img, px, py, 0xF5DEB388);
+						mlx_put_pixel(game->mlx.ptr_img, px, py, 0xF5DEB388);
 				}
 			}
 		}
@@ -75,7 +75,7 @@ void	ft_draw_map_2d(t_data *data, uint32_t px, uint32_t py)
 //------------------------------ Bg draw :
 //----------------------------------------------
 
-void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
+void	ft_draw_background(t_game *game,t_data *data, uint32_t px, uint32_t py)
 {
 	int (i), (j), (y), x = -1;
 	while (++x < data->map.grid_x)
@@ -92,10 +92,10 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 					px = x * data->map.cell_s + i;
 					py = y * data->map.cell_s + j;
 					if (y < data->map.grid_y / 2)
-						mlx_put_pixel(data->mlx.ptr_img, px, py,
+						mlx_put_pixel(game->mlx.ptr_img, px, py,
 							ft_color(data->ceiling_color));
 					else
-						mlx_put_pixel(data->mlx.ptr_img, px, py,
+						mlx_put_pixel(game->mlx.ptr_img, px, py,
 							ft_color(data->floor_color));
 				}
 			}
@@ -107,7 +107,7 @@ void	ft_draw_background(t_data *data, uint32_t px, uint32_t py)
 //------------------------------ Draw Rays :
 //----------------------------------------------
 
-void	ft_draw_ray(t_data *data, double angle, double ray_len)
+void	ft_draw_ray(t_game *game,t_data *data, double angle, double ray_len)
 {
     int x0 = (int)((data->player.pos_x * data->map.cell_s)) ;
     int y0 = (int)((data->player.pos_y * data->map.cell_s));
@@ -122,7 +122,7 @@ void	ft_draw_ray(t_data *data, double angle, double ray_len)
     int e2;
     while (1)
     {
-		mlx_put_pixel(data->mlx.ptr_img, x0, y0, 0x500075FF);
+		mlx_put_pixel(game->mlx.ptr_img, x0, y0, 0x500075FF);
         if (x0 == x1 && y0 == y1)
             break ;
         e2 = 2 * err;

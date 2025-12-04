@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/03 12:43:13 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 02:15:23 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,6 @@ void	ft_set_info(t_ray *ray, char w)
 
 void	ft_dda(t_data *data, t_ray *ray)
 {
-	char	w;
-
 	while (ray->hit == 0)
 	{
 		if (ray->extra_x < ray->extra_y)
@@ -105,7 +103,7 @@ void	ft_dda(t_data *data, t_ray *ray)
 	}
 }
 
-void	ft_raycasting(t_data *data)
+void	ft_raycasting(t_game *game, t_data *data)
 {
 	int		i;
 	double	r;
@@ -117,6 +115,6 @@ void	ft_raycasting(t_data *data)
 		ft_init_ray_data(data, &data->rays[i], i, r);
 		ft_first_cell_len(data, &data->rays[i]);
 		ft_dda(data, &data->rays[i]);
-		ft_draw_ray(data, data->rays[i].angle, data->rays[i].len);
+		ft_draw_ray(game, data, data->rays[i].angle, data->rays[i].len);
 	}
 }

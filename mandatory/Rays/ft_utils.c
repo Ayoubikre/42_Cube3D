@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:55:43 by noctis            #+#    #+#             */
-/*   Updated: 2025/11/29 21:00:03 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 01:40:38 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,20 +32,4 @@ double	ft_rad(double x)
 double	ft_deg(double x)
 {
 	return (x * 180.0 / M_PI);
-}
-
-void	ft_clean(t_data *data, int f)
-{
-	if (f >= 0)
-		mlx_delete_image(data->mlx.ptr, data->mlx.ptr_img);
-	if (f >= 1)
-		mlx_delete_image(data->mlx.ptr, data->mini.ptr_img);
-	if (f >= 2)
-		free(data->rays);
-	if (f >= 3)
-	{
-		cleanup_textures(data);
-		mlx_delete_image(data->mlx.ptr, data->mini.ptr_img);
-	}
-	mlx_terminate(data->mlx.ptr);
 }
