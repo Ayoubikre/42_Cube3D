@@ -62,7 +62,7 @@ void	ft_open_and_close_doors(t_data *data, int f)
 			y = data->rays[RAYS / 2].y;
 			x = data->rays[RAYS / 2].x;
 			if (y >= 0 && y < data->map.grid_y && x >= 0
-				&& x < data->map.grid_x)
+				&& x < (int)ft_strlen(data->map.grid[y]))
 				data->map.grid[y][x] = '3';
 		}
 	}
