@@ -81,6 +81,8 @@ void	ft_set_info(t_ray *ray, char w)
 
 void	ft_dda(t_data *data, t_ray *ray)
 {
+	char	cell;
+
 	while (ray->hit == 0)
 	{
 		if (ray->extra_x < ray->extra_y)
@@ -99,7 +101,8 @@ void	ft_dda(t_data *data, t_ray *ray)
 			ray->len = (ray->y - data->player.pos_y + (1 - ray->step_y) / 2)
 				/ ray->ang_sin;
 		}
-		ft_set_info(ray, data->map.grid[ray->y][ray->x]);
+		cell = get_char_at(data, ray->y, ray->x);
+		ft_set_info(ray, cell);
 	}
 }
 

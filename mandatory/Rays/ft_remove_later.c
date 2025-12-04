@@ -41,12 +41,19 @@ void	ft_draw_player_2d(t_game *game, t_data *data, uint32_t px, uint32_t py)
 
 void	ft_draw_map_2d(t_game *game, t_data *data, uint32_t px, uint32_t py)
 {
-	int(i), (j), (y), x = -1;
+	int		i;
+	int		j;
+	int		y;
+	int		x;
+	char	cell;
+
+	x = -1;
 	while (++x < data->map.grid_x)
 	{
 		y = -1;
 		while (++y < data->map.grid_y)
 		{
+			cell = get_char_at(data, y, x);
 			i = -1;
 			while (++i < data->map.cell_s)
 			{
@@ -55,11 +62,11 @@ void	ft_draw_map_2d(t_game *game, t_data *data, uint32_t px, uint32_t py)
 				{
 					px = x * data->map.cell_s + i;
 					py = y * data->map.cell_s + j;
-					if (data->map.grid[y][x] == '1')
+					if (cell == '1')
 						mlx_put_pixel(game->mlx.ptr_img, px, py, 0x350707A1);
-					else if (data->map.grid[y][x] == '2')
+					else if (cell == '2')
 						mlx_put_pixel(game->mlx.ptr_img, px, py, 0xA507A7A1);
-					else if (data->map.grid[y][x] == '4')
+					else if (cell == '4')
 						mlx_put_pixel(game->mlx.ptr_img, px, py, 0xFF07AFA1);
 					else
 						mlx_put_pixel(game->mlx.ptr_img, px, py, 0xF5DEB388);
