@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:53:54 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 03:15:24 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 19:14:53 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_destroy_lvl(t_game *game, t_data *data, int f)
 
 void	ft_reset_player_data(t_data *data)
 {
-	data->player.mouse_l_p = data->player_bak.mouse_l_p;
+	data->player.mouse_l_p = -1;
 	data->player.orientation = data->player_bak.orientation;
 	data->player.pos_x = data->player_bak.pos_x;
 	data->player.pos_y = data->player_bak.pos_y;
@@ -65,12 +65,12 @@ void	ft_reset_player_data(t_data *data)
 
 int	ft_init_lvl(t_game *game, t_data *data)
 {
-	ft_reset_player_data(data);
 	if (ft_init_mlx_map(game) == -1)
-		return (ft_destroy_lvl(game, data, 0), -1);
+	return (ft_destroy_lvl(game, data, 0), -1);
 	// if ( ft_init_mlx_minimap(game, data) == -1)
 	// 	return (ft_destroy_lvl(game , data, 1), -1);
 	if (ft_init_textures(data) == -1)
 		return (ft_destroy_lvl(game, data, 2), -1);
+	ft_reset_player_data(data);
 	return (0);
 }

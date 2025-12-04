@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:15:00 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/04 03:39:35 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 16:41:39 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	main(int ac, char **av)
 		return ((print_error("Usage: ./cub3D <map.cub>")), 1);
 	if (ft_wrap_main_core(&game, av[1]))
 		ft_wrap_start_game(&game);
+	// ft_wrap_main_core(&game, av[1]);
+	// print_game(&game);
 	return (ft_free_list(&game), 0);
 }
 

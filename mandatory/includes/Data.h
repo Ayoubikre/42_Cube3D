@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 03:05:12 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 17:39:53 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@
 # define RAYS WIDTH
 # define MOUSE_SP 0.002
 # define M_PI 3.14159265358979323846
+
+typedef enum s_game_states
+{
+	GAME_START,
+	LVL_SWITCH,
+	PLAYER_DEAD,
+	GAME_END,
+	DEFAULT = -1
+}					t_game_states;
 
 typedef struct s_render_vars
 {
@@ -173,7 +182,7 @@ typedef struct s_game
 	int				id_max;
 	t_levels		*lvls;
 	t_levels		*c_lvl;
-
+	int				g_state;
 }					t_game;
 
 #endif

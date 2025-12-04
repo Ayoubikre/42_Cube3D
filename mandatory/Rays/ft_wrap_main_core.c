@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 20:56:32 by akzaza            #+#    #+#             */
-/*   Updated: 2025/12/04 03:17:00 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 19:14:31 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	ft_set_player_data_bak(t_data *data)
 {
-	data->player_bak.mouse_l_p = data->player.mouse_l_p;
 	data->player_bak.orientation = data->player.orientation;
 	data->player_bak.pos_x = data->player.pos_x;
 	data->player_bak.pos_y = data->player.pos_y;
@@ -76,5 +75,6 @@ int	ft_wrap_main_core(t_game *game, char *path)
 	}
 	game->c_lvl = game->lvls;
 	game->id_max = ft_list_count(game->c_lvl);
+	game->g_state = GAME_START;
 	return (1);
 }

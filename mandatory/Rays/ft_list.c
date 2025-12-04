@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:50:47 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/03 18:07:29 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 16:31:29 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_list_count(t_levels *lvls)
 	int			i;
 	t_levels	*ptr;
 
-	i = 0;
+	i = 1;
 	ptr = lvls;
 	while (ptr->next)
 	{

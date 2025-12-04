@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:52:53 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 03:21:56 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/04 19:10:46 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,31 @@ void	ft_all(void *param)
 
 	game = (t_game *)param;
 	data = &game->c_lvl->data;
-	// ft_draw_map_2d(game,data, 0, 0);
+	if (game->g_state == GAME_START)
+	{
+		ft_start_animation(game, data);
+	}
+	else if (game->g_state == LVL_SWITCH)
+	{
+		ft_switch_animation(game, data);
+	}
+	else if (game->g_state == PLAYER_DEAD)
+	{
+		ft_dead_animation(game, data);
+	}
+	else if (game->g_state == GAME_END)
+	{
+		ft_end_animation(game, data);
+	}
+	game->g_state = DEFAULT;
+	// ft_draw_map_2d(game, data, 0, 0);
 	ft_capture_player_moves(game, data);
 	ft_speed(game, data);
-	// ft_draw_player_2d(data, 0, 0);
+	// ft_draw_player_2d(game, data, 0, 0);
 	ft_raycasting(game, data);
-	ft_close_doors(data);
+	ft_open_and_close_doors(data, 1);
+	ft_draw_level_text(game);
+	// ft_minimap(game, data);
 	ft_render3d(game, data);
 }
 

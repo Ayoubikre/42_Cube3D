@@ -19,7 +19,7 @@ endif
 
 CC = cc
 
-CFLAGS  = -Wall
+# CFLAGS  = -Wall
 # CFLAGS  = -Wall -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
 # CFLAGS  = -Wall -Werror -Wextra
@@ -42,10 +42,13 @@ Game = 	mandatory/Rays/ft_wrap_start_game.c \
 		mandatory/Rays/ft_init.c \
 		mandatory/Rays/ft_raycast.c \
 		mandatory/Rays/ft_player.c \
+		mandatory/Rays/ft_player2.c \
 		mandatory/Rays/ft_keys.c\
 		mandatory/Rays/ft_list.c\
+		mandatory/Rays/ft_lvls.c\
+		mandatory/Rays/ft_minimap.c\
+		mandatory/Rays/ft_animation.c\
 		mandatory/Rays/ft_utils.c \
-		mandatory/Rays/ft_remove.c \
 		mandatory/Rays/ft_free.c \
 		mandatory/Randering/ft_3drendering.c \
 		mandatory/Randering/ft_textures.c \
@@ -54,6 +57,7 @@ Game = 	mandatory/Rays/ft_wrap_start_game.c \
 		
 
 SRC = 	mandatory/main.c \
+		mandatory/Rays/ft_remove_later.c \
 		$(Parse)  \
 		$(Game)
 		
