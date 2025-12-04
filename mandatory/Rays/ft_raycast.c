@@ -21,12 +21,22 @@ void	ft_init_ray_data(t_data *data, t_ray *ray, int i, double r)
 		ray->angle -= 2 * M_PI;
 	ray->ang_cos = cos(ray->angle);
 	if (fabs(ray->ang_cos) < 1e-6)
-		ray->ang_cos = 1e-6;
+	{
+		if (ray->ang_cos < 0)
+			ray->ang_cos = -1e-6;
+		else
+			ray->ang_cos = 1e-6;
+	}
 	ray->const_x = fabs(data->map.cell_s / ray->ang_cos);
 	ray->x = floor(data->player.pos_x);
 	ray->ang_sin = sin(ray->angle);
 	if (fabs(ray->ang_sin) < 1e-6)
-		ray->ang_sin = 1e-6;
+	{
+		if (ray->ang_sin < 0)
+			ray->ang_sin = -1e-6;
+		else
+			ray->ang_sin = 1e-6;
+	}
 	ray->const_y = fabs(data->map.cell_s / ray->ang_sin);
 	ray->y = floor(data->player.pos_y);
 	ray->hit = 0;
