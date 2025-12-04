@@ -183,6 +183,7 @@ typedef struct s_game
 	t_levels		*lvls;
 	t_levels		*c_lvl;
 	int				g_state;
+	mlx_image_t		*level_text_img;
 }					t_game;
 
 #endif

@@ -41,6 +41,11 @@ void	ft_draw_level_text(t_game *game)
 
 	if (!game || !game->c_lvl)
 		return ;
+	if (game->level_text_img)
+	{
+		mlx_delete_image(game->mlx.ptr, game->level_text_img);
+		game->level_text_img = NULL;
+	}
 	curr = ft_itoa(game->c_lvl->id);
 	total = ft_itoa(game->id_max);
 	if (!curr || !total)
@@ -48,7 +53,7 @@ void	ft_draw_level_text(t_game *game)
 	lvl_str = ft_strjoin3("Lvl ", curr, " / ");
 	final_str = ft_strjoin3(lvl_str, total, "");
 	x = WIDTH - (ft_strlen(final_str) * 10) - 10;
-	mlx_put_string(game->mlx.ptr, final_str, x, 10);
+	game->level_text_img = mlx_put_string(game->mlx.ptr, final_str, x, 10);
 	free(curr);
 	free(total);
 	free(lvl_str);

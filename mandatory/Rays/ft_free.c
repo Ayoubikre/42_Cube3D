@@ -15,7 +15,11 @@
 void	ft_free_mlx(t_game *game)
 {
 	if (game->mlx.ptr)
+	{
+		if (game->level_text_img)
+			mlx_delete_image(game->mlx.ptr, game->level_text_img);
 		mlx_delete_image(game->mlx.ptr, game->mlx.ptr_img);
+	}
 	mlx_terminate(game->mlx.ptr);
 }
 
