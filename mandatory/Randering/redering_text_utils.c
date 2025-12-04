@@ -20,6 +20,10 @@ int	calculate_texture_x(t_data *data, t_render_vars *vars, double wallX,
 	int		tex_width;
 
 	ray = &data->rays[vars->ray_i];
+	if (tex_index < 0 || tex_index >= TEX_COUNT
+		|| !data->load_textures[tex_index].loaded
+		|| !data->load_textures[tex_index].tex)
+		return (0);
 	tex_width = data->load_textures[tex_index].tex->width;
 	tex_x = (int)(wallX * tex_width);
 	if (ray->side == 0)
