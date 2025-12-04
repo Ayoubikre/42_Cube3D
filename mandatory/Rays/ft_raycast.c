@@ -54,7 +54,7 @@ void	ft_first_cell_len(t_data *data, t_ray *ray)
 
 void	ft_set_info(t_ray *ray, char w)
 {
-	if (w == '1' || w == '2' || w == '4')
+	if (w == '1' || w == '2' || w == '4' || w == ' ')
 	{
 		if (w == '2')
 			ray->hit = 2;
