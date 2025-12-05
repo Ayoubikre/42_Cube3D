@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/05 01:42:48 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/05 02:51:00 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void	ft_dda(t_data *data, t_ray *ray)
 	}
 }
 
-void	ft_raycasting(t_game *game, t_data *data)
+void	ft_raycasting( t_data *data)
 {
 	int		i;
 	double	r;

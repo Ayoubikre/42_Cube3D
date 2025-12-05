@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:40:14 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/04 03:36:01 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/05 02:42:03 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	load_xpm(t_data *data, int tex_index)
 	printf("XPM text width: %d\n", data->load_textures[tex_index].width);
 	data->load_textures[tex_index].height = xpm->texture.height;
 	data->load_textures[tex_index].pixels = xpm->texture.pixels;
-	data->load_textures[tex_index].bytes_per_pixel = xpm->texture.bytes_per_pixel;
+	data->load_textures[tex_index].bytes_per_pixel
+		= xpm->texture.bytes_per_pixel;
 	data->load_textures[tex_index].loaded = 1;
 	data->load_textures[tex_index].xpm = xpm;
 	return (0);

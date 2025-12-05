@@ -6,11 +6,20 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:53:54 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 19:14:53 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/05 02:43:50 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+void	ft_reset_player_data(t_data *data)
+{
+	data->player.mouse_l_p = -1;
+	data->player.orientation = data->player_bak.orientation;
+	data->player.pos_x = data->player_bak.pos_x;
+	data->player.pos_y = data->player_bak.pos_y;
+	data->ang = data->player_bak.ang;
+}
 
 int	ft_init_mlx_map(t_game *game)
 {
@@ -54,21 +63,12 @@ void	ft_destroy_lvl(t_game *game, t_data *data, int f)
 	}
 }
 
-void	ft_reset_player_data(t_data *data)
-{
-	data->player.mouse_l_p = -1;
-	data->player.orientation = data->player_bak.orientation;
-	data->player.pos_x = data->player_bak.pos_x;
-	data->player.pos_y = data->player_bak.pos_y;
-	data->ang = data->player_bak.ang;
-}
-
 int	ft_init_lvl(t_game *game, t_data *data)
 {
 	if (ft_init_mlx_map(game) == -1)
-	return (ft_destroy_lvl(game, data, 0), -1);
-	// if ( ft_init_mlx_minimap(game, data) == -1)
-	// 	return (ft_destroy_lvl(game , data, 1), -1);
+		return (ft_destroy_lvl(game, data, 0), -1);
+	// if (ft_init_mlx_minimap(game, data) == -1)
+	// 	return (ft_destroy_lvl(game, data, 1), -1);
 	if (ft_init_textures(data) == -1)
 		return (ft_destroy_lvl(game, data, 2), -1);
 	ft_reset_player_data(data);

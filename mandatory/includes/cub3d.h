@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/04 19:05:52 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/05 02:51:09 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int				ft_init_textures(t_data *data);
 //-------
 
 int				ft_wrap_start_game(t_game *game);
-void			ft_start_game(t_game *game, t_data *data);
-void			ft_hooks(t_game *game, t_data *data);
+void			ft_start_game(t_game *game);
+void			ft_hooks(t_game *game);
 void			ft_all(void *param);
 
 int				ft_wrap_main_core(t_game *game, char *path);
@@ -114,7 +114,7 @@ int				ft_find_walls(t_data *data, int x, int y);
 void			ft_update_mouse_angle(double xpos, double ypos, void *param);
 void			ft_speed(t_game *game, t_data *data);
 
-void			ft_raycasting(t_game *game, t_data *data);
+void			ft_raycasting(t_data *data);
 void			ft_dda(t_data *data, t_ray *ray);
 void			ft_set_info(t_ray *ray, char w);
 void			ft_first_cell_len(t_data *data, t_ray *ray);

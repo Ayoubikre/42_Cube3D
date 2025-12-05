@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:58:46 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/05 01:37:54 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/05 02:47:38 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ void	ft_capture_player_rot(t_game *game, t_data *data)
 {
 	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_LEFT))
 	{
-		data->ang -= ft_rad(2);
+		data->ang -= ft_rad(3);
 		if (data->ang < 0)
 			data->ang += 2 * M_PI;
 	}
 	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_RIGHT))
 	{
-		data->ang += ft_rad(2);
+		data->ang += ft_rad(3);
 		if (data->ang >= 2 * M_PI)
 			data->ang -= 2 * M_PI;
 	}
