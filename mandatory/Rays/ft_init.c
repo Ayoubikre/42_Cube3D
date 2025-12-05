@@ -35,7 +35,12 @@ int	ft_init_mlx_map(t_game *game)
 
 int	ft_init_mlx_minimap(t_game *game, t_data *data)
 {
-	data->mini.ptr_img = mlx_new_image(game->mlx.ptr, WIDTH / 5, HEIGHT / 3);
+	data->mini.mini_w = WIDTH / 5;
+	data->mini.mini_h = HEIGHT / 3;
+	data->mini.m_cell_size = 10;
+	data->mini.m_player_size = 4;
+	data->mini.ptr_img = mlx_new_image(game->mlx.ptr, data->mini.mini_w,
+			data->mini.mini_h);
 	if (!data->mini.ptr_img)
 		return (-1);
 	data->mini.id_img = mlx_image_to_window(game->mlx.ptr, data->mini.ptr_img,
@@ -67,8 +72,8 @@ int	ft_init_lvl(t_game *game, t_data *data)
 {
 	if (ft_init_mlx_map(game) == -1)
 		return (ft_destroy_lvl(game, data, 0), -1);
-	// if (ft_init_mlx_minimap(game, data) == -1)
-	// 	return (ft_destroy_lvl(game, data, 1), -1);
+	if (ft_init_mlx_minimap(game, data) == -1)
+		return (ft_destroy_lvl(game, data, 1), -1);
 	if (ft_init_textures(data) == -1)
 		return (ft_destroy_lvl(game, data, 2), -1);
 	ft_reset_player_data(data);

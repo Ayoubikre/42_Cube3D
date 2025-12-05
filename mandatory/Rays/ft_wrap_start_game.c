@@ -36,14 +36,12 @@ void	ft_all(void *param)
 		ft_end_animation(game, data);
 	}
 	game->g_state = DEFAULT;
-	// ft_draw_map_2d(game, data, 0, 0);
 	ft_capture_player_moves(game, data);
 	ft_speed(game, data);
-	// ft_draw_player_2d(game, data, 0, 0);
 	ft_raycasting(data);
 	ft_open_and_close_doors(data, 1);
 	ft_draw_level_text(game);
-	// ft_minimap(game, data);
+	ft_minimap(game, data);
 	ft_render3d(game, data);
 }
 

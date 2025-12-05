@@ -4,7 +4,8 @@
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
 	MLX_LIBRARIES = Tools/mlx/linux/libmlx42_linux.a \
-			-ldl -lglfw -lm -lpthread
+			Tools/mlx/linux/libglfw3_linux.a \
+			-ldl -lm -lpthread
 
 	add = echo "" && \
 	GTK_DEBUG=none ./$(NAME) map.cub 2> >(grep -vi 'gtk-warning' >&2)
