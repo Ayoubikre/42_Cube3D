@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:50:35 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/05 02:11:21 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/05 21:07:36 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	ft_free_data(t_data *data)
 		}
 		i++;
 	}
+	cleanup_textures(data);
 	if (data->next_file)
 		free(data->next_file);
 	if (data->rays)
@@ -83,6 +84,11 @@ void	ft_free_list(t_game *game)
 		game->c_lvl = game->lvls;
 		game->lvls = game->lvls->next;
 		ft_free_lvl(game->c_lvl);
+	}
+	if (game->level_text_img)
+	{
+		mlx_delete_image(game->mlx.ptr, game->level_text_img);
+		game->level_text_img = NULL;
 	}
 	free(game->lvls);
 }
