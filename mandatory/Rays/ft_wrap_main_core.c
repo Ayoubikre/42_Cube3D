@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 20:56:32 by akzaza            #+#    #+#             */
-/*   Updated: 2025/12/04 19:14:31 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/05 01:12:52 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	ft_insert_dome_data(t_data *data)
 {
 	data->map.cell_s = (int)fmin(HEIGHT / data->map.grid_y, WIDTH
 			/ data->map.grid_x);
+	if (data->map.cell_s < 1)
+		data->map.cell_s = 1;
 	data->fov = ft_rad(60);
 	data->move_speed = 0.10;
 	data->player.mouse_l_p = -1;

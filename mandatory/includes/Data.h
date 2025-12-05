@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 19:40:57 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/05 01:22:57 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #  include "../../Tools/mlx/macOS/MLX42.h"
 # endif
 
-# define WIDTH 1100
+# define WIDTH 1080
 # define HEIGHT 1080
 
 // # define WIDTH 800
