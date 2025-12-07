@@ -74,6 +74,8 @@ double			norm_pi(double a);
 void			put_px(mlx_image_t *img, int x, int y, uint32_t color);
 
 uint32_t		apply_fog(uint32_t color, double distance);
+void			draw_floor_ceiling_column(t_game *game, t_data *data,
+					t_render_vars *vars);
 void			calculate_wall_projection(t_data *data, t_render_vars *vars);
 double			calculate_wall_x(t_data *data, t_render_vars *vars);
 int				calculate_texture_x(t_data *data, t_render_vars *vars,

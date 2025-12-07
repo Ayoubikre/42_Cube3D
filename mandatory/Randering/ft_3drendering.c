@@ -57,6 +57,7 @@ void	ft_render_column(t_game *game, t_data *data, t_render_vars *vars)
 	tex_index = get_text_index(&data->rays[vars->ray_i]);
 	wall_x = calculate_wall_x(data, vars);
 	tex_x = calculate_texture_x(data, vars, wall_x, tex_index);
+	draw_floor_ceiling_column(game, data, vars);
 	draw_column_pixels(game, vars, tex_index, tex_x);
 }
 
@@ -84,7 +85,6 @@ void	ft_render3d(t_game *game, t_data *data)
 {
 	t_render_vars	vars;
 
-	draw_background(game, data);
 	vars.proj = ((double)WIDTH / 2.0) / tan(data->fov / 2.0);
 	vars.column = 0;
 	while (vars.column < WIDTH)

@@ -89,6 +89,35 @@ uint32_t	apply_fog(uint32_t color, double distance)
 	return ((r << 24) | (g << 16) | (b << 8) | a);
 }
 
+void	draw_floor_ceiling_column(t_game *game, t_data *data, t_render_vars *vars)
+{
+	int			y;
+	double		distance;
+	double		row_distance;
+	uint32_t	color;
+
+	y = vars->draw_end + 1;
+	while (y < HEIGHT)
+	{
+		row_distance = HEIGHT / (2.0 * y - HEIGHT);
+		distance = row_distance / cos(data->rays[vars->ray_i].angle - data->ang);
+		color = ft_color(data->floor_color);
+		color = apply_fog(color, distance);
+		put_px(game->mlx.ptr_img, vars->column, y, color);
+		y++;
+	}
+	y = 0;
+	while (y < vars->draw_start)
+	{
+		row_distance = HEIGHT / (HEIGHT - 2.0 * y);
+		distance = row_distance / cos(data->rays[vars->ray_i].angle - data->ang);
+		color = ft_color(data->ceiling_color);
+		color = apply_fog(color, distance);
+		put_px(game->mlx.ptr_img, vars->column, y, color);
+		y++;
+	}
+}
+
 void	draw_column_pixels(t_game *game, t_render_vars *vars, int tex_index,
 		int tex_x)
 {
