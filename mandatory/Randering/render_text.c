@@ -94,13 +94,19 @@ void	draw_floor_ceiling_column(t_game *game, t_data *data, t_render_vars *vars)
 	int			y;
 	double		distance;
 	double		row_distance;
+	double		angle_diff;
 	uint32_t	color;
 
 	y = vars->draw_end + 1;
 	while (y < HEIGHT)
 	{
 		row_distance = HEIGHT / (2.0 * y - HEIGHT);
-		distance = row_distance / cos(data->rays[vars->ray_i].angle - data->ang);
+		if (fabs(2.0 * y - HEIGHT) < 1e-6)
+			row_distance = HEIGHT * 1e6;
+		angle_diff = cos(data->rays[vars->ray_i].angle - data->ang);
+		if (fabs(angle_diff) < 1e-6)
+			angle_diff = (angle_diff < 0) ? -1e-6 : 1e-6;
+		distance = fabs(row_distance / angle_diff);
 		color = ft_color(data->floor_color);
 		color = apply_fog(color, distance);
 		put_px(game->mlx.ptr_img, vars->column, y, color);
@@ -110,7 +116,12 @@ void	draw_floor_ceiling_column(t_game *game, t_data *data, t_render_vars *vars)
 	while (y < vars->draw_start)
 	{
 		row_distance = HEIGHT / (HEIGHT - 2.0 * y);
-		distance = row_distance / cos(data->rays[vars->ray_i].angle - data->ang);
+		if (fabs(HEIGHT - 2.0 * y) < 1e-6)
+			row_distance = HEIGHT * 1e6;
+		angle_diff = cos(data->rays[vars->ray_i].angle - data->ang);
+		if (fabs(angle_diff) < 1e-6)
+			angle_diff = (angle_diff < 0) ? -1e-6 : 1e-6;
+		distance = fabs(row_distance / angle_diff);
 		color = ft_color(data->ceiling_color);
 		color = apply_fog(color, distance);
 		put_px(game->mlx.ptr_img, vars->column, y, color);
