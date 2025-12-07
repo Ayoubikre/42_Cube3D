@@ -1,0 +1,14 @@
+# Build artifacts
+*.o
+*.a
+cub3D
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db

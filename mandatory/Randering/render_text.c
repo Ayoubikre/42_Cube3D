@@ -68,6 +68,31 @@ uint32_t	get_texture_pixel(t_data *data, int tex_index, int x, int y)
 	return (get_fallback_color(tex_index));
 }
 
+uint32_t	apply_fog(uint32_t color, double distance)
+{
+	double		fog_factor;
+	uint8_t		r;
+	uint8_t		g;
+	uint8_t		b;
+	uint8_t		a;
+
+	if (distance >= VISIBLE_DISTANCE)
+		return (0x000000FF);
+	fog_factor = distance / VISIBLE_DISTANCE;
+	if (fog_factor < 0.0)
+		fog_factor = 0.0;
+	if (fog_factor > 1.0)
+		fog_factor = 1.0;
+	r = (color >> 24) & 0xFF;
+	g = (color >> 16) & 0xFF;
+	b = (color >> 8) & 0xFF;
+	a = color & 0xFF;
+	r = (uint8_t)(r * (1.0 - fog_factor));
+	g = (uint8_t)(g * (1.0 - fog_factor));
+	b = (uint8_t)(b * (1.0 - fog_factor));
+	return ((r << 24) | (g << 16) | (b << 8) | a);
+}
+
 void	draw_column_pixels(t_game *game, t_render_vars *vars, int tex_index,
 		int tex_x)
 {
@@ -90,6 +115,7 @@ void	draw_column_pixels(t_game *game, t_render_vars *vars, int tex_index,
 		if (tex_y >= tex_height)
 			tex_y = tex_height - 1;
 		color = get_texture_pixel(&game->c_lvl->data, tex_index, tex_x, tex_y);
+		color = apply_fog(color, vars->wall_dist);
 		put_px(game->mlx.ptr_img, vars->column, y, color);
 		y++;
 	}
