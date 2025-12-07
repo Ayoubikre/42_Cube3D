@@ -79,10 +79,6 @@ uint32_t	apply_fog(uint32_t color, double distance)
 	if (distance >= VISIBLE_DISTANCE)
 		return (0x000000FF);
 	fog_factor = distance / VISIBLE_DISTANCE;
-	if (fog_factor < 0.0)
-		fog_factor = 0.0;
-	if (fog_factor > 1.0)
-		fog_factor = 1.0;
 	r = (color >> 24) & 0xFF;
 	g = (color >> 16) & 0xFF;
 	b = (color >> 8) & 0xFF;
