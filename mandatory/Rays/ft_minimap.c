@@ -12,6 +12,20 @@
 
 #include "../includes/cub3d.h"
 
+static int	is_within_circle(t_data *data, int x, int y)
+{
+	int	center_x;
+	int	center_y;
+	int	dx;
+	int	dy;
+
+	center_x = data->mini.mini_w / 2;
+	center_y = data->mini.mini_h / 2;
+	dx = x - center_x;
+	dy = y - center_y;
+	return (dx * dx + dy * dy <= data->mini.radius * data->mini.radius);
+}
+
 static void	draw_minimap_cell(t_game *game, t_data *data, int screen_x,
 		int screen_y, char cell)
 {
@@ -35,7 +49,8 @@ static void	draw_minimap_cell(t_game *game, t_data *data, int screen_x,
 		px = 0;
 		while (px < data->mini.m_cell_size)
 		{
-			put_px(data->mini.ptr_img, screen_x + px, screen_y + py, color);
+			if (is_within_circle(data, screen_x + px, screen_y + py))
+				put_px(data->mini.ptr_img, screen_x + px, screen_y + py, color);
 			px++;
 		}
 		py++;
@@ -104,7 +119,8 @@ static void	draw_player_point(t_game *game, t_data *data)
 		px = center_x - half_size;
 		while (px < center_x + half_size)
 		{
-			put_px(data->mini.ptr_img, px, py, 0x000000FF);
+			if (is_within_circle(data, px, py))
+				put_px(data->mini.ptr_img, px, py, 0x000000FF);
 			px++;
 		}
 		py++;
