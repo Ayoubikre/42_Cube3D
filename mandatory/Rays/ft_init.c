@@ -35,16 +35,8 @@ int	ft_init_mlx_map(t_game *game)
 
 int	ft_init_mlx_minimap(t_game *game, t_data *data)
 {
-	int	size;
-
-	size = WIDTH / 5;
-	if (HEIGHT / 3 < size)
-		size = HEIGHT / 3;
-	data->mini.mini_w = size;
-	data->mini.mini_h = size;
-	data->mini.radius = size / 2;
-	data->mini.center_x = size / 2;
-	data->mini.center_y = size / 2;
+	data->mini.mini_w = WIDTH / 5;
+	data->mini.mini_h = HEIGHT / 3;
 	data->mini.m_cell_size = 10;
 	data->mini.m_player_size = 4;
 	data->mini.ptr_img = mlx_new_image(game->mlx.ptr, data->mini.mini_w,

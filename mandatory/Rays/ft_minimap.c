@@ -12,16 +12,6 @@
 
 #include "../includes/cub3d.h"
 
-static int	is_within_circle(t_data *data, int x, int y)
-{
-	int	dx;
-	int	dy;
-
-	dx = x - data->mini.center_x;
-	dy = y - data->mini.center_y;
-	return (dx * dx + dy * dy <= data->mini.radius * data->mini.radius);
-}
-
 static void	draw_minimap_cell(t_game *game, t_data *data, int screen_x,
 		int screen_y, char cell)
 {
@@ -45,8 +35,7 @@ static void	draw_minimap_cell(t_game *game, t_data *data, int screen_x,
 		px = 0;
 		while (px < data->mini.m_cell_size)
 		{
-			if (is_within_circle(data, screen_x + px, screen_y + py))
-				put_px(data->mini.ptr_img, screen_x + px, screen_y + py, color);
+			put_px(data->mini.ptr_img, screen_x + px, screen_y + py, color);
 			px++;
 		}
 		py++;
@@ -100,19 +89,22 @@ static void	draw_minimap_grid(t_game *game, t_data *data)
 
 static void	draw_player_point(t_game *game, t_data *data)
 {
+	int	center_x;
+	int	center_y;
 	int	px;
 	int	py;
 	int	half_size;
 
+	center_x = data->mini.mini_w / 2;
+	center_y = data->mini.mini_h / 2;
 	half_size = data->mini.m_player_size / 2;
-	py = data->mini.center_y - half_size;
-	while (py < data->mini.center_y + half_size)
+	py = center_y - half_size;
+	while (py < center_y + half_size)
 	{
-		px = data->mini.center_x - half_size;
-		while (px < data->mini.center_x + half_size)
+		px = center_x - half_size;
+		while (px < center_x + half_size)
 		{
-			if (is_within_circle(data, px, py))
-				put_px(data->mini.ptr_img, px, py, 0x000000FF);
+			put_px(data->mini.ptr_img, px, py, 0x000000FF);
 			px++;
 		}
 		py++;
