@@ -98,6 +98,8 @@ typedef struct s_minimap
 	int				m_player_size;
 	int				m_cell_size;
 	int				radius;
+	int				center_x;
+	int				center_y;
 }					t_mini;
 
 typedef struct s_player_bak
