@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:55:49 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/04 18:34:17 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/10 17:20:31 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -270,12 +270,12 @@ static void	print_rays(t_ray *rays, int count)
 static void	print_mini(t_mini *mini)
 {
 	printf("Minimap:\n");
-	printf("  ptr_img = %p\n", mini->ptr_img);
-	printf("  id_img = %d\n", mini->id_img);
-	printf("  mini_w = %f\n", mini->mini_w);
-	printf("  mini_h = %f\n", mini->mini_h);
-	printf("  player_size = %d\n", mini->m_player_size);
-	printf("  cell_size = %d\n\n", mini->m_cell_size);
+	// printf("  ptr_img = %p\n", mini->ptr_img);
+	// printf("  id_img = %d\n", mini->id_img);
+	// printf("  mini_w = %f\n", mini->mini_w);
+	// printf("  mini_h = %f\n", mini->mini_h);
+	// printf("  player_size = %d\n", mini->m_player_size);
+	// printf("  cell_size = %d\n\n", mini->m_cell_size);
 }
 
 static void	print_mlx(t_mlx *mlx)

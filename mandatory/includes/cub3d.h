@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/05 02:51:09 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/10 17:20:59 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ unsigned int	ft_color(t_color clr);
 double			ft_rad(double x);
 double			ft_deg(double x);
 
-void			ft_minimap(t_game *game, t_data *data);
+void	ft_minimap(t_data *data);
 
 void			ft_start_animation(t_game *game, t_data *data);
 void			ft_switch_animation(t_game *game, t_data *data);

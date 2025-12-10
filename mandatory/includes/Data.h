@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/05 01:22:57 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/10 17:18:56 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,14 +89,27 @@ typedef struct s_ray
 	char			drc;
 }					t_ray;
 
+typedef struct s_norm
+{
+	int x_s;
+	int y_s;
+	int x_e;
+	int y_e;
+	int p_size;
+	int px;
+	int py;
+	int i;
+	int j;
+}				t_norm;
+
 typedef struct s_minimap
 {
 	mlx_image_t		*ptr_img;
 	int32_t			id_img;
-	double			mini_w;
-	double			mini_h;
-	int				m_player_size;
-	int				m_cell_size;
+	double			height;
+	double			width;
+	int				p_size;
+	int				cell_size;
 }					t_mini;
 
 typedef struct s_player_bak
