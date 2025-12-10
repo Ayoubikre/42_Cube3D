@@ -78,7 +78,7 @@ all: clean $(NAME)
 
 $(NAME): $(OBJ)
 #	@make -C $(libft_DIR)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME) -lm && make clean
+	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME) -lm && make clean && $(add)
 
 
 %.o: %.c $(INC) $(libft_DIR)/libft.h
