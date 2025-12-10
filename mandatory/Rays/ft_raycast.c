@@ -115,7 +115,7 @@ void	ft_dda(t_data *data, t_ray *ray)
 	}
 }
 
-void	ft_raycasting( t_data *data)
+void	ft_raycasting(t_data *data)
 {
 	int		i;
 	double	r;

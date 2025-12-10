@@ -91,16 +91,16 @@ typedef struct s_ray
 
 typedef struct s_norm
 {
-	int x_s;
-	int y_s;
-	int x_e;
-	int y_e;
-	int p_size;
-	int px;
-	int py;
-	int i;
-	int j;
-}				t_norm;
+	int				x_s;
+	int				y_s;
+	int				x_e;
+	int				y_e;
+	int				p_size;
+	int				px;
+	int				py;
+	int				i;
+	int				j;
+}					t_norm;
 
 typedef struct s_minimap
 {

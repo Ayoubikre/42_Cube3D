@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:52:53 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/10 17:21:43 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/10 18:27:33 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,8 @@ void	ft_all(void *param)
 		ft_end_animation(game, data);
 	}
 	game->g_state = DEFAULT;
-	// ft_draw_map_2d(game, data, 0, 0);
 	ft_capture_player_moves(game, data);
 	ft_speed(game, data);
-	// ft_draw_player_2d(game, data, 0, 0);
 	ft_raycasting(data);
 	ft_open_and_close_doors(data, 1);
 	ft_draw_level_text(game);

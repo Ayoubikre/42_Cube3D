@@ -37,11 +37,12 @@ int	ft_init_mlx_minimap(t_game *game, t_data *data)
 {
 	data->mini.height = HEIGHT / 5;
 	data->mini.width = WIDTH / 5;
-	data->mini.cell_size= 20;
-	data->mini.p_size= 8;
-	data->mini.ptr_img=mlx_new_image(game->mlx.ptr, data->mini.width, data->mini.height);
-	if(!data->mini.ptr_img)
-		return -1;
+	data->mini.cell_size = 20;
+	data->mini.p_size = 8;
+	data->mini.ptr_img = mlx_new_image(game->mlx.ptr, data->mini.width,
+			data->mini.height);
+	if (!data->mini.ptr_img)
+		return (-1);
 	mlx_image_to_window(game->mlx.ptr, data->mini.ptr_img, 5, 5);
 	return (0);
 }
