@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 19:15:00 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:09 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/13 13:24:14 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,3 @@ int	main(int ac, char **av)
 		ft_wrap_start_game(&game);
 	return (ft_free_list(&game), 0);
 }
-
-// t_game
-// │
-// ├── mlx_t *mlx     ← only one MLX instance & window
-// │
-// └── t_level *levels  ← linked list
-//        │
-//        ├── char *path
-//        ├── t_data *data   ← parsed map + textures + player spawn
-//        └── next / prev

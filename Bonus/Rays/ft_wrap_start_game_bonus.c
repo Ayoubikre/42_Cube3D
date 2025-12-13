@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:52:53 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/13 13:23:37 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@ void	ft_all(void *param)
 
 	game = (t_game *)param;
 	data = &game->c_lvl->data;
+	update_stage_animation(game);
+	if (game->stage_anim.is_active)
+		return ;
 	if (game->g_state == GAME_START)
 	{
 		ft_start_animation(game, data);

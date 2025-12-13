@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/10 19:13:49 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/13 13:13:41 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <time.h>
+# include <sys/time.h>
 # include <unistd.h>
 
 # ifdef __linux__
@@ -151,6 +151,7 @@ void			ft_start_animation(t_game *game, t_data *data);
 void			ft_switch_animation(t_game *game, t_data *data);
 void			ft_dead_animation(t_game *game, t_data *data);
 void			ft_end_animation(t_game *game, t_data *data);
+void			update_stage_animation(t_game *game);
 
 // ------- remove later :
 

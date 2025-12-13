@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 20:56:32 by akzaza            #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/13 13:16:59 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	ft_main_core(t_data *data, char *file_name)
 	}
 	if (ft_insert_dome_data(data) == -1)
 		return (1);
-	print_parse_results(data);
 	return (0);
 }
 
@@ -78,5 +77,7 @@ int	ft_wrap_main_core(t_game *game, char *path)
 	game->c_lvl = game->lvls;
 	game->id_max = ft_list_count(game->c_lvl);
 	game->g_state = GAME_START;
+	game->stage_anim.is_active = 0;
+	game->stage_anim.current_img = NULL;
 	return (1);
 }
