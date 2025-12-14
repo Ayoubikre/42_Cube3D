@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/13 13:15:28 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/14 21:32:53 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 
 # define WIDTH 1080
 # define HEIGHT 1080
-
-// # define WIDTH 800
-// # define HEIGHT 600
 
 # define NORTH 0
 # define SOUTH 1
@@ -52,7 +49,6 @@ typedef enum s_game_states
 {
 	GAME_START,
 	LVL_SWITCH,
-	PLAYER_DEAD,
 	GAME_END,
 	DEFAULT = -1
 }					t_game_states;

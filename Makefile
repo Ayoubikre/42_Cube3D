@@ -24,37 +24,33 @@ endif
 
 CC = cc
 
-# CFLAGS  = -Wall
-# CFLAGS  = -Wall -fsanitize=address -g
+CFLAGS  = -Wall -Werror -Wextra
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
-# CFLAGS  = -Wall -Werror -Wextra
-
 
 SRC = Mandatory/main.c \
-		Mandatory/Rays/ft_remove_later.c \
-		Mandatory/parsing/utils.c \
-		Mandatory/parsing/parsing.c \
-		Mandatory/parsing/parsing_utils.c \
-		Mandatory/parsing/parse_levels.c \
-		Mandatory/parsing/textures.c \
-		Mandatory/parsing/color.c \
-		Mandatory/parsing/color_utils.c \
-		Mandatory/parsing/map.c \
-		Mandatory/parsing/map_utils.c \
-		Mandatory/parsing/map_utils2.c \
-		Mandatory/Rays/ft_wrap_start_game.c \
-		Mandatory/Rays/ft_wrap_main_core.c \
-		Mandatory/Rays/ft_init.c \
-		Mandatory/Rays/ft_raycast.c \
-		Mandatory/Rays/ft_player.c \
-		Mandatory/Rays/ft_player2.c \
-		Mandatory/Rays/ft_keys.c \
-		Mandatory/Rays/ft_list.c \
-		Mandatory/Rays/ft_lvls.c \
-		Mandatory/Rays/ft_minimap.c \
-		Mandatory/Rays/ft_animation.c \
-		Mandatory/Rays/ft_utils.c \
-		Mandatory/Rays/ft_free.c \
+		Mandatory/Parsing/utils.c \
+		Mandatory/Parsing/parsing.c \
+		Mandatory/Parsing/parsing_utils.c \
+		Mandatory/Parsing/parse_levels.c \
+		Mandatory/Parsing/textures.c \
+		Mandatory/Parsing/color.c \
+		Mandatory/Parsing/color_utils.c \
+		Mandatory/Parsing/map.c \
+		Mandatory/Parsing/map_utils.c \
+		Mandatory/Parsing/map_utils2.c \
+		Mandatory/Game/ft_wrap_start_game.c \
+		Mandatory/Game/ft_wrap_main_core.c \
+		Mandatory/Game/ft_init.c \
+		Mandatory/Game/ft_raycast.c \
+		Mandatory/Game/ft_player.c \
+		Mandatory/Game/ft_player2.c \
+		Mandatory/Game/ft_keys.c \
+		Mandatory/Game/ft_list.c \
+		Mandatory/Game/ft_lvls.c \
+		Mandatory/Game/ft_minimap.c \
+		Mandatory/Game/ft_animation.c \
+		Mandatory/Game/ft_utils.c \
+		Mandatory/Game/ft_free.c \
 		Mandatory/Randering/ft_3drendering.c \
 		Mandatory/Randering/ft_textures.c \
 		Mandatory/Randering/render_text.c \
@@ -70,32 +66,30 @@ libft = $(libft_DIR)/libft.a
 NAME = cub3D
 
 
-
 B_SRC = Bonus/main_bonus.c \
-		Bonus/Rays/ft_remove_later_bonus.c \
-		Bonus/parsing/utils_bonus.c \
-		Bonus/parsing/parsing_bonus.c \
-		Bonus/parsing/parsing_utils_bonus.c \
-		Bonus/parsing/parse_levels_bonus.c \
-		Bonus/parsing/textures_bonus.c \
-		Bonus/parsing/color_bonus.c \
-		Bonus/parsing/color_utils_bonus.c \
-		Bonus/parsing/map_bonus.c \
-		Bonus/parsing/map_utils_bonus.c \
-		Bonus/parsing/map_utils2_bonus.c \
-		Bonus/Rays/ft_wrap_start_game_bonus.c \
-		Bonus/Rays/ft_wrap_main_core_bonus.c \
-		Bonus/Rays/ft_init_bonus.c \
-		Bonus/Rays/ft_raycast_bonus.c \
-		Bonus/Rays/ft_player_bonus.c \
-		Bonus/Rays/ft_player2_bonus.c \
-		Bonus/Rays/ft_keys_bonus.c \
-		Bonus/Rays/ft_list_bonus.c \
-		Bonus/Rays/ft_lvls_bonus.c \
-		Bonus/Rays/ft_minimap_bonus.c \
-		Bonus/Rays/ft_animation_bonus.c \
-		Bonus/Rays/ft_utils_bonus.c \
-		Bonus/Rays/ft_free_bonus.c \
+		Bonus/Parsing/utils_bonus.c \
+		Bonus/Parsing/parsing_bonus.c \
+		Bonus/Parsing/parsing_utils_bonus.c \
+		Bonus/Parsing/parse_levels_bonus.c \
+		Bonus/Parsing/textures_bonus.c \
+		Bonus/Parsing/color_bonus.c \
+		Bonus/Parsing/color_utils_bonus.c \
+		Bonus/Parsing/map_bonus.c \
+		Bonus/Parsing/map_utils_bonus.c \
+		Bonus/Parsing/map_utils2_bonus.c \
+		Bonus/Game/ft_wrap_start_game_bonus.c \
+		Bonus/Game/ft_wrap_main_core_bonus.c \
+		Bonus/Game/ft_init_bonus.c \
+		Bonus/Game/ft_raycast_bonus.c \
+		Bonus/Game/ft_player_bonus.c \
+		Bonus/Game/ft_player2_bonus.c \
+		Bonus/Game/ft_keys_bonus.c \
+		Bonus/Game/ft_list_bonus.c \
+		Bonus/Game/ft_lvls_bonus.c \
+		Bonus/Game/ft_minimap_bonus.c \
+		Bonus/Game/ft_animation_bonus.c \
+		Bonus/Game/ft_utils_bonus.c \
+		Bonus/Game/ft_free_bonus.c \
 		Bonus/Randering/ft_3drendering_bonus.c \
 		Bonus/Randering/ft_textures_bonus.c \
 		Bonus/Randering/render_text_bonus.c \
@@ -117,6 +111,7 @@ all: clean $(NAME)
 $(NAME): $(OBJ)
 #	@make -C $(libft_DIR)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME)
+	make clean
 	$(add)
 
 Mandatory/%.o: Mandatory/%.c $(Head) $(libft_DIR)/libft.h
@@ -127,6 +122,7 @@ bonus: clean $(B_NAME)
 $(B_NAME): $(B_OBJ)
 #	@make -C $(libft_DIR)
 	$(CC) $(CFLAGS) $(B_OBJ) $(MLX_LIBRARIES) $(libft_B) -o $(B_NAME)
+	make clean
 	$(b_add)
 
 bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR)/libft.h

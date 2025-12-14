@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/13 13:13:41 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/14 21:26:39 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ void			cleanup_textures(t_data *data);
 void			ft_render3d(t_game *game, t_data *data);
 int				ft_init_textures(t_data *data);
 
-//-------
-
 int				ft_wrap_start_game(t_game *game);
 void			ft_start_game(t_game *game);
 void			ft_hooks(t_game *game);
@@ -147,23 +145,11 @@ void			ft_draw_map(t_data *data);
 void			ft_draw_cells(t_data *data, t_norm tmp, char c);
 uint32_t		get_minimap_color(char c);
 
-void			ft_start_animation(t_game *game, t_data *data);
-void			ft_switch_animation(t_game *game, t_data *data);
-void			ft_dead_animation(t_game *game, t_data *data);
-void			ft_end_animation(t_game *game, t_data *data);
-void			update_stage_animation(t_game *game);
-
-// ------- remove later :
-
-void			ft_draw_player_2d(t_game *game, t_data *data, uint32_t px,
-					uint32_t py);
-void			ft_draw_map_2d(t_game *game, t_data *data, uint32_t px,
-					uint32_t py);
-void			ft_draw_background(t_game *game, t_data *data, uint32_t px,
-					uint32_t py);
-void			ft_draw_ray(t_game *game, t_data *data, double angle,
-					double ray_len);
-void			print_parse_results(t_data *data);
-void			print_game(t_game *game);
+int				ft_animation(t_game *game);
+void			ft_update_stage_animation(t_game *game);
+void			ft_start_animation(t_game *game, char *folder, int frames,
+					int stage);
+void			ft_handle_space_key(t_game *game);
+void			ft_display_frame(t_game *game);
 
 #endif

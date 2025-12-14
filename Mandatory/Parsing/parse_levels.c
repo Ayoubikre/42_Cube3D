@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parse_levels.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/10 19:15:00 by anktiri           #+#    #+#             */
+/*   Created: 2025/11/28 21:18:20 by anktiri           #+#    #+#             */
 /*   Updated: 2025/12/14 21:44:02 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/cub3d.h"
+#include "../includes/cub3d.h"
 
-void	t(void)
+int	is_lvl_line(char *line)
 {
-	system("leaks -q cub3D");
+	char	*str;
+
+	if (!line)
+		return (0);
+	str = skip_spaces(line);
+	if (!str || !*str)
+		return (0);
+	if (ft_strncmp(str, "LV", 2) == 0 && (str[2] == '\0' || ft_isspace(str[2])))
+		return (1);
+	return (0);
 }
 
-int	main(int ac, char **av)
+int	parse_lvl_line(char *line, t_data *data)
 {
-	t_game	game;
-
-	atexit(t);
-	if (ac != 2)
-		return ((print_error("Usage: ./cub3D <map.cub>")), 1);
-	if (ft_wrap_main_core(&game, av[1]))
-		ft_wrap_start_game(&game);
-	return (ft_free_list(&game), 0);
+	parse_texture_line(line, data, 1);
+	if (!check_file(data->next_file, 3))
+	{
+		print_error("LV file does not exist or is not readable");
+		return (0);
+	}
+	return (1);
 }

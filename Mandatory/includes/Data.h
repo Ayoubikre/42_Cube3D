@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/10 19:08:35 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/14 21:41:14 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 
 # define WIDTH 1080
 # define HEIGHT 1080
-
-// # define WIDTH 800
-// # define HEIGHT 600
 
 # define NORTH 0
 # define SOUTH 1
@@ -52,10 +49,22 @@ typedef enum s_game_states
 {
 	GAME_START,
 	LVL_SWITCH,
-	PLAYER_DEAD,
 	GAME_END,
 	DEFAULT = -1
 }					t_game_states;
+
+typedef struct s_stage_anim
+{
+	int				is_active;
+	int				current_frame;
+	int				frame_counter;
+	int				frame_delay;
+	int				total_frames;
+	char			folder[256];
+	mlx_image_t		*current_img;
+	int				stage;
+	int				timer;
+}					t_stage_anim;
 
 typedef struct s_render_vars
 {
@@ -192,11 +201,13 @@ typedef struct s_levels
 typedef struct s_game
 {
 	t_mlx			mlx;
-	int				id_max;
+	mlx_image_t		*level_text_img;
 	t_levels		*lvls;
 	t_levels		*c_lvl;
+	int				id_max;
 	int				g_state;
-	mlx_image_t		*level_text_img;
+	int				animating;
+	t_stage_anim	stage_anim;
 }					t_game;
 
 #endif
