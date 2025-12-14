@@ -126,7 +126,7 @@ bonus: clean $(B_NAME)
 
 $(B_NAME): $(B_OBJ)
 #	@make -C $(libft_DIR)
-	$(CC) $(CFLAGS) $(B_OBJ) $(MLX_LIBRARIES) $(libft) -o $(B_NAME)
+	$(CC) $(CFLAGS) $(B_OBJ) $(MLX_LIBRARIES) $(libft_B) -o $(B_NAME)
 	$(b_add)
 
 bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR)/libft.h
