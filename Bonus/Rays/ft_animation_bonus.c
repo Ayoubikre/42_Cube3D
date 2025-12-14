@@ -117,6 +117,7 @@ void	ft_dead_animation(t_game *game, t_data *data)
 {
 	(void)game;
 	(void)data;
+	// Dead player animation has been disabled as requested
 }
 
 void	ft_end_animation(t_game *game, t_data *data)
