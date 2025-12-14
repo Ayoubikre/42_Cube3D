@@ -37,7 +37,14 @@ static void	display_frame(t_game *game)
 
 static void	handle_space_key(t_game *game)
 {
-	if (game->stage_anim.stage == 1)
+	if (game->stage_anim.stage == 0)
+	{
+		game->stage_anim.is_active = 0;
+		if (game->stage_anim.current_img)
+			mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
+		game->stage_anim.current_img = NULL;
+	}
+	else if (game->stage_anim.stage == 1)
 	{
 		ft_strlcpy(game->stage_anim.folder,
 			"Tools/animation/Loading_animation/loading_screen", 256);
@@ -65,12 +72,13 @@ void	update_stage_animation(t_game *game)
 		display_frame(game);
 		if (++game->stage_anim.current_frame >= game->stage_anim.total_frames)
 		{
-			if (game->stage_anim.stage == 2)
+			if (game->stage_anim.stage == 0 || game->stage_anim.stage == 2)
 			{
 				game->stage_anim.is_active = 0;
 				if (game->stage_anim.current_img)
 					mlx_delete_image(game->mlx.ptr,
 						game->stage_anim.current_img);
+				game->stage_anim.current_img = NULL;
 			}
 			else
 				game->stage_anim.current_frame = 0;
@@ -94,8 +102,8 @@ void	start_animation(t_game *game, char *folder, int frames, int delay,
 void	ft_start_animation(t_game *game, t_data *data)
 {
 	(void)data;
-	// start_animation(game,
-	// 	"Tools/animation/complete_animation/complete_animation", 8, 15);
+	start_animation(game,
+		"Tools/animation/Loading_animation/loading_screen", 8, 20, 0);
 }
 
 void	ft_switch_animation(t_game *game, t_data *data)
@@ -107,9 +115,8 @@ void	ft_switch_animation(t_game *game, t_data *data)
 
 void	ft_dead_animation(t_game *game, t_data *data)
 {
+	(void)game;
 	(void)data;
-	// start_animation(game,
-	// 	"Tools/animation/failed_animation/failed_animation", 8, 8);
 }
 
 void	ft_end_animation(t_game *game, t_data *data)
