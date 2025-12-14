@@ -1,0 +1,9 @@
+# Object files
+*.o
+
+# Executables
+cub3D
+cub3D_bonus
+
+# Libraries
+*.a
