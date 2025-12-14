@@ -90,6 +90,7 @@ void	start_animation(t_game *game, char *folder, int frames, int delay,
 	game->stage_anim.is_active = 1;
 	game->stage_anim.current_img = NULL;
 	game->stage_anim.stage = stage;
+	display_frame(game);
 }
 
 void	ft_start_animation(t_game *game, t_data *data)
