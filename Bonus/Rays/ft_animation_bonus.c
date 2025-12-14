@@ -37,14 +37,7 @@ static void	display_frame(t_game *game)
 
 static void	handle_space_key(t_game *game)
 {
-	if (game->stage_anim.stage == 0)
-	{
-		game->stage_anim.is_active = 0;
-		if (game->stage_anim.current_img)
-			mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
-		game->stage_anim.current_img = NULL;
-	}
-	else if (game->stage_anim.stage == 1)
+	if (game->stage_anim.stage == 1)
 	{
 		ft_strlcpy(game->stage_anim.folder,
 			"Tools/animation/Loading_animation/loading_screen", 256);
