@@ -19,17 +19,31 @@ void	ft_display_frame(t_game *game)
 	mlx_texture_t	*tex;
 
 	if (game->stage_anim.current_img)
+	{
 		mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
+		game->stage_anim.current_img = NULL;
+	}
 	num = ft_itoa(game->stage_anim.current_frame + 1);
+	if (!num)
+		return ;
 	path = ft_strjoin(game->stage_anim.folder, num);
 	free(num);
+	if (!path)
+		return ;
 	num = ft_strjoin(path, ".png");
 	free(path);
+	if (!num)
+		return ;
 	tex = mlx_load_png(num);
 	free(num);
 	if (!tex)
 		return ;
 	game->stage_anim.current_img = mlx_texture_to_image(game->mlx.ptr, tex);
+	if (!game->stage_anim.current_img)
+	{
+		mlx_delete_texture(tex);
+		return ;
+	}
 	mlx_resize_image(game->stage_anim.current_img, WIDTH, HEIGHT);
 	mlx_image_to_window(game->mlx.ptr, game->stage_anim.current_img, 0, 0);
 	mlx_delete_texture(tex);
@@ -48,7 +62,11 @@ void	ft_handle_space_key(t_game *game)
 	}
 	else if (game->stage_anim.stage == 3 || game->stage_anim.stage == 4)
 	{
-		mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
+		if (game->stage_anim.current_img)
+		{
+			mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
+			game->stage_anim.current_img = NULL;
+		}
 		game->stage_anim.stage = 1;
 	}
 	ft_display_frame(game);
