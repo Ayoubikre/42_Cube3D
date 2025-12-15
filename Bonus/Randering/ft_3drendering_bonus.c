@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:28:03 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 04:29:41 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_text_index(t_ray *ray)
 {
 	if (ray->hit == 2)
 		return (DOOR);
-	else if (ray->hit == 4)
+	else if (ray->hit == 4 || ray->hit == 5)
 		return (PORTAL);
 	else if (ray->drc == 'N')
 		return (NORTH);

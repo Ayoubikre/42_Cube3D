@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:06:30 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 05:08:06 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ uint32_t	get_minimap_color(char c)
 		return (0xF5DEB3FF);
 	if (c == '2')
 		return (0xc71a1aFF);
-	if (c == '4')
+	if (c == '4' || c == '5')
 		return (0x3b0b84FF);
 	return (0x000000A0);
 }

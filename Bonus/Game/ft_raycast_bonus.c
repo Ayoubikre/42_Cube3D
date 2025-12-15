@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 09:42:24 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 04:29:22 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ void	ft_first_cell_len(t_data *data, t_ray *ray)
 
 void	ft_set_info(t_ray *ray, char w)
 {
-	if (w == '1' || w == '2' || w == '4')
+	if (w == '1' || w == '2' || w == '4' || w == '5')
 	{
 		if (w == '2')
 			ray->hit = 2;
 		else if (w == '4')
 			ray->hit = 4;
+		else if (w == '5')
+			ray->hit = 5;
 		else
 			ray->hit = 1;
 	}

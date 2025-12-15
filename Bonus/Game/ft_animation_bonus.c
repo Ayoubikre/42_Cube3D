@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:36:55 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/14 21:26:25 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 05:11:47 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,21 @@ void	ft_display_frame(t_game *game)
 
 void	ft_handle_space_key(t_game *game)
 {
-	if (game->stage_anim.stage == 1)
+	if (game->stage_anim.stage == 0 || game->stage_anim.stage == 1)
 	{
-		ft_strlcpy(game->stage_anim.folder,
-			"Tools/animation/Loading_animation/loading_screen", 256);
-		game->stage_anim.total_frames = 8;
-		game->stage_anim.frame_delay = 20;
+		ft_strlcpy(game->stage_anim.folder, "Tools/animation/Loading/loading",
+			256);
+		game->stage_anim.total_frames = 16;
+		game->stage_anim.frame_delay = 25;
 		game->stage_anim.current_frame = 0;
 		game->stage_anim.stage = 2;
 	}
-	else if (game->stage_anim.stage == 3)
-		mlx_close_window(game->mlx.ptr);
+	else if (game->stage_anim.stage == 3 || game->stage_anim.stage == 4)
+	{
+		mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
+		game->stage_anim.stage = 1;
+	}
+	ft_display_frame(game);
 }
 
 void	ft_update_stage_animation(t_game *game)
@@ -85,38 +89,39 @@ void	ft_start_animation(t_game *game, char *folder, int frames, int stage)
 	game->stage_anim.total_frames = frames;
 	game->stage_anim.current_frame = 0;
 	game->stage_anim.frame_counter = 0;
-	game->stage_anim.frame_delay = 20;
-	if (stage == 3)
-		game->stage_anim.frame_delay = 30;
+	game->stage_anim.frame_delay = 30;
+	if (stage == 1)
+		game->stage_anim.frame_delay = 20;
 	game->stage_anim.is_active = 1;
 	game->stage_anim.current_img = NULL;
 	game->stage_anim.stage = stage;
+	ft_display_frame(game);
 }
 
 int	ft_animation(t_game *game)
 {
 	ft_update_stage_animation(game);
 	if (game->stage_anim.is_active)
-	{
-		return (-1);
-	}
+		return (1);
 	if (game->g_state == GAME_START)
 	{
-		ft_start_animation(game,
-			"Tools/animation/Loading_animation/loading_screen", 8, 2);
-		return (game->g_state = DEFAULT, -1);
+		return (ft_start_animation(game, "Tools/animation/start/start", 8, 0),
+			game->g_state = DEFAULT, 1);
 	}
 	else if (game->g_state == LVL_SWITCH)
 	{
-		ft_start_animation(game,
-			"Tools/animation/stage_complete/stage_complete", 8, 1);
-		return (game->g_state = DEFAULT, -1);
+		return (ft_start_animation(game, "Tools/animation/stage/stage", 8, 1),
+			game->g_state = DEFAULT, 1);
 	}
 	else if (game->g_state == GAME_END)
 	{
-		ft_start_animation(game,
-			"Tools/animation/complete_animation/complete_animation", 6, 3);
-		return (game->g_state = DEFAULT, -1);
+		return (ft_start_animation(game, "Tools/animation/ending/ending", 6, 3),
+			game->g_state = DEFAULT, 1);
+	}
+	else if (game->g_state == PLAYER_DEAD)
+	{
+		return (ft_start_animation(game, "Tools/animation/failed/failed", 8, 4),
+			game->g_state = DEFAULT, 1);
 	}
 	return (game->g_state = DEFAULT, 0);
 }

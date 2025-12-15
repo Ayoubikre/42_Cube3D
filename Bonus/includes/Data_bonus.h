@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/14 21:32:53 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 03:22:21 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef enum s_game_states
 {
 	GAME_START,
 	LVL_SWITCH,
+	PLAYER_DEAD,
 	GAME_END,
 	DEFAULT = -1
 }					t_game_states;

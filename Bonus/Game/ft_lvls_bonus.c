@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:01:30 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 04:38:41 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,13 @@ void	ft_switch_lvl(t_game *game, t_data *data)
 			game->c_lvl = game->lvls;
 			game->g_state = GAME_END;
 		}
+		ft_init_lvl(game, &game->c_lvl->data);
+	}
+	if (data->rays[RAYS / 2].len <= 2.0 && data->rays[RAYS / 2].hit == 5)
+	{
+		ft_destroy_lvl(game, data, 3);
+		game->c_lvl = game->lvls;
+		game->g_state = PLAYER_DEAD;
 		ft_init_lvl(game, &game->c_lvl->data);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/16 20:55:35 by akzaza            #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:09 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 05:07:03 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int	check_map_closed(t_data *data)
 		while (data->map.grid[i][j])
 		{
 			c = data->map.grid[i][j];
-			if (c == '0' || c == '2' || c == '4' || c == 'N' || c == 'S'
-				|| c == 'E' || c == 'W')
+			if (c == '0' || c == '2' || c == '4' || c == '5' || c == 'N'
+				|| c == 'S' || c == 'E' || c == 'W')
 			{
 				if (!check_surrounded(data, i, j))
 					return ((print_error("Map not closed (space or \

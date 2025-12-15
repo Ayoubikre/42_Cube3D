@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/12 08:03:13 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:09 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 04:20:40 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int	validate_elements_complete(t_data *data)
 
 int	is_valid_pos(char c)
 {
-	return (c == '0' || c == '1' || c == '2' || c == '4' || c == 'N' || c == 'S'
-		|| c == 'E' || c == 'W');
+	return (c == '0' || c == '1' || c == '2' || c == '4' || c == '5' || c == 'N'
+		|| c == 'S' || c == 'E' || c == 'W');
 }
 
 int	parse_floor_color(char *line, t_data *data)
