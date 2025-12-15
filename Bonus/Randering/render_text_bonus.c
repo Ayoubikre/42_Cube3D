@@ -77,6 +77,10 @@ void	draw_column_pixels(t_game *game, t_render_vars *vars, int tex_index,
 	int			tex_height;
 	uint32_t	color;
 
+	if (tex_index < 0 || tex_index >= TEX_COUNT
+		|| !game->c_lvl->data.load_textures[tex_index].loaded
+		|| !game->c_lvl->data.load_textures[tex_index].tex)
+		return ;
 	tex_height = game->c_lvl->data.load_textures[tex_index].tex->height;
 	if (vars->line_h <= 0 || tex_height <= 0)
 		return ;

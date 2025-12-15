@@ -22,18 +22,20 @@ void	ft_init_ray_data(t_data *data, t_ray *ray, int i, double r)
 	ray->ang_cos = cos(ray->angle);
 	if (fabs(ray->ang_cos) < 1e-6)
 	{
-		ray->ang_cos = 1e-6;
 		if (ray->ang_cos < 0)
 			ray->ang_cos = -1e-6;
+		else
+			ray->ang_cos = 1e-6;
 	}
 	ray->const_x = fabs(data->map.cell_s / ray->ang_cos);
 	ray->x = floor(data->player.pos_x);
 	ray->ang_sin = sin(ray->angle);
 	if (fabs(ray->ang_sin) < 1e-6)
 	{
-		ray->ang_sin = 1e-6;
 		if (ray->ang_sin < 0)
 			ray->ang_sin = -1e-6;
+		else
+			ray->ang_sin = 1e-6;
 	}
 	ray->const_y = fabs(data->map.cell_s / ray->ang_sin);
 	ray->y = floor(data->player.pos_y);
@@ -66,7 +68,7 @@ void	ft_first_cell_len(t_data *data, t_ray *ray)
 
 void	ft_set_info(t_ray *ray, char w)
 {
-	if (w == '1' || w == '2' || w == '4' || w == '5')
+	if (w == '1' || w == '2' || w == '4' || w == '5' || w == ' ')
 	{
 		if (w == '2')
 			ray->hit = 2;
@@ -74,6 +76,8 @@ void	ft_set_info(t_ray *ray, char w)
 			ray->hit = 4;
 		else if (w == '5')
 			ray->hit = 5;
+		else if (w == ' ')
+			ray->hit = 3;
 		else
 			ray->hit = 1;
 	}
@@ -95,6 +99,8 @@ void	ft_set_info(t_ray *ray, char w)
 
 void	ft_dda(t_data *data, t_ray *ray)
 {
+	char	c;
+
 	while (ray->hit == 0)
 	{
 		if (ray->extra_x < ray->extra_y)
@@ -113,7 +119,8 @@ void	ft_dda(t_data *data, t_ray *ray)
 			ray->len = (ray->y - data->player.pos_y + (1 - ray->step_y) / 2)
 				/ ray->ang_sin;
 		}
-		ft_set_info(ray, data->map.grid[ray->y][ray->x]);
+		c = get_char_at(data, ray->y, ray->x);
+		ft_set_info(ray, c);
 	}
 }
 

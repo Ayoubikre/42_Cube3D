@@ -85,10 +85,9 @@ void	ft_free_list(t_game *game)
 		game->lvls = game->lvls->next;
 		ft_free_lvl(game->c_lvl);
 	}
-	if (game->level_text_img)
+	if (game->level_text_img && game->mlx.ptr)
 	{
 		mlx_delete_image(game->mlx.ptr, game->level_text_img);
 		game->level_text_img = NULL;
 	}
-	free(game->lvls);
 }

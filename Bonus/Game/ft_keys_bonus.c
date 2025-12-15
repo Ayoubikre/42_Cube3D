@@ -58,7 +58,14 @@ void	ft_open_and_close_doors(t_data *data, int f)
 	else
 	{
 		if (data->rays[RAYS / 2].len <= 2.0 && data->rays[RAYS / 2].hit == 2)
-			data->map.grid[data->rays[RAYS / 2].y][data->rays[RAYS
-				/ 2].x] = '3';
+		{
+			if (data->rays[RAYS / 2].y >= 0 && data->rays[RAYS / 2].y < data->map.grid_y
+				&& data->rays[RAYS / 2].x >= 0
+				&& data->rays[RAYS / 2].x < (int)ft_strlen(data->map.grid[data->rays[RAYS / 2].y]))
+			{
+				data->map.grid[data->rays[RAYS / 2].y][data->rays[RAYS
+					/ 2].x] = '3';
+			}
+		}
 	}
 }
