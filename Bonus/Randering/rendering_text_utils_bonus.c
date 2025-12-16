@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redering_text_utils_bonus.c                        :+:      :+:    :+:   */
+/*   rendering_text_utils_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -16,8 +16,9 @@ int	calculate_texture_x(t_data *data, t_render_vars *vars, double wallX,
 		int tex_index)
 {
 	t_ray	*ray;
+	int		tex_x;
+	int		tex_width;
 
-	int (tex_x), (tex_width);
 	if (tex_index < 0 || tex_index >= TEX_COUNT
 		|| !data->load_textures[tex_index].loaded
 		|| !data->load_textures[tex_index].tex)
