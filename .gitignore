@@ -1,0 +1,20 @@
+# Object files
+*.o
+*.obj
+
+# Executables
+cub3D
+cub3D_bonus
+
+# Libraries
+*.a
+
+# Debug files
+*.dSYM/
+
+# IDE
+.vscode/
+.idea/
+
+# System files
+.DS_Store
