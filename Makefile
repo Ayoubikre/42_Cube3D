@@ -54,7 +54,7 @@ SRC = Mandatory/main.c \
 		Mandatory/Randering/ft_3drendering.c \
 		Mandatory/Randering/ft_textures.c \
 		Mandatory/Randering/render_text.c \
-		Mandatory/Randering/redering_text_utils.c
+		Mandatory/Randering/rendering_text_utils.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -93,11 +93,11 @@ B_SRC = Bonus/main_bonus.c \
 		Bonus/Randering/ft_3drendering_bonus.c \
 		Bonus/Randering/ft_textures_bonus.c \
 		Bonus/Randering/render_text_bonus.c \
-		Bonus/Randering/redering_text_utils_bonus.c
+		Bonus/Randering/rendering_text_utils_bonus.c
 
 B_OBJ = $(B_SRC:.c=.o)
 
-B_Head = bonus/includes/cub3d_bonus.h bonus/includes/Data_bonus.h
+B_Head = Bonus/includes/cub3d_bonus.h Bonus/includes/Data_bonus.h
 
 libft_DIR_B = ./Bonus/42_Libft
 libft_B = $(libft_DIR_B)/libft.a
@@ -125,7 +125,7 @@ $(B_NAME): $(B_OBJ)
 	make clean
 	$(b_add)
 
-bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR)/libft.h
+Bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR)/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
