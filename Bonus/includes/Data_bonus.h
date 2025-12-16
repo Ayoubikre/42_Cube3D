@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Data_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/15 03:22:21 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/16 21:24:23 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ typedef struct s_game
 	mlx_image_t		*level_text_img;
 	t_levels		*lvls;
 	t_levels		*c_lvl;
+	int				lock_cam;
 	int				id_max;
 	int				g_state;
 	int				animating;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/14 21:26:39 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/16 21:24:03 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int				ft_list_count(t_levels *lvls);
 
 void			ft_capture_keys(mlx_key_data_t keydata, void *param);
 void			ft_open_and_close_doors(t_data *data, int f);
+void			ft_lock_and_unlock_cam(t_game *game);
 
 void			ft_switch_lvl(t_game *game, t_data *data);
 void			ft_draw_level_text(t_game *game);

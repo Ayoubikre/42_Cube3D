@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redering_text_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 16:02:25 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/16 21:04:22 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,12 @@ int	calculate_texture_x(t_data *data, t_render_vars *vars, double wallX,
 		int tex_index)
 {
 	t_ray	*ray;
-	int		tex_x;
-	int		tex_width;
 
+	int (tex_x), (tex_width);
+	if (tex_index < 0 || tex_index >= TEX_COUNT
+		|| !data->load_textures[tex_index].loaded
+		|| !data->load_textures[tex_index].tex)
+		return (0);
 	ray = &data->rays[vars->ray_i];
 	tex_width = data->load_textures[tex_index].tex->width;
 	tex_x = (int)(wallX * tex_width);

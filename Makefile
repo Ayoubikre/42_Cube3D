@@ -19,7 +19,7 @@ else
 	add = echo "" && ./$(NAME) map.cub
 	b_add = echo "" && ./$(B_NAME) map.cub
 endif
-
+# MallocScribble=1 MallocGuardEdges=1
 #---------------------------------------------------------------#
 
 CC = cc

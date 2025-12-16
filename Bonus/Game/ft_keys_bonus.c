@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_keys_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:57:21 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/16 21:23:38 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,24 @@ void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_V))
 	{
 		ft_switch_lvl(game, data);
+	}
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_L))
+	{
+		ft_lock_and_unlock_cam(game);
+	}
+}
+
+void	ft_lock_and_unlock_cam(t_game *game)
+{
+	if (game->lock_cam == 0)
+	{
+		mlx_set_cursor_mode(game->mlx.ptr, MLX_MOUSE_NORMAL);
+		game->lock_cam = 1;
+	}
+	else
+	{
+		mlx_set_cursor_mode(game->mlx.ptr, MLX_MOUSE_DISABLED);
+		game->lock_cam = 0;
 	}
 }
 

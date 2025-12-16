@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wrap_main_core_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 20:56:32 by akzaza            #+#    #+#             */
-/*   Updated: 2025/12/13 13:16:59 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/16 21:27:56 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	ft_wrap_main_core(t_game *game, char *path)
 		path = tmp->data.next_file;
 	}
 	game->c_lvl = game->lvls;
+	game->lock_cam = 0;
 	game->id_max = ft_list_count(game->c_lvl);
 	game->g_state = GAME_START;
 	game->stage_anim.is_active = 0;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_animation_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:36:55 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/15 05:11:47 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/16 21:07:42 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ void	ft_display_frame(t_game *game)
 	if (!tex)
 		return ;
 	game->stage_anim.current_img = mlx_texture_to_image(game->mlx.ptr, tex);
+	if (!game->stage_anim.current_img)
+	{
+		mlx_delete_texture(tex);
+		return ;
+	}
 	mlx_resize_image(game->stage_anim.current_img, WIDTH, HEIGHT);
 	mlx_image_to_window(game->mlx.ptr, game->stage_anim.current_img, 0, 0);
 	mlx_delete_texture(tex);
@@ -48,7 +53,11 @@ void	ft_handle_space_key(t_game *game)
 	}
 	else if (game->stage_anim.stage == 3 || game->stage_anim.stage == 4)
 	{
-		mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
+		if (game->stage_anim.current_img)
+		{
+			mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
+			game->stage_anim.current_img = NULL;
+		}
 		game->stage_anim.stage = 1;
 	}
 	ft_display_frame(game);

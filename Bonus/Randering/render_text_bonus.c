@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_text_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 04:39:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/16 21:03:28 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,13 @@ uint32_t	get_texture_pixel(t_data *data, int tex_index, int x, int y)
 void	draw_column_pixels(t_game *game, t_render_vars *vars, int tex_index,
 		int tex_x)
 {
-	int			y;
-	int			d;
-	int			tex_y;
-	int			tex_height;
 	uint32_t	color;
 
+	int (y), (d), (tex_y), (tex_height);
+	if (tex_index < 0 || tex_index >= TEX_COUNT
+		|| !game->c_lvl->data.load_textures[tex_index].loaded
+		|| !game->c_lvl->data.load_textures[tex_index].tex)
+		return ;
 	tex_height = game->c_lvl->data.load_textures[tex_index].tex->height;
 	if (vars->line_h <= 0 || tex_height <= 0)
 		return ;
