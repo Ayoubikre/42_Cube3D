@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_textures_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:40:14 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/10 18:36:10 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/16 21:41:26 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	ft_init_textures(t_data *data)
 		if (check_file(data->textures[a], 2) == 1)
 		{
 			if (load_xpm(data, a))
-				return ((printf("Error\nFailed to load XMP texture %d: %s\n", a,
+				return ((printf("Error\nFailed to load XPM texture %d: %s\n", a,
 							data->textures[a])), -1);
 		}
 		else if (check_file(data->textures[a], 2) == 2)

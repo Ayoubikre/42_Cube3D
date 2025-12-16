@@ -6,7 +6,7 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/16 21:24:03 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/12/16 21:42:47 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,5 +152,6 @@ void			ft_start_animation(t_game *game, char *folder, int frames,
 					int stage);
 void			ft_handle_space_key(t_game *game);
 void			ft_display_frame(t_game *game);
+void			fps(void);
 
 #endif
