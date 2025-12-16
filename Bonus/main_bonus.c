@@ -12,16 +12,9 @@
 
 #include "includes/cub3d_bonus.h"
 
-void	t(void)
-{
-	system("leaks -q cub3D_bonus");
-}
-
 int	main(int ac, char **av)
 {
 	t_game	game;
-
-	atexit(t);
 	if (ac != 2)
 		return ((print_error("Usage: ./cub3D_bonus <map.cub>")), 1);
 	if (ft_wrap_main_core(&game, av[1]))

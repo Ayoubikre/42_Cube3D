@@ -23,7 +23,6 @@ int	load_xpm(t_data *data, int tex_index)
 		return (1);
 	data->load_textures[tex_index].tex = &xpm->texture;
 	data->load_textures[tex_index].width = xpm->texture.width;
-	printf("XPM text width: %d\n", data->load_textures[tex_index].width);
 	data->load_textures[tex_index].height = xpm->texture.height;
 	data->load_textures[tex_index].pixels = xpm->texture.pixels;
 	data->load_textures[tex_index].bytes_per_pixel
@@ -62,7 +61,7 @@ int	ft_init_textures(t_data *data)
 		if (check_file(data->textures[a], 2) == 1)
 		{
 			if (load_xpm(data, a))
-				return ((printf("Error\nFailed to load XMP texture %d: %s\n", a,
+				return ((printf("Error\nFailed to load XPM texture %d: %s\n", a,
 							data->textures[a])), -1);
 		}
 		else if (check_file(data->textures[a], 2) == 2)
