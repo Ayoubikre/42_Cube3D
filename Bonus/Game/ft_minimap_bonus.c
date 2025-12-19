@@ -12,6 +12,16 @@
 
 #include "../includes/cub3d_bonus.h"
 
+int	is_in_circle(int x, int y, int center_x, int center_y, int radius)
+{
+	int	dx;
+	int	dy;
+
+	dx = x - center_x;
+	dy = y - center_y;
+	return (dx * dx + dy * dy <= radius * radius);
+}
+
 uint32_t	get_minimap_color(char c)
 {
 	if (c == '1')
@@ -29,15 +39,25 @@ void	ft_draw_cells(t_data *data, t_norm tmp, char c)
 {
 	int	px;
 	int	py;
+	int	center_x;
+	int	center_y;
+	int	radius;
 
+	center_x = data->mini.width / 2;
+	center_y = data->mini.height / 2;
+	radius = (data->mini.width < data->mini.height)
+		* (data->mini.width / 2) + (data->mini.width >= data->mini.height)
+		* (data->mini.height / 2);
 	py = 0;
 	while (py < data->mini.cell_size)
 	{
 		px = 0;
 		while (px < data->mini.cell_size)
 		{
-			put_px(data->mini.ptr_img, px + tmp.px, py + tmp.py,
-				get_minimap_color(c));
+			if (is_in_circle(px + tmp.px, py + tmp.py,
+					center_x, center_y, radius))
+				put_px(data->mini.ptr_img, px + tmp.px, py + tmp.py,
+					get_minimap_color(c));
 			px++;
 		}
 		py++;
@@ -72,9 +92,17 @@ void	ft_draw_map(t_data *data)
 void	ft_draw_player(t_data *data)
 {
 	t_norm	tmp;
+	int		center_x;
+	int		center_y;
+	int		radius;
 
-	tmp.x_s = data->mini.width / 2;
-	tmp.y_s = data->mini.height / 2;
+	center_x = data->mini.width / 2;
+	center_y = data->mini.height / 2;
+	radius = (data->mini.width < data->mini.height)
+		* (data->mini.width / 2) + (data->mini.width >= data->mini.height)
+		* (data->mini.height / 2);
+	tmp.x_s = center_x;
+	tmp.y_s = center_y;
 	tmp.p_size = data->mini.p_size / 2;
 	tmp.py = tmp.y_s - tmp.p_size;
 	while (tmp.py < tmp.y_s + tmp.p_size)
@@ -82,7 +110,8 @@ void	ft_draw_player(t_data *data)
 		tmp.px = tmp.x_s - tmp.p_size;
 		while (tmp.px < tmp.x_s + tmp.p_size)
 		{
-			put_px(data->mini.ptr_img, tmp.px, tmp.py, 0x000000FF);
+			if (is_in_circle(tmp.px, tmp.py, center_x, center_y, radius))
+				put_px(data->mini.ptr_img, tmp.px, tmp.py, 0x000000FF);
 			tmp.px++;
 		}
 		tmp.py++;
