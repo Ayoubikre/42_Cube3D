@@ -12,7 +12,7 @@
 
 #include "../includes/cub3d_bonus.h"
 
-int	is_in_circle(int x, int y, int center_x, int center_y, int radius)
+static int	is_in_circle(int x, int y, int center_x, int center_y, int radius)
 {
 	int	dx;
 	int	dy;
@@ -22,7 +22,7 @@ int	is_in_circle(int x, int y, int center_x, int center_y, int radius)
 	return (dx * dx + dy * dy <= radius * radius);
 }
 
-int	get_minimap_radius(t_data *data)
+static int	get_minimap_radius(t_data *data)
 {
 	if (data->mini.width < data->mini.height)
 		return (data->mini.width / 2);
