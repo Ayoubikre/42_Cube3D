@@ -22,6 +22,13 @@ int	is_in_circle(int x, int y, int center_x, int center_y, int radius)
 	return (dx * dx + dy * dy <= radius * radius);
 }
 
+int	get_minimap_radius(t_data *data)
+{
+	if (data->mini.width < data->mini.height)
+		return (data->mini.width / 2);
+	return (data->mini.height / 2);
+}
+
 uint32_t	get_minimap_color(char c)
 {
 	if (c == '1')
@@ -45,9 +52,7 @@ void	ft_draw_cells(t_data *data, t_norm tmp, char c)
 
 	center_x = data->mini.width / 2;
 	center_y = data->mini.height / 2;
-	radius = (data->mini.width < data->mini.height)
-		* (data->mini.width / 2) + (data->mini.width >= data->mini.height)
-		* (data->mini.height / 2);
+	radius = get_minimap_radius(data);
 	py = 0;
 	while (py < data->mini.cell_size)
 	{
@@ -98,9 +103,7 @@ void	ft_draw_player(t_data *data)
 
 	center_x = data->mini.width / 2;
 	center_y = data->mini.height / 2;
-	radius = (data->mini.width < data->mini.height)
-		* (data->mini.width / 2) + (data->mini.width >= data->mini.height)
-		* (data->mini.height / 2);
+	radius = get_minimap_radius(data);
 	tmp.x_s = center_x;
 	tmp.y_s = center_y;
 	tmp.p_size = data->mini.p_size / 2;
