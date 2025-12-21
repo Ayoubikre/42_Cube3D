@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minimap_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:06:30 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/19 21:21:43 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/21 17:44:26 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ uint32_t	get_minimap_color(char c)
 		return (0xc71a1aFF);
 	if (c == '4' || c == '5')
 		return (0x3b0b84FF);
-	return (0x000000A0);
+	return (0x000000FF);
 }
 
 void	ft_draw_cells(t_data *data, t_norm tmp, char c)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Data_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/19 21:01:20 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/21 17:03:25 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ typedef struct s_norm
 typedef struct s_minimap
 {
 	mlx_image_t		*ptr_img;
+	mlx_image_t		*cadre_img;
 	int32_t			id_img;
 	double			height;
 	double			width;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:53:54 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/19 21:21:48 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/21 18:01:23 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,15 @@ int	ft_init_mlx_map(t_game *game)
 
 int	ft_init_mlx_minimap(t_game *game, t_data *data)
 {
-	data->mini.height = HEIGHT / 5;
-	data->mini.width = WIDTH / 5;
+	data->mini.height = HEIGHT / 6;
+	data->mini.width = WIDTH / 6;
 	data->mini.cell_size = 20;
 	data->mini.p_size = 8;
 	data->mini.ptr_img = mlx_new_image(game->mlx.ptr, data->mini.width,
 			data->mini.height);
 	if (!data->mini.ptr_img)
 		return (-1);
-	mlx_image_to_window(game->mlx.ptr, data->mini.ptr_img, 5, 5);
+	mlx_image_to_window(game->mlx.ptr, data->mini.ptr_img, 30, 53);
 	return (0);
 }
 
