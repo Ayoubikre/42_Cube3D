@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:50:35 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/16 21:08:21 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/12/22 03:08:50 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	ft_free_map(t_map *map)
 	map->grid_x = 0;
 }
 
-void	ft_free_data(t_data *data)
+void	ft_free_data(t_game *game, t_data *data)
 {
 	int	i;
 
@@ -70,14 +70,20 @@ void	ft_free_data(t_data *data)
 		free(data->next_file);
 	if (data->rays)
 		free(data->rays);
+	if (data->big.ptr_img)
+		mlx_delete_image(game->mlx.ptr, data->big.ptr_img);
+	if (data->mini.ptr_img)
+		mlx_delete_image(game->mlx.ptr, data->mini.ptr_img);
+	if (data->mini.cadre_img)
+		mlx_delete_image(game->mlx.ptr, data->mini.cadre_img);
 	ft_free_map(&data->map);
 }
 
-void	ft_free_lvl(t_levels *lvl)
+void	ft_free_lvl(t_game *game, t_levels *lvl)
 {
 	if (lvl->path)
 		free(lvl->path);
-	ft_free_data(&lvl->data);
+	ft_free_data(game , &lvl->data);
 	free(lvl);
 }
 
@@ -85,11 +91,11 @@ void	ft_free_list(t_game *game)
 {
 	if (!game)
 		return ;
-	ft_free_mlx(game);
 	while (game->lvls)
 	{
 		game->c_lvl = game->lvls;
 		game->lvls = game->lvls->next;
-		ft_free_lvl(game->c_lvl);
+		ft_free_lvl(game, game->c_lvl);
 	}
+	ft_free_mlx(game);
 }

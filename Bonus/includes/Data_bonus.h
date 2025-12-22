@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Data_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/21 17:03:25 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/12/22 03:27:50 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,18 @@ typedef struct s_minimap
 	int				cell_size;
 }					t_mini;
 
+typedef struct s_bigmap
+{
+	mlx_image_t		*ptr_img;
+	int32_t			id_img;
+	double			height;
+	double			width;
+	int				p_size;
+	int				cell_size;
+	double	offset_x;
+	double	offset_y;
+}					t_big;
+
 typedef struct s_player_bak
 {
 	double			pos_x;
@@ -185,6 +197,7 @@ typedef struct s_data
 	t_player		player;
 	t_player_bak	player_bak;
 	t_mini			mini;
+	t_big			big;
 	t_ray			*rays;
 	double			fov;
 	double			ang;
@@ -207,6 +220,7 @@ typedef struct s_game
 	t_levels		*lvls;
 	t_levels		*c_lvl;
 	int				lock_cam;
+	int				show_map;
 	int				id_max;
 	int				g_state;
 	int				animating;

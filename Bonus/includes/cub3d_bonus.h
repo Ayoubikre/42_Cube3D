@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/16 21:42:47 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/12/22 02:48:57 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void			ft_set_player_data_bak(t_data *data);
 
 int				ft_init_lvl(t_game *game, t_data *data);
 void			ft_destroy_lvl(t_game *game, t_data *data, int f);
+void			ft_init_minimap_borders(t_game *game, t_data *data);
 int				ft_init_mlx_minimap(t_game *game, t_data *data);
 int				ft_init_mlx_map(t_game *game);
 void			ft_reset_player_data(t_data *data);
@@ -125,20 +126,24 @@ int				ft_list_count(t_levels *lvls);
 void			ft_capture_keys(mlx_key_data_t keydata, void *param);
 void			ft_open_and_close_doors(t_data *data, int f);
 void			ft_lock_and_unlock_cam(t_game *game);
+void	ft_show_and_hide_map(t_game *game, t_data *data);
 
 void			ft_switch_lvl(t_game *game, t_data *data);
 void			ft_draw_level_text(t_game *game);
 
 void			ft_free_mlx(t_game *game);
 void			ft_free_map(t_map *map);
-void			ft_free_data(t_data *data);
-void			ft_free_lvl(t_levels *lvl);
+void			ft_free_data(t_game *game, t_data *data);
+void			ft_free_lvl(t_game *game, t_levels *lvl);
 void			ft_free_list(t_game *game);
 
 char			*ft_strjoin3(char *s1, char *s2, char *s3);
 unsigned int	ft_color(t_color clr);
 double			ft_rad(double x);
 double			ft_deg(double x);
+
+int ft_map(t_game *game, t_data *data);
+
 
 void			ft_minimap(t_data *data);
 void			ft_draw_player(t_data *data);

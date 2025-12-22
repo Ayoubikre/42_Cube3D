@@ -24,7 +24,7 @@ endif
 
 CC = cc
 
-CFLAGS  = -Wall -Werror -Wextra
+# CFLAGS  = -Wall -Werror -Wextra
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
 
 SRC = Mandatory/main.c \
@@ -87,6 +87,7 @@ B_SRC = Bonus/main_bonus.c \
 		Bonus/Game/ft_list_bonus.c \
 		Bonus/Game/ft_lvls_bonus.c \
 		Bonus/Game/ft_minimap_bonus.c \
+		Bonus/Game/ft_map_bonus.c \
 		Bonus/Game/ft_animation_bonus.c \
 		Bonus/Game/ft_utils_bonus.c \
 		Bonus/Game/ft_free_bonus.c \
