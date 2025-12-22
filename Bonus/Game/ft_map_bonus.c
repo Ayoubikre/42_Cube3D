@@ -74,9 +74,21 @@ void	ft_draw_map_large(t_data *data)
 void	ft_draw_player_large(t_data *data)
 {
 	t_norm	tmp;
+	int		half_cells_y;
+	int		half_cells_x;
+	double	viewport_start_y;
+	double	viewport_start_x;
+	double	player_screen_x;
+	double	player_screen_y;
 
-	tmp.x_s = (data->big.width / 2);
-	tmp.y_s = (data->big.height / 2);
+	half_cells_y = (data->big.height / data->big.cell_size) / 2;
+	half_cells_x = (data->big.width / data->big.cell_size) / 2;
+	viewport_start_y = data->player.pos_y - half_cells_y + data->big.offset_y;
+	viewport_start_x = data->player.pos_x - half_cells_x + data->big.offset_x;
+	player_screen_y = (data->player.pos_y - viewport_start_y) * data->big.cell_size;
+	player_screen_x = (data->player.pos_x - viewport_start_x) * data->big.cell_size;
+	tmp.x_s = (int)player_screen_x;
+	tmp.y_s = (int)player_screen_y;
 	tmp.p_size = data->big.p_size / 2;
 	tmp.py = tmp.y_s - tmp.p_size;
 	while (tmp.py < tmp.y_s + tmp.p_size)
