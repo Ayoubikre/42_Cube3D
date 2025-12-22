@@ -27,7 +27,7 @@ void	ft_capture_big_map_moves(t_game *game, t_data *data)
 		data->big.offset_x += map_speed;
 }
 
-void	ft_draw_cells_large(t_data *data, t_norm tmp, char c)
+void	ft_draw_cells_large(t_data *data, t_norm tmp, char c, int is_player)
 {
 	int	px;
 	int	py;
@@ -38,8 +38,14 @@ void	ft_draw_cells_large(t_data *data, t_norm tmp, char c)
 		px = 0;
 		while (px < data->big.cell_size)
 		{
-			put_px(data->big.ptr_img, px + tmp.px, py + tmp.py,
-				get_minimap_color(c));
+			if (is_player && px >= data->big.cell_size / 4
+				&& px <= 3 * data->big.cell_size / 4
+				&& py >= data->big.cell_size / 4
+				&& py <= 3 * data->big.cell_size / 4)
+				put_px(data->big.ptr_img, px + tmp.px, py + tmp.py, 0xFF0000FF);
+			else
+				put_px(data->big.ptr_img, px + tmp.px, py + tmp.py,
+					get_minimap_color(c));
 			px++;
 		}
 		py++;
@@ -49,6 +55,7 @@ void	ft_draw_cells_large(t_data *data, t_norm tmp, char c)
 void	ft_draw_map_large(t_data *data)
 {
 	t_norm	tmp;
+	int		is_player;
 
 	tmp.i = (data->big.height / data->big.cell_size) / 2;
 	tmp.y_s = (int)data->player.pos_y - tmp.i + data->big.offset_y;
@@ -62,44 +69,15 @@ void	ft_draw_map_large(t_data *data)
 		tmp.px = 0;
 		while (tmp.x_s < tmp.x_e)
 		{
-			ft_draw_cells_large(data, tmp, get_char_at(data, tmp.y_s, tmp.x_s));
+			is_player = ((int)data->player.pos_y == tmp.y_s
+				&& (int)data->player.pos_x == tmp.x_s);
+			ft_draw_cells_large(data, tmp, get_char_at(data, tmp.y_s, tmp.x_s),
+				is_player);
 			tmp.px += data->big.cell_size;
 			tmp.x_s++;
 		}
 		tmp.py += data->big.cell_size;
 		tmp.y_s++;
-	}
-}
-
-void	ft_draw_player_large(t_data *data)
-{
-	t_norm	tmp;
-	int		half_cells_y;
-	int		half_cells_x;
-	double	viewport_start_y;
-	double	viewport_start_x;
-	double	player_screen_x;
-	double	player_screen_y;
-
-	half_cells_y = (data->big.height / data->big.cell_size) / 2;
-	half_cells_x = (data->big.width / data->big.cell_size) / 2;
-	viewport_start_y = data->player.pos_y - half_cells_y + data->big.offset_y;
-	viewport_start_x = data->player.pos_x - half_cells_x + data->big.offset_x;
-	player_screen_y = (data->player.pos_y - viewport_start_y) * data->big.cell_size;
-	player_screen_x = (data->player.pos_x - viewport_start_x) * data->big.cell_size;
-	tmp.x_s = (int)player_screen_x;
-	tmp.y_s = (int)player_screen_y;
-	tmp.p_size = data->big.p_size / 2;
-	tmp.py = tmp.y_s - tmp.p_size;
-	while (tmp.py < tmp.y_s + tmp.p_size)
-	{
-		tmp.px = tmp.x_s - tmp.p_size;
-		while (tmp.px < tmp.x_s + tmp.p_size)
-		{
-			put_px(data->big.ptr_img, tmp.px, tmp.py, 0x000000FF);
-			tmp.px++;
-		}
-		tmp.py++;
 	}
 }
 
@@ -128,6 +106,5 @@ int	ft_map(t_game *game, t_data *data)
 	ft_capture_big_map_moves(game, data);
 	ft_clear_big_map(data);
 	ft_draw_map_large(data);
-	ft_draw_player_large(data);
 	return (1);
 }
