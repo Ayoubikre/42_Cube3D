@@ -88,7 +88,11 @@ void	ft_open_and_close_doors(t_data *data, int f)
 void	ft_toggle_big_map(t_game *game)
 {
 	if (game->show_big_map == 0)
+	{
 		game->show_big_map = 1;
+		game->big_map_offset_x = 0;
+		game->big_map_offset_y = 0;
+	}
 	else
 		game->show_big_map = 0;
 }

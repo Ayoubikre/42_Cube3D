@@ -44,6 +44,7 @@ void	ft_all(void *param)
 			data->mini.ptr_img->enabled = false;
 		if (data->mini.cadre_img)
 			data->mini.cadre_img->enabled = false;
+		ft_capture_big_map_moves(game);
 		ft_big_map(game, data);
 		return ;
 	}
@@ -66,6 +67,25 @@ void	ft_hooks(t_game *game)
 	mlx_key_hook(game->mlx.ptr, ft_capture_keys, (void *)game);
 	mlx_cursor_hook(game->mlx.ptr, ft_update_mouse_angle, (void *)game);
 	mlx_set_cursor_mode(game->mlx.ptr, MLX_MOUSE_DISABLED);
+}
+
+void	ft_capture_big_map_moves(t_game *game)
+{
+	double	map_speed;
+
+	map_speed = 0.5;
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_W)
+		|| mlx_is_key_down(game->mlx.ptr, MLX_KEY_UP))
+		game->big_map_offset_y -= map_speed;
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_S)
+		|| mlx_is_key_down(game->mlx.ptr, MLX_KEY_DOWN))
+		game->big_map_offset_y += map_speed;
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_A)
+		|| mlx_is_key_down(game->mlx.ptr, MLX_KEY_LEFT))
+		game->big_map_offset_x -= map_speed;
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_D)
+		|| mlx_is_key_down(game->mlx.ptr, MLX_KEY_RIGHT))
+		game->big_map_offset_x += map_speed;
 }
 
 void	ft_start_game(t_game *game)

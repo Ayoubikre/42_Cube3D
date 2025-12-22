@@ -92,6 +92,7 @@ int				ft_wrap_start_game(t_game *game);
 void			ft_start_game(t_game *game);
 void			ft_hooks(t_game *game);
 void			ft_all(void *param);
+void			ft_capture_big_map_moves(t_game *game);
 
 int				ft_wrap_main_core(t_game *game, char *path);
 int				ft_main_core(t_data *data, char *file_name);

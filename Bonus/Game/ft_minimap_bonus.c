@@ -137,18 +137,21 @@ void	ft_draw_full_map(t_game *game, t_data *data, mlx_image_t *img)
 {
 	t_norm	tmp;
 	int		cell_size;
+	double	center_x;
+	double	center_y;
 
-	(void)game;
 	cell_size = BIG_MAP_CELL_SIZE;
+	center_x = data->player.pos_x + game->big_map_offset_x;
+	center_y = data->player.pos_y + game->big_map_offset_y;
 	tmp.i = (HEIGHT / cell_size) / 2;
-	tmp.y_s = (int)data->player.pos_y - tmp.i;
-	tmp.y_e = (int)data->player.pos_y + tmp.i;
+	tmp.y_s = (int)center_y - tmp.i;
+	tmp.y_e = (int)center_y + tmp.i;
 	tmp.py = 0;
 	while (tmp.y_s < tmp.y_e)
 	{
 		tmp.j = (WIDTH / cell_size) / 2;
-		tmp.x_s = (int)data->player.pos_x - tmp.j;
-		tmp.x_e = (int)data->player.pos_x + tmp.j;
+		tmp.x_s = (int)center_x - tmp.j;
+		tmp.x_e = (int)center_x + tmp.j;
 		tmp.px = 0;
 		while (tmp.x_s < tmp.x_e)
 		{
@@ -160,8 +163,8 @@ void	ft_draw_full_map(t_game *game, t_data *data, mlx_image_t *img)
 		tmp.py += cell_size;
 		tmp.y_s++;
 	}
-	tmp.x_s = WIDTH / 2;
-	tmp.y_s = HEIGHT / 2;
+	tmp.x_s = WIDTH / 2 - (int)(game->big_map_offset_x * cell_size);
+	tmp.y_s = HEIGHT / 2 - (int)(game->big_map_offset_y * cell_size);
 	ft_draw_big_map_player(img, tmp, BIG_MAP_PLAYER_SIZE);
 }
 

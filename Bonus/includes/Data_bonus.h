@@ -213,6 +213,8 @@ typedef struct s_game
 	int				g_state;
 	int				animating;
 	int				show_big_map;
+	double			big_map_offset_x;
+	double			big_map_offset_y;
 	t_stage_anim	stage_anim;
 }					t_game;
 
