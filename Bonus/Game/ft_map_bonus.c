@@ -52,13 +52,13 @@ void	ft_draw_map_large(t_data *data)
 
 	tmp.i = (data->big.height / data->big.cell_size) / 2;
 	tmp.y_s = (int)data->player.pos_y - tmp.i + data->big.offset_y;
-	tmp.y_e = (int)data->player.pos_y + tmp.i ;
+	tmp.y_e = (int)data->player.pos_y + tmp.i + data->big.offset_y;
 	tmp.py = 0;
 	while (tmp.y_s < tmp.y_e)
 	{
 		tmp.j = (data->big.width / data->big.cell_size) / 2;
 		tmp.x_s = (int)data->player.pos_x - tmp.j + data->big.offset_x;
-		tmp.x_e = (int)data->player.pos_x + tmp.j;
+		tmp.x_e = (int)data->player.pos_x + tmp.j + data->big.offset_x;
 		tmp.px = 0;
 		while (tmp.x_s < tmp.x_e)
 		{
@@ -91,11 +91,30 @@ void	ft_draw_player_large(t_data *data)
 	}
 }
 
+void	ft_clear_big_map(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->big.height)
+	{
+		x = 0;
+		while (x < data->big.width)
+		{
+			put_px(data->big.ptr_img, x, y, 0x000000FF);
+			x++;
+		}
+		y++;
+	}
+}
+
 int	ft_map(t_game *game, t_data *data)
 {
 	if(!game->show_map || !data->big.ptr_img)
 		return 0;
 	ft_capture_big_map_moves(game, data);
+	ft_clear_big_map(data);
 	ft_draw_map_large(data);
 	ft_draw_player_large(data);
     return 1;
