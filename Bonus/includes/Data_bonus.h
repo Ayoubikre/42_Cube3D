@@ -1,0 +1,241 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Data_bonus.h                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
+/*   Updated: 2025/12/22 16:36:13 by aakritah         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef DATA_BONUS_H
+# define DATA_BONUS_H
+
+# ifdef __linux__
+#  include "../../Tools/mlx/linux/MLX42.h"
+# else
+#  include "../../Tools/mlx/macOS/MLX42.h"
+# endif
+
+# define WIDTH 1080
+# define HEIGHT 1080
+
+# define NORTH 0
+# define SOUTH 1
+# define WEST 2
+# define EAST 3
+# define DOOR 4
+# define PORTAL 5
+
+# define TEX_COUNT 6
+# define ELEM_NO 0
+# define ELEM_SO 1
+# define ELEM_WE 2
+# define ELEM_EA 3
+# define ELEM_DR 4
+# define ELEM_PR 5
+# define ELEM_F 6
+# define ELEM_C 7
+# define ELEM_COUNT 8
+
+# define VISIBLE_DISTANCE 100
+# define RAYS WIDTH
+# define MOUSE_SP 0.002
+# define M_PI 3.14159265358979323846
+
+typedef enum s_game_states
+{
+	GAME_START,
+	LVL_SWITCH,
+	PLAYER_DEAD,
+	GAME_END,
+	DEFAULT = -1
+}					t_game_states;
+
+typedef struct s_stage_anim
+{
+	int				is_active;
+	int				current_frame;
+	int				frame_counter;
+	int				frame_delay;
+	int				total_frames;
+	char			folder[256];
+	mlx_image_t		*current_img;
+	int				stage;
+	int				timer;
+}					t_stage_anim;
+
+typedef struct s_hand_anim
+{
+	char			folder[256];
+	int				total_frames;
+	int				current_frame;
+	int				frame_delay;
+	int				frame_delay_counter;
+	mlx_image_t		*ptr_img;
+}					t_hand_anim;
+
+typedef struct s_render_vars
+{
+	double			proj;
+	int				column;
+	int				ray_i;
+	double			wall_dist;
+	int				line_h;
+	int				draw_start;
+	int				draw_end;
+	int				ray_side;
+}					t_render_vars;
+
+typedef struct s_ray
+{
+	int				i;
+	double			angle;
+	double			ang_cos;
+	double			ang_sin;
+	int				x;
+	int				y;
+	double			const_x;
+	double			const_y;
+	double			extra_x;
+	double			extra_y;
+	double			len;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+	char			drc;
+}					t_ray;
+
+typedef struct s_norm
+{
+	int				x_s;
+	int				y_s;
+	int				x_e;
+	int				y_e;
+	int				p_size;
+	int				px;
+	int				py;
+	int				i;
+	int				j;
+}					t_norm;
+
+typedef struct s_minimap
+{
+	mlx_image_t		*ptr_img;
+	mlx_image_t		*cadre_img;
+	int32_t			id_img;
+	double			height;
+	double			width;
+	int				p_size;
+	int				cell_size;
+}					t_mini;
+
+typedef struct s_bigmap
+{
+	mlx_image_t		*ptr_img;
+	int32_t			id_img;
+	double			height;
+	double			width;
+	int				p_size;
+	int				cell_size;
+	double			offset_x;
+	double			offset_y;
+}					t_big;
+
+typedef struct s_player_bak
+{
+	double			pos_x;
+	double			pos_y;
+	char			orientation;
+	double			mouse_l_p;
+	double			ang;
+}					t_player_bak;
+
+typedef struct s_player
+{
+	double			pos_x;
+	double			pos_y;
+	char			orientation;
+	double			mouse_l_p;
+}					t_player;
+
+typedef struct s_color
+{
+	int				r;
+	int				g;
+	int				b;
+}					t_color;
+
+typedef struct s_map
+{
+	char			**grid;
+	int				grid_x;
+	int				grid_y;
+	int				cell_s;
+}					t_map;
+
+typedef struct s_mlx
+{
+	mlx_t			*ptr;
+	mlx_image_t		*ptr_img;
+	int32_t			id_img;
+}					t_mlx;
+
+typedef struct s_texture
+{
+	mlx_texture_t	*tex;
+	unsigned int	width;
+	unsigned int	height;
+	uint8_t			*pixels;
+	int				bytes_per_pixel;
+	int				loaded;
+	xpm_t			*xpm;
+}					t_texture;
+
+typedef struct s_data
+{
+	int				parsed[ELEM_COUNT];
+	char			*textures[TEX_COUNT];
+	char			*next_file;
+	t_texture		load_textures[TEX_COUNT];
+	t_color			floor_color;
+	t_color			ceiling_color;
+	t_map			map;
+	t_player		player;
+	t_player_bak	player_bak;
+	t_mini			mini;
+	t_big			big;
+	t_ray			*rays;
+	double			fov;
+	double			ang;
+	double			move_speed;
+}					t_data;
+
+typedef struct s_levels
+{
+	int				id;
+	char			*path;
+	t_data			data;
+	struct s_levels	*next;
+	struct s_levels	*prev;
+}					t_levels;
+
+typedef struct s_game
+{
+	t_mlx			mlx;
+	t_levels		*lvls;
+	t_levels		*c_lvl;
+	int				lock_cam;
+	int				show_map;
+	int				id_max;
+	int				g_state;
+	int				animating;
+	t_stage_anim	stage_anim;
+	t_hand_anim		hand;
+	mlx_image_t		*level_text_img;
+}					t_game;
+
+#endif
