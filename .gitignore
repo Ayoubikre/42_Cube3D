@@ -1,0 +1,18 @@
+# Object files
+*.o
+*.a
+
+# Executables
+cub3D
+cub3D_bonus
+
+# Build artifacts
+_codeql_detected_source_root
+
+# macOS
+.DS_Store
+
+# Temporary files
+*.swp
+*.swo
+*~
