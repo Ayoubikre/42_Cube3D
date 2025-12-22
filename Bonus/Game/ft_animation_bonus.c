@@ -149,8 +149,8 @@ int	ft_animation(t_game *game)
 			return (ft_start_animation(game, "Tools/animation/escape/escape",
 					16, 5), 1);
 		else
-			return (ft_start_animation(game, "Tools/animation/ending/ending",
-					6, 3), game->g_state = DEFAULT, 1);
+			return (ft_start_animation(game, "Tools/animation/ending/ending", 6,
+					3), game->g_state = DEFAULT, 1);
 	}
 	else if (game->g_state == PLAYER_DEAD)
 	{

@@ -6,20 +6,11 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:53:54 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 03:40:33 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 04:31:52 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
-
-void	ft_reset_player_data(t_data *data)
-{
-	data->player.mouse_l_p = -1;
-	data->player.orientation = data->player_bak.orientation;
-	data->player.pos_x = data->player_bak.pos_x;
-	data->player.pos_y = data->player_bak.pos_y;
-	data->ang = data->player_bak.ang;
-}
 
 int	ft_init_mlx_map(t_game *game)
 {
@@ -33,23 +24,6 @@ int	ft_init_mlx_map(t_game *game)
 	return (0);
 }
 
-void ft_init_minimap_borders(t_game *game, t_data *data)
-{
-    mlx_texture_t *texture;
-
-    texture = mlx_load_png("./Tools/textures_2/Cadre_map.png");
-    if (!texture)
-        return; 
-
-    data->mini.cadre_img = mlx_texture_to_image(game->mlx.ptr, texture);
-    mlx_delete_texture(texture);
-    if (data->mini.cadre_img)
-	{
-        mlx_resize_image( data->mini.cadre_img , data->mini.width+65,  data->mini.height+65);
-		mlx_image_to_window(game->mlx.ptr, data->mini.cadre_img, 0, 0);
-	}
-}
-
 int	ft_init_mlx_minimap(t_game *game, t_data *data)
 {
 	data->mini.height = HEIGHT / 6;
@@ -57,7 +31,8 @@ int	ft_init_mlx_minimap(t_game *game, t_data *data)
 	data->mini.cell_size = 20;
 	data->mini.p_size = 8;
 	{
-		data->mini.ptr_img = mlx_new_image(game->mlx.ptr, data->mini.width, data->mini.height);
+		data->mini.ptr_img = mlx_new_image(game->mlx.ptr, data->mini.width,
+				data->mini.height);
 		if (!data->mini.ptr_img)
 			return (-1);
 		mlx_image_to_window(game->mlx.ptr, data->mini.ptr_img, 43, 43);
@@ -75,11 +50,12 @@ int	ft_init_mlx_bigmap(t_game *game, t_data *data)
 	data->big.offset_x = 0;
 	data->big.offset_y = 0;
 	{
-		data->big.ptr_img = mlx_new_image(game->mlx.ptr, data->big.width, data->big.height);
+		data->big.ptr_img = mlx_new_image(game->mlx.ptr, data->big.width,
+				data->big.height);
 		if (!data->big.ptr_img)
 			return (-1);
-		data->big.ptr_img->enabled=false;
-		mlx_image_to_window(game->mlx.ptr, data->big.ptr_img, 0,0);
+		data->big.ptr_img->enabled = false;
+		mlx_image_to_window(game->mlx.ptr, data->big.ptr_img, 0, 0);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 22:28:05 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 03:53:49 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 04:22:01 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,13 @@ void	ft_draw_map_large(t_data *data)
 
 	tmp.i = (data->big.height / data->big.cell_size) / 2;
 	tmp.y_s = (int)data->player.pos_y - tmp.i + data->big.offset_y;
-	tmp.y_e = (int)data->player.pos_y + tmp.i ;
+	tmp.y_e = (int)data->player.pos_y + tmp.i + data->big.offset_y;
 	tmp.py = 0;
 	while (tmp.y_s < tmp.y_e)
 	{
 		tmp.j = (data->big.width / data->big.cell_size) / 2;
 		tmp.x_s = (int)data->player.pos_x - tmp.j + data->big.offset_x;
-		tmp.x_e = (int)data->player.pos_x + tmp.j;
+		tmp.x_e = (int)data->player.pos_x + tmp.j + data->big.offset_x;
 		tmp.px = 0;
 		while (tmp.x_s < tmp.x_e)
 		{
@@ -93,10 +93,11 @@ void	ft_draw_player_large(t_data *data)
 
 int	ft_map(t_game *game, t_data *data)
 {
-	if(!game->show_map || !data->big.ptr_img)
-		return 0;
+	if (!game->show_map || !data->big.ptr_img)
+		return (0);
 	ft_capture_big_map_moves(game, data);
 	ft_draw_map_large(data);
-	ft_draw_player_large(data);
-    return 1;
+	if (data->big.offset_x == 0 && data->big.offset_y == 0)
+		ft_draw_player_large(data);
+	return (1);
 }

@@ -80,6 +80,7 @@ B_SRC = Bonus/main_bonus.c \
 		Bonus/Game/ft_wrap_start_game_bonus.c \
 		Bonus/Game/ft_wrap_main_core_bonus.c \
 		Bonus/Game/ft_init_bonus.c \
+		Bonus/Game/ft_init_2_bonus.c \
 		Bonus/Game/ft_raycast_bonus.c \
 		Bonus/Game/ft_player_bonus.c \
 		Bonus/Game/ft_player2_bonus.c \

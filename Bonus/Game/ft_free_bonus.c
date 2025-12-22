@@ -6,7 +6,7 @@
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:50:35 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 03:08:50 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 04:26:09 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,15 +55,14 @@ void	ft_free_data(t_game *game, t_data *data)
 
 	if (!data)
 		return ;
-	i = 0;
-	while (i < TEX_COUNT)
+	i = -1;
+	while (++i < TEX_COUNT)
 	{
 		if (data->textures[i])
 		{
 			free(data->textures[i]);
 			data->textures[i] = NULL;
 		}
-		i++;
 	}
 	cleanup_textures(data);
 	if (data->next_file)
@@ -83,7 +82,7 @@ void	ft_free_lvl(t_game *game, t_levels *lvl)
 {
 	if (lvl->path)
 		free(lvl->path);
-	ft_free_data(game , &lvl->data);
+	ft_free_data(game, &lvl->data);
 	free(lvl);
 }
 

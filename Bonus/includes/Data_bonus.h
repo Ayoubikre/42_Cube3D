@@ -131,8 +131,8 @@ typedef struct s_bigmap
 	double			width;
 	int				p_size;
 	int				cell_size;
-	double	offset_x;
-	double	offset_y;
+	double			offset_x;
+	double			offset_y;
 }					t_big;
 
 typedef struct s_player_bak
