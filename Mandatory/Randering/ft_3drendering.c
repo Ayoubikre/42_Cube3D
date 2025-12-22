@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_3drendering.c                                   :+:      :+:    :+:   */
+/*   ft_3drendering.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:28:03 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/14 21:44:02 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 19:42:07 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	get_text_index(t_ray *ray)
 {
 	if (ray->hit == 2)
 		return (DOOR);
-	else if (ray->hit == 4)
+	else if (ray->hit == 4 || ray->hit == 5)
 		return (PORTAL);
 	else if (ray->drc == 'N')
 		return (NORTH);
@@ -60,26 +60,6 @@ void	ft_render_column(t_game *game, t_data *data, t_render_vars *vars)
 	draw_column_pixels(game, vars, tex_index, tex_x);
 }
 
-void	fps(void)
-{
-	static double	last_t = 0.0;
-	static int		frames = 0;
-	double			now;
-	double			fps;
-
-	now = mlx_get_time();
-	if (last_t == 0.0)
-		last_t = now;
-	frames++;
-	if (now - last_t >= 1.0)
-	{
-		fps = frames / (now - last_t);
-		printf("FPS: %.2f\n", fps);
-		frames = 0;
-		last_t = now;
-	}
-}
-
 void	ft_render3d(t_game *game, t_data *data)
 {
 	t_render_vars	vars;
@@ -97,5 +77,4 @@ void	ft_render3d(t_game *game, t_data *data)
 		ft_render_column(game, data, &vars);
 		vars.column++;
 	}
-	fps();
 }

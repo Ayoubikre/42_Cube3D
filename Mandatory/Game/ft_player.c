@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_player.c                                        :+:      :+:    :+:   */
+/*   ft_player.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:58:46 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/14 21:44:02 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/15 04:15:28 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_find_walls(t_data *data, int x, int y)
 	if (x < 0 || x >= (int)ft_strlen(data->map.grid[y]))
 		return (1);
 	if (data->map.grid[y][x] == '1' || data->map.grid[y][x] == '2'
-		|| data->map.grid[y][x] == '4')
+		|| data->map.grid[y][x] == '4' || data->map.grid[y][x] == '5')
 		return (1);
 	return (0);
 }

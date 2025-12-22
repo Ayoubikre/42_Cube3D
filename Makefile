@@ -41,6 +41,7 @@ SRC = Mandatory/main.c \
 		Mandatory/Game/ft_wrap_start_game.c \
 		Mandatory/Game/ft_wrap_main_core.c \
 		Mandatory/Game/ft_init.c \
+		Mandatory/Game/ft_init_2.c \
 		Mandatory/Game/ft_raycast.c \
 		Mandatory/Game/ft_player.c \
 		Mandatory/Game/ft_player2.c \
@@ -48,13 +49,17 @@ SRC = Mandatory/main.c \
 		Mandatory/Game/ft_list.c \
 		Mandatory/Game/ft_lvls.c \
 		Mandatory/Game/ft_minimap.c \
+		Mandatory/Game/ft_map.c \
 		Mandatory/Game/ft_animation.c \
+		Mandatory/Game/ft_animation2.c \
+		Mandatory/Game/ft_hands.c \
 		Mandatory/Game/ft_utils.c \
 		Mandatory/Game/ft_free.c \
 		Mandatory/Randering/ft_3drendering.c \
 		Mandatory/Randering/ft_textures.c \
 		Mandatory/Randering/render_text.c \
 		Mandatory/Randering/redering_text_utils.c
+
 
 OBJ = $(SRC:.c=.o)
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_minimap.c                                       :+:      :+:    :+:   */
+/*   ft_minimap.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:06:30 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/14 21:44:02 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 02:55:30 by noctis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ uint32_t	get_minimap_color(char c)
 		return (0xF5DEB3FF);
 	if (c == '2')
 		return (0xc71a1aFF);
-	if (c == '4')
+	if (c == '4' || c == '5')
 		return (0x3b0b84FF);
-	return (0x000000A0);
+	return (0x000000FF);
 }
 
 void	ft_draw_cells(t_data *data, t_norm tmp, char c)
