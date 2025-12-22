@@ -96,3 +96,90 @@ void	ft_minimap(t_data *data)
 	ft_draw_map(data);
 	ft_draw_player(data);
 }
+
+void	ft_draw_big_map_cells(mlx_image_t *img, t_norm tmp, char c, int cell_s)
+{
+	int	px;
+	int	py;
+
+	py = 0;
+	while (py < cell_s)
+	{
+		px = 0;
+		while (px < cell_s)
+		{
+			put_px(img, px + tmp.px, py + tmp.py, get_minimap_color(c));
+			px++;
+		}
+		py++;
+	}
+}
+
+void	ft_draw_big_map_player(mlx_image_t *img, t_norm tmp, int p_size)
+{
+	int	px;
+	int	py;
+
+	py = tmp.y_s - p_size / 2;
+	while (py < tmp.y_s + p_size / 2)
+	{
+		px = tmp.x_s - p_size / 2;
+		while (px < tmp.x_s + p_size / 2)
+		{
+			put_px(img, px, py, 0x000000FF);
+			px++;
+		}
+		py++;
+	}
+}
+
+void	ft_draw_full_map(t_game *game, t_data *data, mlx_image_t *img)
+{
+	t_norm	tmp;
+	int		cell_size;
+
+	(void)game;
+	cell_size = 40;
+	tmp.i = (HEIGHT / cell_size) / 2;
+	tmp.y_s = (int)data->player.pos_y - tmp.i;
+	tmp.y_e = (int)data->player.pos_y + tmp.i;
+	tmp.py = 0;
+	while (tmp.y_s < tmp.y_e)
+	{
+		tmp.j = (WIDTH / cell_size) / 2;
+		tmp.x_s = (int)data->player.pos_x - tmp.j;
+		tmp.x_e = (int)data->player.pos_x + tmp.j;
+		tmp.px = 0;
+		while (tmp.x_s < tmp.x_e)
+		{
+			ft_draw_big_map_cells(img, tmp, get_char_at(data, tmp.y_s,
+					tmp.x_s), cell_size);
+			tmp.px += cell_size;
+			tmp.x_s++;
+		}
+		tmp.py += cell_size;
+		tmp.y_s++;
+	}
+	tmp.x_s = WIDTH / 2;
+	tmp.y_s = HEIGHT / 2;
+	ft_draw_big_map_player(img, tmp, 16);
+}
+
+void	ft_big_map(t_game *game, t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = 0;
+		while (x < WIDTH)
+		{
+			put_px(game->mlx.ptr_img, x, y, 0x000000FF);
+			x++;
+		}
+		y++;
+	}
+	ft_draw_full_map(game, data, game->mlx.ptr_img);
+}

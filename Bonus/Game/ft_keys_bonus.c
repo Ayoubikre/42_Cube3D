@@ -36,6 +36,10 @@ void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 	{
 		ft_lock_and_unlock_cam(game);
 	}
+	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_M))
+	{
+		ft_toggle_big_map(game);
+	}
 }
 
 void	ft_lock_and_unlock_cam(t_game *game)
@@ -79,4 +83,12 @@ void	ft_open_and_close_doors(t_data *data, int f)
 			data->map.grid[data->rays[RAYS / 2].y][data->rays[RAYS
 				/ 2].x] = '3';
 	}
+}
+
+void	ft_toggle_big_map(t_game *game)
+{
+	if (game->show_big_map == 0)
+		game->show_big_map = 1;
+	else
+		game->show_big_map = 0;
 }

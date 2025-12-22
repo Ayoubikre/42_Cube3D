@@ -125,6 +125,7 @@ int				ft_list_count(t_levels *lvls);
 void			ft_capture_keys(mlx_key_data_t keydata, void *param);
 void			ft_open_and_close_doors(t_data *data, int f);
 void			ft_lock_and_unlock_cam(t_game *game);
+void			ft_toggle_big_map(t_game *game);
 
 void			ft_switch_lvl(t_game *game, t_data *data);
 void			ft_draw_level_text(t_game *game);
@@ -145,6 +146,7 @@ void			ft_draw_player(t_data *data);
 void			ft_draw_map(t_data *data);
 void			ft_draw_cells(t_data *data, t_norm tmp, char c);
 uint32_t		get_minimap_color(char c);
+void			ft_big_map(t_game *game, t_data *data);
 
 int				ft_animation(t_game *game);
 void			ft_update_stage_animation(t_game *game);

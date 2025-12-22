@@ -210,6 +210,7 @@ typedef struct s_game
 	int				id_max;
 	int				g_state;
 	int				animating;
+	int				show_big_map;
 	t_stage_anim	stage_anim;
 }					t_game;
 

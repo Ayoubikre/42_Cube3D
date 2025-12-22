@@ -25,9 +25,10 @@ void init_minimap_borders(t_game *game, t_data *data)
     mlx_delete_texture(texture);
 	
     if (data->mini.cadre_img)
+	{
         mlx_resize_image( data->mini.cadre_img , data->mini.width+70,  data->mini.height+70);
-
-	mlx_image_to_window(game->mlx.ptr, data->mini.cadre_img, 0, 0);
+		mlx_image_to_window(game->mlx.ptr, data->mini.cadre_img, 0, 0);
+	}
 }
 
 void	ft_all(void *param)
@@ -37,8 +38,11 @@ void	ft_all(void *param)
 
 	game = (t_game *)param;
 	data = &game->c_lvl->data;
-	// if (ft_animation(game))
-	// 	return ;
+	if (game->show_big_map)
+	{
+		ft_big_map(game, data);
+		return ;
+	}
 	ft_capture_player_moves(game, data);
 	ft_speed(game, data);
 	ft_raycasting(data);
