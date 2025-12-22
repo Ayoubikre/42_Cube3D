@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/22 04:24:18 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 17:38:47 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void			ft_init_minimap_borders(t_game *game, t_data *data);
 int				ft_init_mlx_minimap(t_game *game, t_data *data);
 int				ft_init_mlx_bigmap(t_game *game, t_data *data);
 int				ft_init_mlx_map(t_game *game);
-void			ft_reset_player_data(t_data *data);
+void			ft_init_hand_animation(t_game *game);
 
 void			ft_capture_player_moves(t_game *game, t_data *data);
 void			ft_capture_player_rot(t_game *game, t_data *data);
@@ -125,6 +125,7 @@ void			ft_add_list_end(t_levels **lvls, t_levels *n);
 int				ft_list_count(t_levels *lvls);
 
 void			ft_capture_keys(mlx_key_data_t keydata, void *param);
+void			ft_toggle_mlx_imgs(t_game *game, t_data *data, bool x);
 void			ft_open_and_close_doors(t_data *data, int f);
 void			ft_lock_and_unlock_cam(t_game *game);
 void			ft_show_and_hide_map(t_game *game, t_data *data);
@@ -142,12 +143,13 @@ char			*ft_strjoin3(char *s1, char *s2, char *s3);
 unsigned int	ft_color(t_color clr);
 double			ft_rad(double x);
 double			ft_deg(double x);
+void			ft_reset_player_data(t_data *data);
 
 void			ft_capture_big_map_moves(t_game *game, t_data *data);
 void			ft_draw_map_large(t_data *data);
 void			ft_draw_cells_large(t_data *data, t_norm tmp, char c);
 void			ft_draw_player_large(t_data *data);
-int				ft_map(t_game *game, t_data *data);
+int				ft_map(t_game *game, t_data *data, int x, int y);
 
 void			ft_minimap(t_data *data);
 void			ft_draw_player(t_data *data);
@@ -159,8 +161,13 @@ int				ft_animation(t_game *game);
 void			ft_update_stage_animation(t_game *game);
 void			ft_start_animation(t_game *game, char *folder, int frames,
 					int stage);
+void			ft_end_animation(t_game *game);
 void			ft_handle_space_key(t_game *game);
 void			ft_display_frame(t_game *game);
+
+void			ft_display_frame_2(t_game *game);
+void			ft_hands(t_game *game);
+
 void			fps(void);
 
 #endif

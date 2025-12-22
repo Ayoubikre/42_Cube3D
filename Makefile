@@ -7,24 +7,24 @@ ifeq ($(UNAME_S),Linux)
 			-ldl -lglfw -lm -lpthread
 
 	add = echo "" && \
-	GTK_DEBUG=none ./$(NAME) map.cub 2> >(grep -vi 'gtk-warning' >&2)
+	GTK_DEBUG=none ./$(NAME) level2.cub 2> >(grep -vi 'gtk-warning' >&2)
 
 	b_add = echo "" && \
-	GTK_DEBUG=none ./$(B_NAME) map.cub 2> >(grep -vi 'gtk-warning' >&2)
+	GTK_DEBUG=none ./$(B_NAME) level2.cub 2> >(grep -vi 'gtk-warning' >&2)
 
 else
 	MLX_LIBRARIES = Tools/mlx/macOS/libmlx42_combined.a \
 		-framework Cocoa -framework OpenGL -framework IOKit -lm -ldl
 
-	add = echo "" && ./$(NAME) map.cub
-	b_add = echo "" && ./$(B_NAME) map.cub
+	add = echo "" && ./$(NAME) level2.cub
+	b_add = echo "" && ./$(B_NAME) level5.cub
 endif
 # MallocScribble=1 MallocGuardEdges=1
 #---------------------------------------------------------------#
 
 CC = cc
 
-# CFLAGS  = -Wall -Werror -Wextra
+CFLAGS  = -Wall -Werror -Wextra
 # CFLAGS  = -Wall -Werror -Wextra -fsanitize=address -g
 
 SRC = Mandatory/main.c \
@@ -90,6 +90,8 @@ B_SRC = Bonus/main_bonus.c \
 		Bonus/Game/ft_minimap_bonus.c \
 		Bonus/Game/ft_map_bonus.c \
 		Bonus/Game/ft_animation_bonus.c \
+		Bonus/Game/ft_animation2_bonus.c \
+		Bonus/Game/ft_hands_bonus.c \
 		Bonus/Game/ft_utils_bonus.c \
 		Bonus/Game/ft_free_bonus.c \
 		Bonus/Randering/ft_3drendering_bonus.c \

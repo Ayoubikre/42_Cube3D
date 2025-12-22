@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:50:35 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 04:26:09 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 16:20:05 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ void	ft_free_mlx(t_game *game)
 	{
 		mlx_delete_image(game->mlx.ptr, game->level_text_img);
 		game->level_text_img = NULL;
+	}
+	if (game->stage_anim.current_img)
+	{
+		mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
+		game->stage_anim.current_img = NULL;
+	}
+	if (game->hand.ptr_img)
+	{
+		mlx_delete_image(game->mlx.ptr, game->hand.ptr_img);
+		game->hand.ptr_img = NULL;
 	}
 	if (game->mlx.ptr_img)
 	{

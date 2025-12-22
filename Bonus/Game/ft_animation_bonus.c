@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_animation_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anktiri <anktiri@student.42.fr>            +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:36:55 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/19 21:00:06 by anktiri          ###   ########.fr       */
+/*   Updated: 2025/12/22 18:52:19 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,10 @@ void	ft_display_frame(t_game *game)
 	if (game->stage_anim.current_img)
 		mlx_delete_image(game->mlx.ptr, game->stage_anim.current_img);
 	num = ft_itoa(game->stage_anim.current_frame + 1);
-	path = ft_strjoin(game->stage_anim.folder, num);
+	path = ft_strjoin3(game->stage_anim.folder, num, ".png");
 	free(num);
-	num = ft_strjoin(path, ".png");
+	tex = mlx_load_png(path);
 	free(path);
-	tex = mlx_load_png(num);
-	free(num);
 	if (!tex)
 		return ;
 	game->stage_anim.current_img = mlx_texture_to_image(game->mlx.ptr, tex);
@@ -46,9 +44,9 @@ void	ft_handle_space_key(t_game *game)
 	{
 		ft_strlcpy(game->stage_anim.folder, "Tools/animation/Loading/loading",
 			256);
-		game->stage_anim.total_frames = 16;
-		game->stage_anim.frame_delay = 20;
+		game->stage_anim.total_frames = 11;
 		game->stage_anim.current_frame = 0;
+		game->stage_anim.frame_delay = 15;
 		game->stage_anim.stage = 2;
 	}
 	else if (game->stage_anim.stage == 3 || game->stage_anim.stage == 4)
@@ -63,51 +61,6 @@ void	ft_handle_space_key(t_game *game)
 	ft_display_frame(game);
 }
 
-void	ft_update_stage_animation(t_game *game)
-{
-	if (!game->stage_anim.is_active)
-		return ;
-	if (mlx_is_key_down(game->mlx.ptr, MLX_KEY_SPACE))
-	{
-		ft_handle_space_key(game);
-		return ;
-	}
-	if (++game->stage_anim.frame_counter >= game->stage_anim.frame_delay)
-	{
-		game->stage_anim.frame_counter = 0;
-		ft_display_frame(game);
-		if (++game->stage_anim.current_frame >= game->stage_anim.total_frames)
-		{
-			if (game->stage_anim.stage == 2)
-			{
-				game->stage_anim.is_active = 0;
-				if (game->stage_anim.current_img)
-					mlx_delete_image(game->mlx.ptr,
-						game->stage_anim.current_img);
-				game->stage_anim.current_img = NULL;
-			}
-			else if (game->stage_anim.stage == 5)
-			{
-				game->stage_anim.timer++;
-				if (game->stage_anim.timer >= 2)
-				{
-					game->stage_anim.is_active = 0;
-					if (game->stage_anim.current_img)
-						mlx_delete_image(game->mlx.ptr,
-							game->stage_anim.current_img);
-					game->stage_anim.current_img = NULL;
-					game->stage_anim.timer = 0;
-					game->g_state = GAME_END;
-					return ;
-				}
-				game->stage_anim.current_frame = 0;
-			}
-			else
-				game->stage_anim.current_frame = 0;
-		}
-	}
-}
-
 void	ft_start_animation(t_game *game, char *folder, int frames, int stage)
 {
 	ft_strlcpy(game->stage_anim.folder, folder, 256);
@@ -116,16 +69,31 @@ void	ft_start_animation(t_game *game, char *folder, int frames, int stage)
 	game->stage_anim.frame_counter = 0;
 	game->stage_anim.frame_delay = 30;
 	if (stage == 1)
-		game->stage_anim.frame_delay = 20;
+	{
+		game->stage_anim.frame_delay = 15;
+	}
 	else if (stage == 5)
 	{
-		game->stage_anim.frame_delay = 5;
-		game->stage_anim.timer = 0;
+		game->stage_anim.frame_delay = 15;
 	}
 	game->stage_anim.is_active = 1;
 	game->stage_anim.current_img = NULL;
 	game->stage_anim.stage = stage;
 	ft_display_frame(game);
+}
+
+void	ft_end_animation(t_game *game)
+{
+	if (game->stage_anim.stage != 5)
+	{
+		ft_start_animation(game, "Tools/animation/escape/escape", 22, 5);
+	}
+	else
+	{
+		ft_start_animation(game, "Tools/animation/ending/ending", 6, 3);
+		game->g_state = DEFAULT;
+	}
+	return ;
 }
 
 int	ft_animation(t_game *game)
@@ -145,12 +113,7 @@ int	ft_animation(t_game *game)
 	}
 	else if (game->g_state == GAME_END)
 	{
-		if (game->stage_anim.stage != 5)
-			return (ft_start_animation(game, "Tools/animation/escape/escape",
-					16, 5), 1);
-		else
-			return (ft_start_animation(game, "Tools/animation/ending/ending", 6,
-					3), game->g_state = DEFAULT, 1);
+		return (ft_end_animation(game), 1);
 	}
 	else if (game->g_state == PLAYER_DEAD)
 	{

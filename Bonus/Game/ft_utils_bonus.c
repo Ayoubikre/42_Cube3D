@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utils_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:55:43 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 04:28:05 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 19:20:02 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ unsigned int	ft_color(t_color clr)
 	g = (unsigned int)(clr.g & 0xFF);
 	b = (unsigned int)(clr.b & 0xFF);
 	return ((r << 24) | (g << 16) | (b << 8) | 0xFFu);
+}
+
+void	ft_reset_player_data(t_data *data)
+{
+	data->player.mouse_l_p = -1;
+	data->player.orientation = data->player_bak.orientation;
+	data->player.pos_x = data->player_bak.pos_x;
+	data->player.pos_y = data->player_bak.pos_y;
+	data->ang = data->player_bak.ang;
 }
 
 double	ft_rad(double x)

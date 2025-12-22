@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_keys_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:57:21 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 04:41:17 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 19:19:46 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,29 +40,47 @@ void	ft_capture_keys(mlx_key_data_t keydata, void *param)
 	}
 }
 
+void	ft_toggle_mlx_imgs(t_game *game, t_data *data, bool x)
+{
+	{
+		if (data->big.ptr_img)
+		{
+			data->big.ptr_img->enabled = !x;
+		}
+	}
+	{
+		if (game->mlx.ptr_img)
+		{
+			game->mlx.ptr_img->enabled = x;
+		}
+		if (game->hand.ptr_img)
+		{
+			game->hand.ptr_img->enabled = x;
+		}
+		if (data->mini.ptr_img)
+		{
+			data->mini.ptr_img->enabled = x;
+		}
+		if (data->mini.cadre_img)
+		{
+			data->mini.cadre_img->enabled = x;
+		}
+	}
+}
+
 void	ft_show_and_hide_map(t_game *game, t_data *data)
 {
 	data->big.offset_x = 0;
 	data->big.offset_y = 0;
 	if (game->show_map)
 	{
-		if (data->big.ptr_img)
-			data->big.ptr_img->enabled = false;
 		game->show_map = 0;
-		if (data->mini.ptr_img)
-			data->mini.ptr_img->enabled = true;
-		if (data->mini.cadre_img)
-			data->mini.cadre_img->enabled = true;
+		ft_toggle_mlx_imgs(game, data, true);
 	}
 	else
 	{
-		if (data->big.ptr_img)
-			data->big.ptr_img->enabled = true;
 		game->show_map = 1;
-		if (data->mini.ptr_img)
-			data->mini.ptr_img->enabled = false;
-		if (data->mini.cadre_img)
-			data->mini.cadre_img->enabled = false;
+		ft_toggle_mlx_imgs(game, data, false);
 	}
 }
 

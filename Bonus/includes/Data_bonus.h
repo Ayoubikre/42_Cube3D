@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Data_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 10:45:27 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 03:27:50 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 16:36:13 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,16 @@ typedef struct s_stage_anim
 	int				stage;
 	int				timer;
 }					t_stage_anim;
+
+typedef struct s_hand_anim
+{
+	char			folder[256];
+	int				total_frames;
+	int				current_frame;
+	int				frame_delay;
+	int				frame_delay_counter;
+	mlx_image_t		*ptr_img;
+}					t_hand_anim;
 
 typedef struct s_render_vars
 {
@@ -216,7 +226,6 @@ typedef struct s_levels
 typedef struct s_game
 {
 	t_mlx			mlx;
-	mlx_image_t		*level_text_img;
 	t_levels		*lvls;
 	t_levels		*c_lvl;
 	int				lock_cam;
@@ -225,6 +234,8 @@ typedef struct s_game
 	int				g_state;
 	int				animating;
 	t_stage_anim	stage_anim;
+	t_hand_anim		hand;
+	mlx_image_t		*level_text_img;
 }					t_game;
 
 #endif

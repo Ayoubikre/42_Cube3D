@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/29 20:53:54 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 04:31:52 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 16:48:25 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,38 +60,40 @@ int	ft_init_mlx_bigmap(t_game *game, t_data *data)
 	return (0);
 }
 
-void	ft_destroy_lvl(t_game *game, t_data *data, int f)
+void	ft_init_hand_animation(t_game *game)
 {
-	if (f >= 0)
-	{
-		if (game->mlx.ptr_img)
-			mlx_delete_image(game->mlx.ptr, game->mlx.ptr_img);
-	}
-	if (f >= 1)
-	{
-		if (data->big.ptr_img)
-			mlx_delete_image(game->mlx.ptr, data->big.ptr_img);
-		if (data->mini.ptr_img)
-			mlx_delete_image(game->mlx.ptr, data->mini.ptr_img);
-		if (data->mini.cadre_img)
-			mlx_delete_image(game->mlx.ptr, data->mini.cadre_img);
-	}
-	if (f >= 2)
-	{
-		cleanup_textures(data);
-	}
+	ft_strlcpy(game->hand.folder, "Tools/animation/zombie/zombie", 256);
+	game->hand.total_frames = 56;
+	game->hand.current_frame = 0;
+	game->hand.frame_delay_counter = 0;
+	game->hand.frame_delay = 2;
+	game->hand.ptr_img = NULL;
 }
 
 int	ft_init_lvl(t_game *game, t_data *data)
 {
 	if (ft_init_mlx_map(game) == -1)
+	{
 		return (ft_destroy_lvl(game, data, 0), -1);
+	}
 	if (ft_init_mlx_minimap(game, data) == -1)
+	{
 		return (ft_destroy_lvl(game, data, 1), -1);
+	}
 	if (ft_init_mlx_bigmap(game, data) == -1)
+	{
 		return (ft_destroy_lvl(game, data, 1), -1);
+	}
 	if (ft_init_textures(data) == -1)
+	{
 		return (ft_destroy_lvl(game, data, 2), -1);
-	ft_reset_player_data(data);
+	}
+	{
+		ft_init_hand_animation(game);
+	}
+	{
+		ft_draw_level_text(game);
+		ft_reset_player_data(data);
+	}
 	return (0);
 }

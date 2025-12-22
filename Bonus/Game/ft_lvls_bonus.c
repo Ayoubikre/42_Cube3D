@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lvls_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/04 17:01:30 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/15 04:38:41 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 16:48:04 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,28 @@ void	ft_switch_lvl(t_game *game, t_data *data)
 		game->c_lvl = game->lvls;
 		game->g_state = PLAYER_DEAD;
 		ft_init_lvl(game, &game->c_lvl->data);
+	}
+}
+
+void	ft_destroy_lvl(t_game *game, t_data *data, int f)
+{
+	if (f >= 0)
+	{
+		if (game->mlx.ptr_img)
+			mlx_delete_image(game->mlx.ptr, game->mlx.ptr_img);
+	}
+	if (f >= 1)
+	{
+		if (data->big.ptr_img)
+			mlx_delete_image(game->mlx.ptr, data->big.ptr_img);
+		if (data->mini.ptr_img)
+			mlx_delete_image(game->mlx.ptr, data->mini.ptr_img);
+		if (data->mini.cadre_img)
+			mlx_delete_image(game->mlx.ptr, data->mini.cadre_img);
+	}
+	if (f >= 2)
+	{
+		cleanup_textures(data);
 	}
 }
 

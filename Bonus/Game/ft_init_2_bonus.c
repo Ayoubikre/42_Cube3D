@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_2_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/22 04:30:30 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 04:31:03 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 16:18:54 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d_bonus.h"
-
-void	ft_reset_player_data(t_data *data)
-{
-	data->player.mouse_l_p = -1;
-	data->player.orientation = data->player_bak.orientation;
-	data->player.pos_x = data->player_bak.pos_x;
-	data->player.pos_y = data->player_bak.pos_y;
-	data->ang = data->player_bak.ang;
-}
 
 void	ft_init_minimap_borders(t_game *game, t_data *data)
 {

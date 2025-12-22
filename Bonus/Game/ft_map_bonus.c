@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_map_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noctis <noctis@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/21 22:28:05 by noctis            #+#    #+#             */
-/*   Updated: 2025/12/22 04:22:01 by noctis           ###   ########.fr       */
+/*   Updated: 2025/12/22 19:19:56 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	ft_draw_map_large(t_data *data)
 		while (tmp.x_s < tmp.x_e)
 		{
 			ft_draw_cells_large(data, tmp, get_char_at(data, tmp.y_s, tmp.x_s));
+			// draw player if found in the cell
 			tmp.px += data->big.cell_size;
 			tmp.x_s++;
 		}
@@ -71,33 +72,17 @@ void	ft_draw_map_large(t_data *data)
 	}
 }
 
-void	ft_draw_player_large(t_data *data)
-{
-	t_norm	tmp;
-
-	tmp.x_s = (data->big.width / 2);
-	tmp.y_s = (data->big.height / 2);
-	tmp.p_size = data->big.p_size / 2;
-	tmp.py = tmp.y_s - tmp.p_size;
-	while (tmp.py < tmp.y_s + tmp.p_size)
-	{
-		tmp.px = tmp.x_s - tmp.p_size;
-		while (tmp.px < tmp.x_s + tmp.p_size)
-		{
-			put_px(data->big.ptr_img, tmp.px, tmp.py, 0x000000FF);
-			tmp.px++;
-		}
-		tmp.py++;
-	}
-}
-
-int	ft_map(t_game *game, t_data *data)
+int	ft_map(t_game *game, t_data *data, int x, int y)
 {
 	if (!game->show_map || !data->big.ptr_img)
 		return (0);
+	while (++y < data->big.height)
+	{
+		x = -1;
+		while (++x < data->big.width)
+			put_px(data->big.ptr_img, x, y, 0x000000FF);
+	}
 	ft_capture_big_map_moves(game, data);
 	ft_draw_map_large(data);
-	if (data->big.offset_x == 0 && data->big.offset_y == 0)
-		ft_draw_player_large(data);
 	return (1);
 }
