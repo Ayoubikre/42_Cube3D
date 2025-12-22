@@ -27,6 +27,26 @@ void	ft_capture_big_map_moves(t_game *game, t_data *data)
 		data->big.offset_x += map_speed;
 }
 
+void	ft_draw_player_marker(t_data *data, t_norm tmp)
+{
+	int	px;
+	int	py;
+	int	half;
+
+	half = data->big.p_size / 2;
+	py = (data->big.cell_size / 2) - half;
+	while (py < (data->big.cell_size / 2) + half)
+	{
+		px = (data->big.cell_size / 2) - half;
+		while (px < (data->big.cell_size / 2) + half)
+		{
+			put_px(data->big.ptr_img, px + tmp.px, py + tmp.py, 0x000000FF);
+			px++;
+		}
+		py++;
+	}
+}
+
 void	ft_draw_cells_large(t_data *data, t_norm tmp, char c)
 {
 	int	px;
@@ -63,7 +83,9 @@ void	ft_draw_map_large(t_data *data)
 		while (tmp.x_s < tmp.x_e)
 		{
 			ft_draw_cells_large(data, tmp, get_char_at(data, tmp.y_s, tmp.x_s));
-			// draw player if found in the cell
+			if ((int)data->player.pos_x == tmp.x_s
+				&& (int)data->player.pos_y == tmp.y_s)
+				ft_draw_player_marker(data, tmp);
 			tmp.px += data->big.cell_size;
 			tmp.x_s++;
 		}
