@@ -111,11 +111,11 @@ void	ft_clear_big_map(t_data *data)
 
 int	ft_map(t_game *game, t_data *data)
 {
-	if(!game->show_map || !data->big.ptr_img)
-		return 0;
+	if (!game->show_map || !data->big.ptr_img)
+		return (0);
 	ft_capture_big_map_moves(game, data);
 	ft_clear_big_map(data);
 	ft_draw_map_large(data);
 	ft_draw_player_large(data);
-    return 1;
+	return (1);
 }
