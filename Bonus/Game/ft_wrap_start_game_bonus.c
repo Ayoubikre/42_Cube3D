@@ -40,9 +40,17 @@ void	ft_all(void *param)
 	data = &game->c_lvl->data;
 	if (game->show_big_map)
 	{
+		if (data->mini.ptr_img)
+			data->mini.ptr_img->enabled = false;
+		if (data->mini.cadre_img)
+			data->mini.cadre_img->enabled = false;
 		ft_big_map(game, data);
 		return ;
 	}
+	if (data->mini.ptr_img)
+		data->mini.ptr_img->enabled = true;
+	if (data->mini.cadre_img)
+		data->mini.cadre_img->enabled = true;
 	ft_capture_player_moves(game, data);
 	ft_speed(game, data);
 	ft_raycasting(data);
