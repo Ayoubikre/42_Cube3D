@@ -6,7 +6,7 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/18 19:28:03 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/16 21:41:43 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/12/22 19:42:07 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,4 @@ void	ft_render3d(t_game *game, t_data *data)
 		ft_render_column(game, data, &vars);
 		vars.column++;
 	}
-	fps();
 }

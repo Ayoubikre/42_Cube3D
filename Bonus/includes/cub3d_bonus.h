@@ -6,7 +6,7 @@
 /*   By: aakritah <aakritah@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/10 18:34:32 by anktiri           #+#    #+#             */
-/*   Updated: 2025/12/22 17:38:47 by aakritah         ###   ########.fr       */
+/*   Updated: 2025/12/22 19:42:04 by aakritah         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ void			ft_reset_player_data(t_data *data);
 void			ft_capture_big_map_moves(t_game *game, t_data *data);
 void			ft_draw_map_large(t_data *data);
 void			ft_draw_cells_large(t_data *data, t_norm tmp, char c);
-void			ft_draw_player_large(t_data *data);
+void			ft_draw_player_marker(t_data *data, t_norm tmp);
 int				ft_map(t_game *game, t_data *data, int x, int y);
 
 void			ft_minimap(t_data *data);
@@ -167,7 +167,5 @@ void			ft_display_frame(t_game *game);
 
 void			ft_display_frame_2(t_game *game);
 void			ft_hands(t_game *game);
-
-void			fps(void);
 
 #endif
