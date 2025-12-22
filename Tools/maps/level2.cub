@@ -1,12 +1,12 @@
-NO Tools/textures_2/levels/ruins/north_ruins.png
-EA Tools/textures_2/levels/ruins/east_ruins.png
-SO Tools/textures_2/levels/ruins/south_ruins.png
-WE Tools/textures_2/levels/ruins/west_ruins.png
+NO Tools/textures/levels/ruins/north_ruins.png
+EA Tools/textures/levels/ruins/east_ruins.png
+SO Tools/textures/levels/ruins/south_ruins.png
+WE Tools/textures/levels/ruins/west_ruins.png
 
-DR Tools/textures_2/levels/ruins/door_ruins.png
-PR Tools/textures_2/levels/ruins/portal_ruins.png
+DR Tools/textures/levels/ruins/door_ruins.png
+PR Tools/textures/levels/ruins/portal_ruins.png
 
-LV level4.cub
+LV Tools/maps/level3.cub
 
 
 F 30,50,30

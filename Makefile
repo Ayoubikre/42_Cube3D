@@ -7,19 +7,19 @@ ifeq ($(UNAME_S),Linux)
 			-ldl -lglfw -lm -lpthread
 
 	add = echo "" && \
-	GTK_DEBUG=none ./$(NAME) level2.cub 2> >(grep -vi 'gtk-warning' >&2)
+	GTK_DEBUG=none ./$(NAME) ./Tools/maps/level1.cub 2> >(grep -vi 'gtk-warning' >&2)
 
 	b_add = echo "" && \
-	GTK_DEBUG=none ./$(B_NAME) level2.cub 2> >(grep -vi 'gtk-warning' >&2)
+	GTK_DEBUG=none ./$(B_NAME) ./Tools/maps/level1.cub 2> >(grep -vi 'gtk-warning' >&2)
 
 else
 	MLX_LIBRARIES = Tools/mlx/macOS/libmlx42_combined.a \
 		-framework Cocoa -framework OpenGL -framework IOKit -lm -ldl
 
-	add = echo "" && ./$(NAME) level2.cub
-	b_add = echo "" && ./$(B_NAME) level5.cub
+	add = echo "" && ./$(NAME) Tools/maps/level1.cub
+	b_add = echo "" && ./$(B_NAME) Tools/maps/level1.cub
 endif
-# MallocScribble=1 MallocGuardEdges=1
+
 #---------------------------------------------------------------#
 
 CC = cc

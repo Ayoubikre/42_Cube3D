@@ -1,10 +1,10 @@
-NO Tools/textures_2/levels/temple/north_temple.png
-EA Tools/textures_2/levels/temple/east_temple.png
-SO Tools/textures_2/levels/temple/south_temple.png
-WE Tools/textures_2/levels/temple/west_temple.png
+NO Tools/textures/levels/temple/north_temple.png
+EA Tools/textures/levels/temple/east_temple.png
+SO Tools/textures/levels/temple/south_temple.png
+WE Tools/textures/levels/temple/west_temple.png
 
-DR Tools/textures_2/levels/temple/door_temple.png
-PR Tools/textures_2/levels/temple/portal_temple.png
+DR Tools/textures/levels/temple/door_temple.png
+PR Tools/textures/levels/temple/portal_temple.png
 
 F 50,45,30
 C 25,20,10

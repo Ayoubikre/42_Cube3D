@@ -1,13 +1,13 @@
-NO Tools/textures_2/levels/fire/north_fire.png
-EA Tools/textures_2/levels/fire/east_fire.png
-SO Tools/textures_2/levels/fire/south_fire.png
-WE Tools/textures_2/levels/fire/west_fire.png
+NO Tools/textures/levels/fire/north_fire.png
+EA Tools/textures/levels/fire/east_fire.png
+SO Tools/textures/levels/fire/south_fire.png
+WE Tools/textures/levels/fire/west_fire.png
 
-DR Tools/textures_2/levels/fire/door_fire.png
-PR Tools/textures_2/levels/fire/portal_fire.png
+DR Tools/textures/levels/fire/door_fire.png
+PR Tools/textures/levels/fire/portal_fire.png
 
 
-LV level5.cub
+LV Tools/maps/level4.cub
 
 
 F 70,30,10
