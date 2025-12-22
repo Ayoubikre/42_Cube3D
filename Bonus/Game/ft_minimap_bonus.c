@@ -139,7 +139,7 @@ void	ft_draw_full_map(t_game *game, t_data *data, mlx_image_t *img)
 	int		cell_size;
 
 	(void)game;
-	cell_size = 40;
+	cell_size = BIG_MAP_CELL_SIZE;
 	tmp.i = (HEIGHT / cell_size) / 2;
 	tmp.y_s = (int)data->player.pos_y - tmp.i;
 	tmp.y_e = (int)data->player.pos_y + tmp.i;
@@ -162,7 +162,7 @@ void	ft_draw_full_map(t_game *game, t_data *data, mlx_image_t *img)
 	}
 	tmp.x_s = WIDTH / 2;
 	tmp.y_s = HEIGHT / 2;
-	ft_draw_big_map_player(img, tmp, 16);
+	ft_draw_big_map_player(img, tmp, BIG_MAP_PLAYER_SIZE);
 }
 
 void	ft_big_map(t_game *game, t_data *data)

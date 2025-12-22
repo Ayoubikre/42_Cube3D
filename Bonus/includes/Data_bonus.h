@@ -44,6 +44,8 @@
 # define RAYS WIDTH
 # define MOUSE_SP 0.002
 # define M_PI 3.14159265358979323846
+# define BIG_MAP_CELL_SIZE 40
+# define BIG_MAP_PLAYER_SIZE 16
 
 typedef enum s_game_states
 {
