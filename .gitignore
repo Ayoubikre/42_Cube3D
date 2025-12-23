@@ -1,0 +1,17 @@
+# Object files
+*.o
+*.a
+
+# Executables
+cub3D
+cub3D_bonus
+
+# MacOS
+.DS_Store
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

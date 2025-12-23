@@ -106,7 +106,7 @@ B_SRC = Bonus/main_bonus.c \
 
 B_OBJ = $(B_SRC:.c=.o)
 
-B_Head = bonus/includes/cub3d_bonus.h bonus/includes/Data_bonus.h
+B_Head = Bonus/includes/cub3d_bonus.h Bonus/includes/Data_bonus.h
 
 libft_DIR_B = ./Bonus/42_Libft
 libft_B = $(libft_DIR_B)/libft.a
@@ -134,7 +134,7 @@ $(B_NAME): $(B_OBJ)
 	make clean
 	$(b_add)
 
-bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR)/libft.h
+Bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR)/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
