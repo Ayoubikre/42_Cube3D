@@ -134,7 +134,7 @@ $(B_NAME): $(B_OBJ)
 	make clean
 	$(b_add)
 
-Bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR)/libft.h
+Bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR_B)/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
