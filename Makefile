@@ -118,7 +118,7 @@ B_NAME = cub3D_bonus
 all: clean $(NAME)
 
 $(NAME): $(OBJ)
-#	@make -C $(libft_DIR)
+	@make -C $(libft_DIR)
 	$(CC) $(CFLAGS) $(OBJ) $(MLX_LIBRARIES) $(libft) -o $(NAME)
 	make clean
 	$(add)
@@ -129,7 +129,7 @@ Mandatory/%.o: Mandatory/%.c $(Head) $(libft_DIR)/libft.h
 bonus: clean $(B_NAME)
 
 $(B_NAME): $(B_OBJ)
-#	@make -C $(libft_DIR)
+	@make -C $(libft_DIR)
 	$(CC) $(CFLAGS) $(B_OBJ) $(MLX_LIBRARIES) $(libft_B) -o $(B_NAME)
 	make clean
 	$(b_add)
@@ -138,14 +138,14 @@ bonus/%.o: Bonus/%.c $(B_Head) $(libft_DIR)/libft.h
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-#	@make -C $(libft_DIR) clean
-#	@make -C $(libft_DIR_B) clean
+	@make -C $(libft_DIR) clean
+	@make -C $(libft_DIR_B) clean
 	@rm -f $(OBJ)
 	@rm -f $(B_OBJ)
 
 fclean: clean
-#	@make -C $(libft_DIR) fclean
-#	@make -C $(libft_DIR_B) fclean
+	@make -C $(libft_DIR) fclean
+	@make -C $(libft_DIR_B) fclean
 	@rm -f $(NAME)
 	@rm -f $(B_NAME)
 
